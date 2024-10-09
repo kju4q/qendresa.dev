@@ -20,7 +20,10 @@ export default function Home() {
         </div>
 
         <p className="mb-8 text-[#6272a4] text-center">
-          // Here you can find a list of our latest articles on various topics.
+          Hi, I am Qendresa, Q for short. I'm a developer, open sourcer-er, and
+          community builder. I like writing code, talking to people and
+          sometimes documenting. On the side, I'm usually daydreaming about my
+          next project or chocolates.
         </p>
 
         <ul className="space-y-4">

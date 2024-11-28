@@ -1,12 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import "../styles/globals.css";
+import { getArticles } from "../utils/getArticles";
 
 export default function Home() {
-  const articles = [
-    { slug: "my-first-article", title: "My First Article" },
-    { slug: "my-second-article", title: "My Second Article" },
-  ];
+  const articles = getArticles();
+
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#282a36] font-mono">
       <div className="container max-w-2xl mx-auto px-4 py-8 bg-[#282a36] rounded-lg shadow-[0_0_10px_rgba(98,114,164,0.1)]">

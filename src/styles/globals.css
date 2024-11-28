@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.header h1 {
+  font-size: 30px;
+}
+
+.header p {
+  font-size: 20px;
+}

@@ -3,6 +3,10 @@ import Link from "next/link";
 import "../styles/globals.css";
 
 export default function Home() {
+  const articles = [
+    { slug: "my-first-article", title: "My First Article" },
+    { slug: "my-second-article", title: "My Second Article" },
+  ];
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#282a36] font-mono">
       <div className="container max-w-2xl mx-auto px-4 py-8 bg-[#282a36] rounded-lg shadow-[0_0_10px_rgba(98,114,164,0.1)]">
@@ -27,20 +31,14 @@ export default function Home() {
         </p>
 
         <ul className="space-y-4">
-          {[1, 2, 3].map((article) => (
-            <li
-              key={article}
-              className="border border-[#44475a] p-4 rounded-lg hover:bg-[#44475a] transition-colors duration-300"
-            >
+          {articles.map((article) => (
+            <li key={article.slug} className="border p-4 rounded shadow">
               <Link
-                href={`/article/${article}`}
-                className="text-[#8be9fd] hover:underline block text-center"
+                href={`/articles/${article.slug}`}
+                className="text-blue-600 hover:underline"
               >
-                Article_{article}.title
+                {article.title}
               </Link>
-              <p className="text-[#f8f8f2] mt-2 text-center">
-                console.log("Brief description of article {article}...")
-              </p>
             </li>
           ))}
         </ul>

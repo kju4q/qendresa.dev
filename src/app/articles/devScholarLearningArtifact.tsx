@@ -133,6 +133,23 @@ export default function DevScholars() {
           these challenges manifest in specific Layer 2 solutions and what this
           means for developers and users alike
         </p>
+        <br />
+        <h1>Challenges in Layer 2 Ecosystems</h1>
+        <br />
+        <p>
+          Layer 2 solutions like zkSync and Optimism have transformed Ethereum’s
+          scalability, offering faster and cheaper transactions. However, their
+          independent architectures introduce challenges, particularly with
+          interoperability and liquidity fragmentation.
+          <br />
+          Developers face complex workflows to manage cross-layer compatibility,
+          while users encounter higher costs and inefficiencies when
+          transferring assets. This section explores real-world scenarios,
+          focusing on zkSync and Optimism, to highlight the technical and
+          operational challenges that shape the Layer 2 experience
+        </p>
+        <br />
+        <p>pjesa tjeter</p>
       </div>
     </>
   );

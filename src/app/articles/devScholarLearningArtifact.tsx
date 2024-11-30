@@ -123,7 +123,8 @@ export default function DevScholars() {
           drives technical and social innovation. In the next section, we’ll
           explore specific examples of Layer 2 solutions and their unique
           approaches to scalability. These examples will illustrate how Layer 2s
-          tackle common challenges while expanding Ethereum’s capabilities. ----
+          tackle common challenges while expanding Ethereum’s capabilities.
+          {/* ----
           The challenges of liquidity fragmentation aren’t just
           theoretical—they’re real barriers to Ethereum’s scalability vision.
           With dozens of bridges and Layer 2 networks operating independently,
@@ -131,7 +132,7 @@ export default function DevScholars() {
           have liquidity for 2,000 ETH, making large transfers impossible
           without high slippage or fees. In the next section, we’ll explore how
           these challenges manifest in specific Layer 2 solutions and what this
-          means for developers and users alike
+          means for developers and users alike */}
         </p>
         <br />
         <h1>Challenges in Layer 2 Ecosystems</h1>
@@ -149,7 +150,7 @@ export default function DevScholars() {
           operational challenges that shape the Layer 2 experience
         </p>
         <br />
-        <p>pjesa tjeter</p>
+        {/* <p>pjesa tjeter</p> */}
       </div>
     </>
   );

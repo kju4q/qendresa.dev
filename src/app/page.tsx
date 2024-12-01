@@ -2,20 +2,12 @@ import Link from "next/link";
 import "../styles/globals.css";
 import { getArticles } from "../utils/getArticles";
 import Layout from "../components/Layout";
-import Head from "next/head";
 
 export default function Home() {
   const articles = getArticles();
 
   return (
     <Layout variant="default">
-      <Head>
-        <title>Qendresa Hoti</title>
-        <meta
-          name="description"
-          content="Qendresa Hoti's personal blog and portfolio featuring articles, projects, and insights."
-        />
-      </Head>
       <div className="flex flex-col items-center mb-6">
         <h1 className="text-3xl font-bold text-center text-[#50fa7b] tracking-wider">
           &lt;workAndWords /&gt;

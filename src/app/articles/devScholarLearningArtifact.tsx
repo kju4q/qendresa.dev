@@ -150,7 +150,101 @@ export default function DevScholars() {
           operational challenges that shape the Layer 2 experience
         </p>
         <br />
+        <Image
+          src="/comparison.png"
+          layout="responsive"
+          width={100}
+          height={100}
+          alt="Tech tree"
+          className="mb-4 border-2 border-[#ff79c6] w-full h-full"
+        />
+        <br />
+        <p>User Experience</p>
+        <br />
+        <p>
+          zkSync offers instant transaction finality, ensuring users can trust
+          their transfers immediately. Its efficient zk-proof mechanism also
+          leads to long-term cost savings, especially for high-frequency
+          transactions. Example: A trader on a zkSync-based exchange can execute
+          transactions rapidly without worrying about delays or fraud
+          challenges.
+        </p>
+        <br />
+        <p>
+          Optimism, on the other hand, finality takes longer due to the
+          challenge period, which can last up to 7 days. While this may not
+          affect low-frequency users, it can create friction for those requiring
+          immediate confirmations. Example: A governance proposal on an
+          Optimism-based platform might require users to wait before funds or
+          decisions are finalized.
+        </p>
         {/* <p>pjesa tjeter</p> */}
+        <br />
+        <p>Developer Ecosystem: Building on Ethereum</p>
+        <br />
+        <p>
+          {" "}
+          zkSync: Developers need to adapt to zkSync-specific tools and SDKs, as
+          it’s still moving toward full EVM equivalence. While this presents a
+          learning curve, zkSync’s focus on scalability and efficiency attracts
+          developers building cutting-edge applications. Example: Developers
+          creating a high-performance DeFi app may choose zkSync for its
+          superior transaction speed and cost efficiency.
+        </p>
+        <br />
+        <p>
+          {" "}
+          • Optimism: Fully EVM-compatible, Optimism makes it easier for
+          developers to port existing Ethereum dApps. This lowers barriers to
+          entry, enabling faster adoption and deployment within its ecosystem.
+          Example: A community-driven DAO can migrate to Optimism with minimal
+          changes to its smart contracts
+        </p>
+        <br />
+        <p>
+          While zkSync and Optimism pursue the same ultimate goal—scaling
+          Ethereum—they embody Ethereum’s culture of experimentation and
+          diversity. zkSync pushes the boundaries of cryptographic scalability,
+          while Optimism leans into developer accessibility and governance
+          innovation. Together, they highlight the pluralism of the Ethereum
+          ecosystem, ensuring it remains adaptable, secure, and inclusive for a
+          wide range of applications and users.
+        </p>
+        <br />
+        <p>Developer Experience: Building the Vibe Check Project</p>
+        <br />
+        <p>Developer Experience: Building the Vibe Check Project</p>
+        <br />
+        <p>
+          {" "}
+          The Vibe Check project was an experiment to bridge human connection
+          and blockchain technology in a pop-up city. It aimed to connect
+          individuals through shared moods and experiences. After a session like
+          yoga, attendees could log how they felt, with their mood minted as an
+          NFT directly into their account—giving them ownership of their
+          emotions, secured on Ethereum.
+        </p>
+        <p>
+          This project was a first step toward building a decentralized social
+          network, where shared moments and emotions were recorded immutably.
+          Each mood NFT represented a piece of a collective story, tying
+          participants together through their experiences in a transparent and
+          trustless way.
+        </p>
+        <p>
+          For me, as a developer, this project was more than coding. It was an
+          opportunity to explore how Ethereum’s decentralized infrastructure
+          could enhance real-world interactions and lay the foundation for a
+          social network where ownership and connection merge seamlessly.
+        </p>
+        <Image
+          src="/vibe.png"
+          layout="responsive"
+          width={100}
+          height={100}
+          alt="Tech tree"
+          className="mb-4 border-2 border-[#ff79c6] w-full h-full"
+        />
       </div>
     </>
   );

@@ -397,68 +397,6 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
           decentralized application development.
         </p>
 
-        {/* <p>
-          Building the Vibe Check project involved leveraging Ethereum’s
-          decentralized infrastructure alongside modern AI tools to create a
-          seamless experience for minting and managing mood NFTs. The process
-          was a blend of data collection, sentiment analysis, and AI-driven
-          content generation, showcasing how technology could enhance human
-          connection.
-        </p>
-        <p>
-          Data Collection and Sentiment Analysis The foundation of the project
-          relied on capturing participants’ feedback and moods throughout the
-          day: • Process: • Data was collected through structured inputs, where
-          participants logged their experiences and feelings after sessions like
-          yoga or group activities. • Sentiment analysis classified the data
-          into positive, neutral, or negative moods based on keywords and
-          contextual clues.
-        </p>
-        <p>
-          2. AI-Driven Prompt and NFT Generation The integration of AI played a
-          key role in creating personalized NFTs for each mood: • Prompt
-          Creation: • AI models were used to generate unique textual prompts
-          based on the identified sentiment. For instance: • Positive sentiment:
-          “A radiant sunrise symbolizing hope and new beginnings.” • Negative
-          sentiment: “A calm ocean under a cloudy sky, reflecting
-          introspection.” • NFT Generation: • The generated prompt was fed into
-          an AI art tool, which created a visual representation of the mood. •
-          This artwork, along with the sentiment and prompt, formed the metadata
-          of the NFT. This process added a creative and personal dimension to
-          the project, making each NFT a unique token of the participant’s mood.
-        </p>
-        <p>
-          NFT Minting on zkSync Once the AI-generated artwork and metadata were
-          ready, the NFT was minted on zkSync to leverage its scalability and
-          cost efficiency: • Smart Contract: • A custom ERC-721 contract on
-          zkSync was used to mint NFTs with metadata including: • Mood
-          sentiment. • AI-generated prompt. • Unique artwork URI. • Timestamp of
-          minting. • Challenges: • Aligning zkSync’s tools and libraries with
-          the front-end application required overcoming compatibility issues. •
-          Minting required meticulous integration of metadata to ensure a
-          seamless user experience. The front end was designed to simplify
-          interactions for users: • Features: • Wallet connectivity for
-          participants to log their mood and view their NFTs. • Real-time
-          display of AI-generated artwork and metadata. • A gallery showcasing
-          all minted NFTs with detailed sentiment data. • Challenges: • Wallet
-          integration on zkSync demanded additional configurations compared to
-          Layer 1 solutions. • Ensuring smooth communication between AI tools
-          and the Ethereum smart contract added development complexity.
-        </p>
-        <p>
-          5. Developer Challenges and Learnings Working on the project provided
-          valuable insights into the challenges of Layer 2 development: • AI and
-          Blockchain Integration: Combining AI-generated content with on-chain
-          storage required orchestrating multiple technologies and ensuring
-          compatibility across systems. • Learning Curve: Grasping zkSync’s
-          infrastructure, alongside AI models and Solidity programming, demanded
-          a steep learning curve. • Debugging Complexity: Debugging issues
-          across the AI pipeline, sentiment analysis, and smart contract
-          deployment highlighted the need for cohesive tooling and resources.
-          Despite these hurdles, the project demonstrated the potential of
-          blockchain-powered creativity and personalized experiences.
-        </p> */}
-
         <br />
         <h1 className="text-3xl font-bold text-[#50fa7b] text-center mb-6">
           A Seamless Future: Liquidity and Interoperability Redefined
@@ -665,6 +603,27 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
                 className="text-[#ff79c6] hover:underline"
               >
                 Ethereum Improvement Proposals (EIPs)
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://vitalik.eth.limo/general/2024/05/29/l2culture.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#ff79c6] hover:underline"
+              >
+                Layer 2s as cultural extensions of Ethereum
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://vitalik.eth.limo/general/2023/10/31/l2types.html
+"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#ff79c6] hover:underline"
+              >
+                Different types of layer 2s
               </a>
             </li>
           </ul>

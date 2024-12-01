@@ -27,18 +27,18 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
 
           <p className="text-lg text-[#f8f8f2] leading-relaxed">
             Over time, I realized that Ethereum’s culture of experimentation and
-            decentralization is both intimidating and exciting. Through events
-            like{" "}
+            decentralization is both intimidating and exciting. Opportunities
+            like being selected as a{" "}
             <a
-              href="https://devcon.org/en/"
+              href="https://devcon.org/"
               target="_blank"
               rel="noopener noreferrer"
               className="font-bold text-[#ff79c6] hover:underline"
             >
-              Devcon
-            </a>
-            , conversations, and online communities, I began piecing it all
-            together.
+              Devcon Scholar
+            </a>{" "}
+            deepened my understanding of this ecosystem, providing me with a
+            global perspective and access to invaluable resources.
           </p>
 
           <p className="text-lg text-[#f8f8f2] leading-relaxed">

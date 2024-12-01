@@ -18,8 +18,8 @@ export default function ArticlePage({ params }: ArticlePageProps) {
   );
 
   return (
-    <Layout>
-      <div className="p-8 max-w-2xl mx-auto">
+    <Layout variant="article">
+      <div className="p-8">
         <ArticleComponent />
       </div>
     </Layout>

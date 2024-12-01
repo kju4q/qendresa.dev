@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function DevScholars() {
+export default function LiquidityFragmentationInLayer2sAndBeyond() {
   return (
     <>
       <div>
@@ -362,7 +362,7 @@ export default function DevScholars() {
           AI-driven prompt generation to mint unique, personalized NFTs.
         </p>
 
-        <p className="text-lg text-[#f8f8f2] leading-relaxed">
+        <div className="text-lg text-[#f8f8f2] leading-relaxed">
           <span className="font-bold text-[#ff79c6]">Key Steps:</span>
           <ul className="list-disc ml-6 space-y-2">
             <li>
@@ -381,7 +381,7 @@ export default function DevScholars() {
               cost efficiency.
             </li>
           </ul>
-        </p>
+        </div>
 
         <p className="text-lg text-[#f8f8f2] leading-relaxed">
           <span className="font-bold text-[#ff79c6]">Developer Learnings </span>
@@ -458,16 +458,217 @@ export default function DevScholars() {
           Despite these hurdles, the project demonstrated the potential of
           blockchain-powered creativity and personalized experiences.
         </p> */}
-        <p>
-          6. Future Directions The project opened up possibilities for expansion
-          and improvement: • Cross-Layer Interoperability: Enabling seamless
-          transfer of mood NFTs between zkSync and other Layer 2s like Optimism
-          to connect broader ecosystems. • Enhanced User Experience: Abstracting
-          technical complexity to provide a more intuitive and accessible
-          interface for users. • Advanced AI Models: Leveraging more
-          sophisticated AI systems for richer prompts and dynamic, high-quality
-          NFT generation.
-        </p>
+
+        <br />
+        <h1 className="text-3xl font-bold text-[#50fa7b] text-center mb-6">
+          A Seamless Future: Liquidity and Interoperability Redefined
+        </h1>
+
+        <div className="flex flex-col items-center mb-6">
+          <Image
+            src="/future-bgg.png"
+            layout="intrinsic"
+            width={900}
+            height={300}
+            alt="Vibe Check Project"
+            className="mb-4 border-2 border-[#ff79c6] rounded shadow-md"
+          />
+          <p className="text-lg font-medium text-[#6272a4] italic text-left">
+            ~ Common Future ~
+          </p>
+        </div>
+
+        <div className="space-y-6">
+          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+            As Ethereum evolves, the challenges of{" "}
+            <span className="italic">liquidity fragmentation</span>
+            and <span className="italic"> interoperability</span> remain
+            barriers to its full potential. Yet, these challenges are also
+            opportunities to innovate and collaborate. The goal is not just to
+            solve these issues but to create a future where{" "}
+            <span className="font-bold">
+              using Ethereum’s ecosystem feels as seamless as using the
+              internet.
+            </span>
+          </p>
+
+          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+            In this future, whether a transaction happens on{" "}
+            <span className="font-bold text-[#ff79c6]">Ethereum mainnet</span>,
+            a <span className="font-bold text-[#ff79c6]">Layer 2</span>, or a
+            sidechain will no longer matter. What will matter is that users can
+            effortlessly swap tokens, participate in governance, and engage with
+            decentralized applications without worrying about the underlying
+            complexities. For developers, this means focusing on{" "}
+            <span className="italic">building impactful experiences</span>,
+            rather than managing fragmented systems. Ethereum becomes not a
+            fragmented collection of chains, but a{" "}
+            <span className="font-bold text-[#ff79c6]">
+              single, interconnected ecosystem
+            </span>
+            , where collaboration replaces division.
+          </p>
+
+          <div className="space-y-8">
+            <h2 className="text-2xl font-bold text-[#ff79c6] mb-4">
+              ERC-7683: Pioneering a Connected Ecosystem
+            </h2>
+            <p className="text-lg text-[#f8f8f2] leading-relaxed">
+              One of the most promising innovations for solving interoperability
+              challenges is{" "}
+              <span className="font-bold text-[#ff79c6]">ERC-7683</span>, a
+              standard designed to unify crosschain interactions. By enabling
+              users to declare <span className="italic">intents</span>— actions
+              like token swaps, DeFi deposits, and governance votes—ERC-7683
+              simplifies and standardizes communication between Ethereum
+              mainnet, Layer 2s, and sidechains.
+            </p>
+
+            <p className="text-lg text-[#f8f8f2] leading-relaxed">
+              The standard eliminates fragmentation by providing a universal
+              framework for crosschain operations, making it easier for
+              developers to build interoperable applications and for users to
+              experience frictionless interactions across the ecosystem.
+            </p>
+
+            <ul className="list-disc ml-6 space-y-2 text-lg text-[#f8f8f2] leading-relaxed">
+              <li>
+                <span className="font-bold">Unifying Ethereum:</span> Harmonizes
+                diverse Layer 2s and sidechains into a seamless, interoperable
+                ecosystem.
+              </li>
+              <li>
+                <span className="font-bold">Boosting Liquidity:</span> Allows
+                dApps to access shared liquidity pools, reducing fragmentation
+                and improving efficiency.
+              </li>
+              <li>
+                <span className="font-bold">
+                  Enhancing Developer Experience:
+                </span>{" "}
+                Abstracts crosschain complexities, enabling developers to focus
+                on creating user-centric applications.
+              </li>
+              <li>
+                <span className="font-bold">Simplifying User Experience:</span>{" "}
+                Ensures intuitive and frictionless crosschain interactions.
+              </li>
+            </ul>
+
+            <p className="text-lg text-[#f8f8f2] leading-relaxed">
+              ERC-7683 has already garnered significant attention across the
+              Ethereum ecosystem, with adoption by various protocols and
+              projects aiming to simplify and standardize crosschain
+              interactions. By reducing transaction failure rates, accelerating
+              crosschain operations, and fostering deeper liquidity, ERC-7683
+              showcases the potential to transform Ethereum into a truly
+              interconnected network.
+            </p>
+          </div>
+
+          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+            While Layer 2 has addressed scalability challenges, the evolution
+            toward Layer 3 and application-specific rollups offers exciting
+            opportunities to create tailored solutions for diverse use cases. In
+            this next phase, decentralized governance will play a vital role in
+            managing shared liquidity and aligning ecosystem-wide decisions with
+            the needs of both users and developers.
+          </p>
+
+          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+            The future of Ethereum is not just about scalability but about
+            building a seamless, collaborative ecosystem where liquidity flows
+            effortlessly, users interact frictionlessly, and developers are
+            empowered to innovate without barriers. With innovations like
+            ERC-7683, the vision of a unified, borderless blockchain ecosystem
+            is within reach.
+          </p>
+
+          <div className="space-y-6">
+            <h2 className="text-2xl font-bold text-[#ff79c6] mb-4">
+              The Beginning of My Journey in Decentralized Innovation
+            </h2>
+            <p className="text-lg text-[#f8f8f2] leading-relaxed">
+              For me, this artifact represents more than just research—it marks
+              the beginning of my contribution to this space. As I explored
+              liquidity fragmentation, interoperability, and crosschain
+              standards, I realized just how much potential Ethereum holds in
+              reshaping the way we connect and build.
+            </p>
+            <p className="text-lg text-[#f8f8f2] leading-relaxed">
+              This is my first step, but it won’t be my last. Whether through
+              writing, building, or speaking, I am committed to continuing this
+              journey—researching, learning, and contributing to Ethereum’s
+              evolution. Each step forward strengthens the vision of a
+              decentralized future, one where technology empowers human
+              connection and creativity.
+            </p>
+            <p className="text-lg text-[#f8f8f2] leading-relaxed italic text-[#6272a4]">
+              The vision of a unified, borderless blockchain ecosystem is one I
+              deeply believe in, and I’m excited to play my part in making it a
+              reality. The future isn’t just something to witness—it’s something
+              we build together. 🌟
+            </p>
+          </div>
+        </div>
+
+        <div className="border border-[#ff79c6] rounded-lg p-6 bg-[#1e1f29] shadow-lg mt-12">
+          <h2 className="text-2xl font-bold text-[#50fa7b] mb-4 text-center">
+            References
+          </h2>
+          <ul className="list-decimal list-inside text-lg text-[#f8f8f2] leading-relaxed space-y-2">
+            <li>
+              <a
+                href="https://erc7683.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#ff79c6] hover:underline"
+              >
+                ERC-7683: Standard for Crosschain Intents
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://devcon.org/en/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#ff79c6] hover:underline"
+              >
+                Devcon: Ethereum's Developer Conference
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://zkSync.io/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#ff79c6] hover:underline"
+              >
+                zkSync: Scaling Ethereum with zk-Rollups
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://optimism.io/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#ff79c6] hover:underline"
+              >
+                Optimism: Scaling Ethereum Through Optimistic Rollups
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://eips.ethereum.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#ff79c6] hover:underline"
+              >
+                Ethereum Improvement Proposals (EIPs)
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </>
   );

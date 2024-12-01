@@ -5,8 +5,12 @@ export default function Header() {
   return (
     <div className="header flex justify-center items-center">
       <div className="flex-column mr-5">
-        <h1>Qendresa Hoti</h1>
-        <p>Software Engineer</p>
+        <h1 className="text-4xl font-extrabold text-[#50fa7b] tracking-wider">
+          Qendresa Hoti
+        </h1>
+        <p className="text-sm font-medium text-[#6272a4] italic">
+          Software Engineer | Open Sourcerer
+        </p>
       </div>
       <div>
         <Image

@@ -16,11 +16,19 @@ export default function Home() {
 
       <p className="mb-8 text-[#6272a4] text-center">
         Hi, I’m <span className="font-bold text-[#ff79c6]">Qendresa</span>, or
-        simply <span className="italic text-[#50fa7b]">Q</span>. As a developer,
-        open-source contributor, and community builder, I thrive at the
-        intersection of technology and collaboration. My journey is about
-        writing meaningful code, engaging with people, and documenting my
-        learning.
+        simply{" "}
+        <a
+          href="https://twitter.com/kjut4q"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="italic text-[#50fa7b] hover:underline inline-flex items-center"
+        >
+          Q <span className="ml-1">🐦</span>
+        </a>
+        . As a developer, open-source contributor, and community builder, I
+        thrive at the intersection of technology and collaboration. My journey
+        is about writing meaningful code, engaging with people, and documenting
+        my learning.
         <br />
         When I’m not coding, you’ll find me daydreaming about my next project,
         indulging in chocolates, or exploring ways to make decentralized systems

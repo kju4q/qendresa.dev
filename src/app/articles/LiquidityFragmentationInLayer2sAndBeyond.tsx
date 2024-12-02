@@ -139,8 +139,8 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
               </span>
               &nbsp;Assets are locked in isolated liquidity pools across
               different networks and bridges. For example, a user wanting to
-              transfer ETH from one Layer 2 to another might face delays or high
-              fees due to uneven liquidity distribution.
+              transfer ETH from one Layer 2s to another might face delays or
+              high fees due to uneven liquidity distribution.
             </li>
 
             <li>

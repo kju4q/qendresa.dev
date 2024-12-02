@@ -65,7 +65,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             className="mb-4 border-2 border-[#ff79c6] rounded shadow-md"
           />
           <p className="text-lg font-medium text-[#6272a4] italic self-start">
-            ~ The Layer 2 Scaling Tech Tree ~
+            ~ The Layer 2s Scaling Tech Tree ~
           </p>
         </div>
 
@@ -81,7 +81,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
       <div className="space-y-6">
         <br />
         <h2 className="text-2xl font-bold text-[#50fa7b] mb-4">
-          Why Layer 2 Exists
+          Why Layer 2s Exists
         </h2>
         <p className="text-md text-[#f8f8f2] leading-relaxed">
           Ethereum’s growth has pushed the limits of its base-layer capacity,
@@ -107,7 +107,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
         </p>
         <br />
         <h2 className="text-2xl font-bold text-[#50fa7b] mb-4">
-          Layer 2 as a Cultural Extension
+          Layer 2s as a Cultural Extension
         </h2>
         <p className="text-md text-[#f8f8f2] leading-relaxed">
           Layer 2 solutions are more than technical upgrades; they reflect

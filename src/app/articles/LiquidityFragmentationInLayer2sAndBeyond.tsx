@@ -192,7 +192,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             This pluralism enables Ethereum to avoid becoming a monolithic
             system. Instead, it evolves as a network of interconnected yet
             independent systems, fostering innovation across the ecosystem.
-            Layer 2 solutions provide a “playground” for developers and
+            Layer 2s solutions provide a “playground” for developers and
             communities to experiment with ideas while still benefiting from
             Ethereum’s security and shared infrastructure.
           </p>

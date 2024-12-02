@@ -126,7 +126,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
           </h2>
 
           <p className="text-md text-[#f8f8f2] leading-relaxed">
-            Layer 2 scaling addresses Ethereum’s limitations, but it comes with
+            Layer 2s scaling addresses Ethereum’s limitations, but it comes with
             its own set of challenges. Each Layer 2 solution operates as an
             independent ecosystem, leading to fragmented liquidity and
             interoperability barriers.

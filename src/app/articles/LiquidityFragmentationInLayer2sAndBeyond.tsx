@@ -14,7 +14,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
         </p>
         <br />
         <div className="space-y-6">
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             When I first stepped into the Ethereum ecosystem, it felt like
             opening the door to a library with infinite shelves. Each resource
             promised insight into concepts I barely understood, leaving me
@@ -25,7 +25,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             </span>
           </p>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             Over time, I realized that Ethereum’s culture of experimentation and
             decentralization is both intimidating and exciting. Opportunities
             like being selected as a{" "}
@@ -69,7 +69,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
           </p>
         </div>
 
-        <p className="text-lg text-[#f8f8f2] leading-relaxed">
+        <p className="text-md text-[#f8f8f2] leading-relaxed">
           Imagine walking into a sprawling marketplace. Each vendor accepts a
           different currency, and there’s no exchange booth in sight. You’re
           forced to zigzag across the market, converting currencies just to
@@ -83,7 +83,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
         <h2 className="text-2xl font-bold text-[#50fa7b] mb-4">
           Why Layer 2 Exists
         </h2>
-        <p className="text-lg text-[#f8f8f2] leading-relaxed">
+        <p className="text-md text-[#f8f8f2] leading-relaxed">
           Ethereum’s growth has pushed the limits of its base-layer capacity,
           making faster and more scalable solutions a necessity. Layer 2
           solutions address scalability by processing transactions off-chain and
@@ -94,13 +94,13 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
           </span>
           .
         </p>
-        <p className="text-lg text-[#f8f8f2] leading-relaxed">
+        <p className="text-md text-[#f8f8f2] leading-relaxed">
           <span className="font-bold text-[#50fa7b]">Liquidity</span> refers to
           the availability of assets for transactions. Fragmentation occurs when
           these assets are spread across multiple Layer 2 networks and bridges,
           creating isolated ecosystems.
         </p>
-        <p className="text-lg text-[#f8f8f2] leading-relaxed italic">
+        <p className="text-md text-[#f8f8f2] leading-relaxed italic">
           Imagine trying to use your savings, but your funds are locked in
           different accounts that don’t communicate seamlessly. This is the
           reality of liquidity fragmentation in the Layer 2 ecosystem.
@@ -109,12 +109,12 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
         <h2 className="text-2xl font-bold text-[#50fa7b] mb-4">
           Layer 2 as a Cultural Extension
         </h2>
-        <p className="text-lg text-[#f8f8f2] leading-relaxed">
+        <p className="text-md text-[#f8f8f2] leading-relaxed">
           Layer 2 solutions are more than technical upgrades; they reflect
           Ethereum’s culture of experimentation and decentralization. Each Layer
           2 is its own ecosystem with unique features, values, and priorities.
         </p>
-        <p className="text-lg text-[#f8f8f2] leading-relaxed">
+        <p className="text-md text-[#f8f8f2] leading-relaxed">
           However, this pluralistic design also leads to fragmentation. Users
           are drawn to specific Layer 2 networks based on convenience,
           applications, or incentives, further isolating liquidity and
@@ -125,7 +125,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             Technical Challenges of Layer 2s
           </h2>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             Layer 2 scaling addresses Ethereum’s limitations, but it comes with
             its own set of challenges. Each Layer 2 solution operates as an
             independent ecosystem, leading to fragmented liquidity and
@@ -180,7 +180,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             Pluralism as Ethereum’s Strength
           </h2>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             Despite the complexities, Ethereum’s Layer 2 ecosystem thrives
             because of its flexibility and diversity. Each Layer 2 solution
             brings its own unique features and values, addressing specific user
@@ -188,7 +188,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             focus on governance models, financial inclusion, or user experience.
           </p>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             This pluralism enables Ethereum to avoid becoming a monolithic
             system. Instead, it evolves as a network of interconnected yet
             independent systems, fostering innovation across the ecosystem.
@@ -204,7 +204,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             Challenges in Layer 2s Ecosystems
           </h1>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             Layer 2 solutions like{" "}
             <span className="font-bold text-[#ff79c6]">zkSync</span> and
             <span className="font-bold text-[#ff79c6]"> Optimism</span> have
@@ -215,7 +215,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             <span className="italic"> liquidity fragmentation</span>.
           </p>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             Developers face complex workflows to manage cross-layer
             compatibility, while users encounter higher costs and inefficiencies
             when transferring assets. This section explores real-world
@@ -246,7 +246,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             User Experience
           </h2>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             <span className="font-bold text-[#ff79c6]">zkSync</span> offers
             instant transaction finality, ensuring users can trust their
             transfers immediately. Its efficient{" "}
@@ -257,7 +257,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             worrying about delays or fraud challenges.
           </p>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             <span className="font-bold text-[#ff79c6]">Optimism</span>, on the
             other hand, has a longer finality period due to the challenge
             period, which can last up to 7 days. While this may not affect
@@ -274,7 +274,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             Developer Ecosystem: Building on Ethereum
           </h2>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             <span className="font-bold text-[#ff79c6]">zkSync:</span> Developers
             need to adapt to zkSync-specific tools and SDKs, as it’s still
             moving toward full EVM equivalence. While this presents a learning
@@ -285,7 +285,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             for its superior transaction speed and cost efficiency.
           </p>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             <span className="font-bold text-[#ff79c6]">Optimism:</span> Fully
             EVM-compatible, Optimism makes it easier for developers to port
             existing Ethereum dApps. This lowers barriers to entry, enabling
@@ -295,7 +295,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             its smart contracts.
           </p>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             While zkSync and Optimism pursue the same ultimate goal—scaling
             Ethereum—they embody Ethereum’s culture of experimentation and
             diversity.
@@ -315,7 +315,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             Developer Experience: Building the Vibe Check Project
           </h2>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             The <span className="font-bold text-[#ff79c6]">Vibe Check</span>{" "}
             project was an experiment to bridge human connection and blockchain
             technology in a pop-up city. It aimed to connect individuals through
@@ -325,7 +325,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             on Ethereum.
           </p>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             This project was a first step toward building a decentralized social
             network, where shared moments and emotions were recorded immutably.
             Each mood NFT represented a piece of a collective story, tying
@@ -333,7 +333,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             trustless way.
           </p>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             For me, as a developer, this project was more than coding. It was an
             opportunity to explore how Ethereum’s decentralized infrastructure
             could enhance real-world interactions and lay the foundation for a
@@ -355,7 +355,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
           </div>
         </div>
         <br />
-        <p className="text-lg text-[#f8f8f2] leading-relaxed">
+        <p className="text-md text-[#f8f8f2] leading-relaxed">
           Building the Vibe Check project involved integrating Ethereum’s
           decentralized infrastructure with modern AI tools to create mood NFTs.
           The process combined data collection, sentiment analysis, and
@@ -383,7 +383,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
           </ul>
         </div>
 
-        <p className="text-lg text-[#f8f8f2] leading-relaxed">
+        <p className="text-md text-[#f8f8f2] leading-relaxed">
           <span className="font-bold text-[#ff79c6]">Developer Learnings </span>
           Combining AI and blockchain highlighted several challenges, including
           zkSync compatibility, wallet integration, debugging across multiple
@@ -417,7 +417,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
         </div>
 
         <div className="space-y-6">
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             As Ethereum evolves, the challenges of{" "}
             <span className="italic">liquidity fragmentation</span>
             and <span className="italic"> interoperability</span> remain
@@ -430,7 +430,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             </span>
           </p>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             In this future, whether a transaction happens on{" "}
             <span className="font-bold text-[#ff79c6]">Ethereum mainnet</span>,
             a <span className="font-bold text-[#ff79c6]">Layer 2</span>, or a
@@ -451,7 +451,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             <h2 className="text-2xl font-bold text-[#ff79c6] mb-4">
               ERC-7683: Pioneering a Connected Ecosystem
             </h2>
-            <p className="text-lg text-[#f8f8f2] leading-relaxed">
+            <p className="text-md text-[#f8f8f2] leading-relaxed">
               One of the most promising innovations for solving interoperability
               challenges is{" "}
               <span className="font-bold text-[#ff79c6]">ERC-7683</span>, a
@@ -462,7 +462,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
               mainnet, Layer 2s, and sidechains.
             </p>
 
-            <p className="text-lg text-[#f8f8f2] leading-relaxed">
+            <p className="text-md text-[#f8f8f2] leading-relaxed">
               The standard eliminates fragmentation by providing a universal
               framework for crosschain operations, making it easier for
               developers to build interoperable applications and for users to
@@ -493,7 +493,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
               </li>
             </ul>
 
-            <p className="text-lg text-[#f8f8f2] leading-relaxed">
+            <p className="text-md text-[#f8f8f2] leading-relaxed">
               ERC-7683 has already garnered significant attention across the
               Ethereum ecosystem, with adoption by various protocols and
               projects aiming to simplify and standardize crosschain
@@ -504,7 +504,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             </p>
           </div>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             While Layer 2 has addressed scalability challenges, the evolution
             toward Layer 3 and application-specific rollups offers exciting
             opportunities to create tailored solutions for diverse use cases. In
@@ -513,7 +513,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             the needs of both users and developers.
           </p>
 
-          <p className="text-lg text-[#f8f8f2] leading-relaxed">
+          <p className="text-md text-[#f8f8f2] leading-relaxed">
             The future of Ethereum is not just about scalability but about
             building a seamless, collaborative ecosystem where liquidity flows
             effortlessly, users interact frictionlessly, and developers are
@@ -526,14 +526,14 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             <h2 className="text-2xl font-bold text-[#ff79c6] mb-4">
               The Beginning of My Journey in Decentralized Innovation
             </h2>
-            <p className="text-lg text-[#f8f8f2] leading-relaxed">
+            <p className="text-md text-[#f8f8f2] leading-relaxed">
               For me, this artifact represents more than just research—it marks
               the beginning of my contribution to this space. As I explored
               liquidity fragmentation, interoperability, and crosschain
               standards, I realized just how much potential Ethereum holds in
               reshaping the way we connect and build.
             </p>
-            <p className="text-lg text-[#f8f8f2] leading-relaxed">
+            <p className="text-md text-[#f8f8f2] leading-relaxed">
               This is my first step, but it won’t be my last. Whether through
               writing, building, or speaking, I am committed to continuing this
               journey—researching, learning, and contributing to Ethereum’s
@@ -541,7 +541,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
               decentralized future, one where technology empowers human
               connection and creativity.
             </p>
-            <p className="text-lg text-[#f8f8f2] leading-relaxed italic text-[#6272a4]">
+            <p className="text-md text-[#f8f8f2] leading-relaxed italic text-[#6272a4]">
               The vision of a unified, borderless blockchain ecosystem is one I
               deeply believe in, and I’m excited to play my part in making it a
               reality. The future isn’t just something to witness—it’s something

@@ -181,7 +181,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
           </h2>
 
           <p className="text-md text-[#f8f8f2] leading-relaxed">
-            Despite the complexities, Ethereum’s Layer 2 ecosystem thrives
+            Despite the complexities, Ethereum’s Layer 2s ecosystem thrives
             because of its flexibility and diversity. Each Layer 2 solution
             brings its own unique features and values, addressing specific user
             needs. Some prioritize advanced cryptographic methods, while others

@@ -137,34 +137,34 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
               <span className="font-bold text-[#ff79c6]">
                 Liquidity Fragmentation:
               </span>
-              Assets are locked in isolated liquidity pools across different
-              networks and bridges. For example, a user wanting to transfer ETH
-              from one Layer 2 to another might face delays or high fees due to
-              uneven liquidity distribution.
+              &nbsp;Assets are locked in isolated liquidity pools across
+              different networks and bridges. For example, a user wanting to
+              transfer ETH from one Layer 2 to another might face delays or high
+              fees due to uneven liquidity distribution.
             </li>
 
             <li>
               <span className="font-bold text-[#ff79c6]">
                 Data Availability:
               </span>
-              Ensuring that transaction data processed off-chain is accessible
-              and verifiable remains a complex task for developers and users
-              alike.
+              &nbsp;Ensuring that transaction data processed off-chain is
+              accessible and verifiable remains a complex task for developers
+              and users alike.
             </li>
 
             <li>
               <span className="font-bold text-[#ff79c6]">
                 Interoperability:
               </span>
-              Transferring assets between Layer 1 and Layer 2—or across Layer
-              2s—requires bridges, which often introduce high fees, delays, and
-              potential security risks.
+              &nbsp;Transferring assets between Layer 1 and Layer 2—or across
+              Layer 2s—requires bridges, which often introduce high fees,
+              delays, and potential security risks.
             </li>
 
             <li>
               <span className="font-bold text-[#ff79c6]">Higher Costs:</span>
-              Bridging fees, slippage, and inefficiencies impact both users and
-              developers, creating bottlenecks in achieving Ethereum's
+              &nbsp;Bridging fees, slippage, and inefficiencies impact both
+              users and developers, creating bottlenecks in achieving Ethereum's
               scalability goals.
             </li>
           </ul>

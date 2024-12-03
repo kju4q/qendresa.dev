@@ -205,7 +205,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
           </h1>
 
           <p className="text-md text-[#f8f8f2] leading-relaxed">
-            Layer 2 solutions like{" "}
+            Layer 2s solutions like{" "}
             <span className="font-bold text-[#ff79c6]">zkSync</span> and
             <span className="font-bold text-[#ff79c6]"> Optimism</span> have
             transformed Ethereum’s scalability, offering faster and cheaper

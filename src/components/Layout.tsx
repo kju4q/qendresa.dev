@@ -2,7 +2,7 @@ import Header from "./Header";
 
 type LayoutProps = {
   children: React.ReactNode;
-  variant?: "default" | "article" | "wide"; // Add "article" for a wide layout
+  variant?: "default" | "article" | "wide";
 };
 
 export default function Layout({ children, variant = "default" }: LayoutProps) {

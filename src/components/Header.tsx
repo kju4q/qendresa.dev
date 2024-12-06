@@ -14,7 +14,7 @@ export default function Header() {
       </div>
       <div>
         <Image
-          src="/blog-image.png"
+          src="/profile.jpeg"
           width={200}
           height={200}
           alt="Header image"

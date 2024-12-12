@@ -30,7 +30,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             decentralization is both intimidating and exciting. Opportunities
             like being selected as a{" "}
             <a
-              href="https://devcon.org/"
+              href="https://nxbn.ethereum.foundation/scholars"
               target="_blank"
               rel="noopener noreferrer"
               className="font-bold text-[#ff79c6] hover:underline"

@@ -31,3 +31,12 @@ body {
     text-wrap: balance;
   }
 }
+
+/* Imported from src/styles/globals.css */
+.header h1 {
+  font-size: 30px;
+}
+
+.header p {
+  font-size: 20px;
+}

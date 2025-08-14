@@ -58,7 +58,6 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
         <div className="flex flex-col items-center mb-6">
           <Image
             src="/tech-tree-fit.png"
-            layout="intrinsic"
             width={800}
             height={800}
             alt="Tech tree"
@@ -229,7 +228,6 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
           <div className="flex flex-col items-center mb-6">
             <Image
               src="/comparison.png"
-              layout="intrinsic"
               width={900}
               height={500}
               alt="zkSync vs Optimism Comparison"
@@ -343,7 +341,6 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
           <div className="flex flex-col items-center mb-6">
             <Image
               src="/vibe.png"
-              layout="intrinsic"
               width={500}
               height={500}
               alt="Vibe Check Project"
@@ -405,7 +402,6 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
         <div className="flex flex-col items-center mb-6">
           <Image
             src="/future-bgg.png"
-            layout="intrinsic"
             width={900}
             height={300}
             alt="Vibe Check Project"
@@ -541,7 +537,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
               decentralized future, one where technology empowers human
               connection and creativity.
             </p>
-            <p className="text-md text-[#f8f8f2] leading-relaxed italic text-[#6272a4]">
+            <p className="text-md leading-relaxed italic text-[#6272a4]">
               The vision of a unified, borderless blockchain ecosystem is one I
               deeply believe in, and I’m excited to play my part in making it a
               reality. The future isn’t just something to witness—it’s something
@@ -617,8 +613,7 @@ export default function LiquidityFragmentationInLayer2sAndBeyond() {
             </li>
             <li>
               <a
-                href="https://vitalik.eth.limo/general/2023/10/31/l2types.html
-"
+                href="https://vitalik.eth.limo/general/2023/10/31/l2types.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#ff79c6] hover:underline"

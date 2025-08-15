@@ -5,14 +5,19 @@ import { CommandHistory, parseCommandLine, getCommandCompletions } from '@/lib/c
 import { processCommand } from '@/lib/cli/commands';
 import { terminalConfig } from '@/lib/config/terminal';
 import { getWeatherAccentColor, getTimeAccentColor } from '@/lib/helpers/weather';
+import { Terminal as ITerminal } from 'xterm';
 
 // Simple terminal implementation that doesn't rely on xterm.js
 export default function TerminalUI() {
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const commandHistoryRef = useRef<CommandHistory>(new CommandHistory(terminalConfig.maxHistorySize));
+  const xtermRef = useRef<any>(null);
+  const fitAddonRef = useRef<any>(null);
   
   const [input, setInput] = useState("");
+  const [currentInput, setCurrentInput] = useState("");
+  const [cursorPosition, setCursorPosition] = useState(0);
   const [historyPosition, setHistoryPosition] = useState(-1);
   const [accentColor, setAccentColor] = useState<string>("var(--terminal-accent)");
   const [output, setOutput] = useState<Array<{text: string, isError?: boolean, isCommand?: boolean}>>(
@@ -20,6 +25,8 @@ export default function TerminalUI() {
   );
   
   // First, dynamically import Terminal
+  const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
     // Only run once
     if (loaded) return;

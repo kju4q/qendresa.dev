@@ -110,6 +110,17 @@
   border-bottom: 1px solid var(--q-accent-alt);
 }
 
+/* Clickable terminal commands */
+.terminal-command {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.terminal-command:hover {
+  color: var(--q-accent-alt);
+  text-decoration: underline;
+}
+
 /* Copy button for Twitter */
 .social-buttons {
   display: inline-block;
@@ -409,4 +420,36 @@
 .success-message {
   color: var(--q-success);
   font-weight: bold;
+}
+
+/* Page transition animations */
+@keyframes fadeOut {
+  from { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+  to { 
+    opacity: 0; 
+    transform: translateY(-20px);
+  }
+}
+
+.page-transition-exit {
+  animation: fadeOut 500ms ease-in-out forwards;
+  pointer-events: none;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+.terminal-window {
+  animation: fadeIn 700ms ease-out;
 }

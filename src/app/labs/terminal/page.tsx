@@ -1,6 +1,20 @@
 import type { Metadata } from "next";
 import TerminalClientWrapper from './client';
+import PageTransition from '@/components/PageTransition';
 import './terminal-styles.css';
+
+// Page transition link for navigating to home
+function PageTransitionLink() {
+  return (
+    <PageTransition 
+      href="/" 
+      className="ml-1 text-[var(--q-accent)] hover:underline flex items-center"
+    >
+      <span className="mr-1">cd /</span>
+      <span className="text-xs">↩</span>
+    </PageTransition>
+  );
+}
 
 export const metadata: Metadata = {
   title: "q//os terminal - Qendresa Hoti",
@@ -35,10 +49,7 @@ export default function TerminalPage() {
         <p className="flex items-center justify-center gap-2">
           <span className="text-[var(--q-accent)]">❯</span>
           <span>© {new Date().getFullYear()} Qendresa Hoti</span>
-          <a href="/" className="ml-1 text-[var(--q-accent)] hover:underline flex items-center">
-            <span className="mr-1">cd /</span>
-            <span className="text-xs">↩</span>
-          </a>
+          <PageTransitionLink />
         </p>
       </footer>
     </div>

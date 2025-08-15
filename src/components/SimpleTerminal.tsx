@@ -116,7 +116,7 @@ export default function SimpleTerminal() {
           ...prev,
           { content: response.output, type: 'success' },
           { 
-            content: `<div class="mt-4"><span class="text-[var(--q-muted)]">Type</span> <span class="text-[var(--q-accent)]">cd /</span> <span class="text-[var(--q-muted)]">or visit</span> <a href="/" class="text-[var(--q-accent)] terminal-link">Go to main site</a></div>`,
+            content: `<div class="mt-4"><span class="text-[var(--q-muted)]">Type</span> <span class="text-[var(--q-accent)] terminal-command" data-command="cd /">cd /</span> <span class="text-[var(--q-muted)]">to return to main site</span></div>`,
             type: 'system'
           }
         ]);
@@ -142,9 +142,9 @@ export default function SimpleTerminal() {
             const locationData = await locationResponse.json();
             const currentCity = locationData.city || 'Unknown';
             
-            hint = `<div class="guess-reveal mt-1"><span class="text-[var(--q-accent)]">Game over!</span> <span>I'm currently in <b>${currentCity}</b>.</span><div class="mt-1"><span class="text-[var(--q-muted)]">Type</span> <span class="text-[var(--q-accent)]">cd /</span> <span class="text-[var(--q-muted)]">or visit</span> <a href="/" class="text-[var(--q-accent)] terminal-link">Go to main site</a></div></div>`;
+            hint = `<div class="guess-reveal mt-1"><span class="text-[var(--q-accent)]">Game over!</span> <span>I'm currently in <b>${currentCity}</b>.</span><div class="mt-1"><span class="text-[var(--q-muted)]">Type</span> <span class="text-[var(--q-accent)] terminal-command" data-command="cd /">cd /</span> <span class="text-[var(--q-muted)]">to return to main site</span></div></div>`;
           } catch (error) {
-            hint = `<div class="guess-reveal mt-1"><span class="text-[var(--q-accent)]">Game over!</span> <span>I couldn't reveal my location due to an error.</span><div class="mt-1"><span class="text-[var(--q-muted)]">Type</span> <span class="text-[var(--q-accent)]">cd /</span> <span class="text-[var(--q-muted)]">or visit</span> <a href="/" class="text-[var(--q-accent)] terminal-link">Go to main site</a></div></div>`;
+            hint = `<div class="guess-reveal mt-1"><span class="text-[var(--q-accent)]">Game over!</span> <span>I couldn't reveal my location due to an error.</span><div class="mt-1"><span class="text-[var(--q-muted)]">Type</span> <span class="text-[var(--q-accent)] terminal-command" data-command="cd /">cd /</span> <span class="text-[var(--q-muted)]">to return to main site</span></div></div>`;
           }
         }
         
@@ -237,7 +237,7 @@ export default function SimpleTerminal() {
           content: `<div class="hottake-output">
 <div class="hottake-title">🔥 Your Hot Take: ${hotTake} ${socialButtons}</div>
 ${formattedOutput}
-<div class="mt-2"><span class="text-[var(--q-muted)]">Type</span> <span class="text-[var(--q-accent)]">cd /</span> <span class="text-[var(--q-muted)]">or visit</span> <a href="/" class="text-[var(--q-accent)] terminal-link">Go to main site</a></div>
+<div class="mt-2"><span class="text-[var(--q-muted)]">Type</span> <span class="text-[var(--q-accent)] terminal-command" data-command="cd /">cd /</span> <span class="text-[var(--q-muted)]">to return to main site</span></div>
 </div>`, 
           type: 'output' 
         }
@@ -286,8 +286,9 @@ ${formattedOutput}
       outputEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
     
-    // Set up click handlers for interactive options
+    // Set up click handlers for interactive options and terminal commands
     setTimeout(() => {
+      // Interactive options
       const options = document.querySelectorAll('.interactive-option');
       options.forEach(option => {
         option.addEventListener('click', (e) => {
@@ -299,12 +300,38 @@ ${formattedOutput}
           }
         });
       });
+      
+      // Terminal command links (like cd /)
+      const commandLinks = document.querySelectorAll('.terminal-command');
+      commandLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          const command = (e.currentTarget as HTMLElement).getAttribute('data-command');
+          if (command) {
+            // Set input and trigger the command execution
+            setInput(command);
+            // We need to execute the command, but can't call handleExecuteCommand directly
+            // So we'll set up a one-time effect to handle this
+            const tempInput = command;
+            setTimeout(() => {
+              if (inputRef.current) {
+                inputRef.current.value = tempInput;
+                inputRef.current.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+              }
+            }, 10);
+          }
+        });
+      });
     }, 100); // Small delay to ensure DOM is updated
     
     return () => {
       const options = document.querySelectorAll('.interactive-option');
       options.forEach(option => {
         option.removeEventListener('click', () => {});
+      });
+      
+      const commandLinks = document.querySelectorAll('.terminal-command');
+      commandLinks.forEach(link => {
+        link.removeEventListener('click', () => {});
       });
     };
   }, [outputLines]);
@@ -331,9 +358,17 @@ ${formattedOutput}
       return;
     }
     
-    // Special case for cd / to redirect to main site
+    // Special case for cd / to redirect to main site with transition
     if (trimmedInput.toLowerCase() === 'cd /' || trimmedInput.toLowerCase() === 'cd/') {
-      window.location.href = '/';
+      // Add a transition class to the terminal
+      if (terminalRef.current) {
+        terminalRef.current.classList.add('page-transition-exit');
+      }
+      
+      // Delay navigation to allow animation to play
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 500);
       return;
     }
     

@@ -40,3 +40,31 @@ body {
 .header p {
   font-size: 20px;
 }
+
+/* Site theme variables */
+:root {
+  /* Core theme colors */
+  --q-bg: #0b0f1a;
+  --q-card-bg: #1e1f29;
+  --q-card-hover: #282a36;
+  --q-text: #f8f8f2;
+  --q-muted: #6272a4;
+  --q-accent: #50fa7b; /* Neon green accent */
+  --q-accent-alt: #ff79c6; /* Magenta accent */
+  --q-border: rgba(98, 114, 164, 0.3);
+  --q-success: #50fa7b;
+  --q-error: #ff79c6;
+  --q-warning: #f1fa8c;
+  --q-info: #8be9fd;
+  --q-shadow: rgba(0, 0, 0, 0.2);
+  
+  /* Terminal specific variables, inheriting from site theme */
+  --terminal-bg: var(--q-card-bg);
+  --terminal-text: var(--q-text);
+  --terminal-accent: var(--q-accent);
+  --terminal-success: var(--q-success);
+  --terminal-warning: var(--q-warning);
+  --terminal-error: var(--q-error);
+  --terminal-muted: var(--q-muted);
+  --terminal-font: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+}

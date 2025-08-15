@@ -1,0 +1,262 @@
+/* q//os Terminal Styles */
+
+.qos-terminal {
+  --terminal-shadow-color: rgba(80, 250, 123, 0.1);
+  box-shadow: 0 4px 20px var(--terminal-shadow-color);
+  transition: all 0.3s ease;
+}
+
+.qos-terminal:focus-within {
+  box-shadow: 0 4px 30px var(--terminal-shadow-color);
+  border-color: var(--q-accent);
+}
+
+/* Command prompt styling */
+.qos-terminal input {
+  caret-color: var(--q-accent);
+  font-weight: 600;
+}
+
+/* Help command styling */
+.help-section {
+  border-left: 2px solid var(--q-accent);
+  padding-left: 10px;
+  margin: 8px 0;
+}
+
+.help-title {
+  font-weight: bold;
+  color: var(--q-muted);
+  margin-bottom: 5px;
+}
+
+.command-name {
+  color: var(--q-accent);
+  font-weight: bold;
+}
+
+.command-desc {
+  color: var(--q-text);
+  margin-left: 4px;
+}
+
+.command-entry {
+  margin: 4px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.command-entry .command-name {
+  padding-left: 10px;
+}
+
+.command-entry .command-desc {
+  padding-left: 15px;
+  color: var(--q-muted);
+  font-size: 0.9em;
+}
+
+.help-usage {
+  margin-top: 10px;
+  color: var(--q-muted);
+}
+
+.command-syntax {
+  font-weight: bold;
+  color: var(--q-accent);
+}
+
+/* Weather output styling */
+.weather-output {
+  margin: 10px 0;
+  padding: 8px;
+  border-radius: 6px;
+  background-color: rgba(80, 250, 123, 0.05);
+}
+
+.weather-location {
+  font-weight: bold;
+}
+
+.weather-temp {
+  color: var(--q-accent);
+}
+
+.weather-condition {
+  font-style: italic;
+  color: var(--q-muted);
+}
+
+/* Guess command styling */
+.guess-feedback {
+  padding: 6px 0;
+}
+
+.guess-correct {
+  color: var(--q-success);
+  font-weight: bold;
+}
+
+.guess-hint {
+  color: var(--q-warning);
+}
+
+/* Loading animation */
+.terminal-loading {
+  display: inline-block;
+  animation: terminal-spin 2s linear infinite;
+}
+
+@keyframes terminal-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Interactive options */
+.interactive-option {
+  cursor: pointer;
+  color: var(--q-accent);
+  transition: all 0.2s ease;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.interactive-option:hover {
+  background: rgba(80, 250, 123, 0.1);
+  transform: translateY(-1px);
+}
+
+.interactive-option:active {
+  transform: translateY(1px);
+}
+
+/* TeachMe command output */
+.teachme-output {
+  border-left: 2px solid var(--q-accent-alt);
+  padding-left: 10px;
+  margin: 10px 0;
+}
+
+.teachme-title {
+  font-weight: bold;
+  color: var(--q-accent-alt);
+}
+
+/* Hot Take output */
+.hottake-output {
+  border-left: 2px solid var(--q-accent-alt);
+  padding-left: 10px;
+  margin: 10px 0;
+}
+
+.hottake-title {
+  font-weight: bold;
+  color: var(--q-accent-alt);
+}
+
+/* Social buttons */
+.social-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.copy-button {
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: rgba(80, 250, 123, 0.1);
+  color: var(--q-accent);
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(80, 250, 123, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.copy-button:hover {
+  background-color: rgba(80, 250, 123, 0.2);
+}
+
+.copy-button.twitter {
+  background-color: rgba(29, 161, 242, 0.1);
+  border-color: rgba(29, 161, 242, 0.3);
+  color: #1da1f2;
+}
+
+.copy-button.twitter:hover {
+  background-color: rgba(29, 161, 242, 0.2);
+}
+
+/* Terminal animation */
+.qos-terminal {
+  animation: terminal-boot 0.5s ease-out;
+  position: relative;
+}
+
+.qos-terminal:after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 1px solid var(--q-accent);
+  border-radius: 0.8rem;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.qos-terminal:focus-within:after {
+  opacity: 0.3;
+  animation: terminal-pulse 2s infinite;
+}
+
+@keyframes terminal-boot {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes terminal-pulse {
+  0% {
+    opacity: 0.1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.2;
+    transform: scale(1.01);
+  }
+  100% {
+    opacity: 0.1;
+    transform: scale(1);
+  }
+}
+
+.animate-delay-500 {
+  animation-delay: 0.5s;
+}
+
+/* Styling for error messages */
+.error-message {
+  color: var(--q-error);
+  font-weight: bold;
+}
+
+/* Styling for success messages */
+.success-message {
+  color: var(--q-success);
+  font-weight: bold;
+}

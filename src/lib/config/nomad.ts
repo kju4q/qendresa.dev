@@ -16,13 +16,8 @@ export const nomadConfig = {
       return nomadConfig.cachedCity;
     }
     
-    // First try environment variable
-    if (process.env.NOMAD_CITY) {
-      return process.env.NOMAD_CITY;
-    }
-    
     try {
-      // Try to get from API
+      // Try to get from API first - this is our preferred source
       const response = await fetch('/api/nomad/location');
       if (response.ok) {
         const data = await response.json();
@@ -35,7 +30,12 @@ export const nomadConfig = {
       console.error('Error fetching location:', error);
     }
     
-    // Fallback to default
+    // Fallback to environment variable if API fails
+    if (process.env.NOMAD_CITY) {
+      return process.env.NOMAD_CITY;
+    }
+    
+    // Final fallback to default
     return nomadConfig.defaultCity;
   },
   

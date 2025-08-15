@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { nomadConfig } from '@/lib/config/nomad';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,8 +10,8 @@ export async function GET(request: NextRequest) {
     // 2. Connect to a third-party service like ipinfo.io
     // 3. Pull from a database where you update your location
     
-    // For this implementation, we'll use environment variable with fallback to dynamic options
-    const city = process.env.NOMAD_CITY || await getDynamicLocation();
+    // Always use the dynamic location to ensure we're returning a consistent value
+    const city = await getDynamicLocation();
     
     return NextResponse.json({
       city,
@@ -20,7 +19,7 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     return NextResponse.json({
-      city: nomadConfig.defaultCity,
+      city: "Unknown",
       success: false,
       error: error instanceof Error ? error.message : 'Unknown error'
     });

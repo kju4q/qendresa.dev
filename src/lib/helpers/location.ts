@@ -73,7 +73,7 @@ export async function formatGuessResponse(guessedCity: string, result: GuessResu
       </div>`;
     case 'cold':
       return `<div class="guess-feedback">
-        <span class="guess-hint">❄️ That's cold!</span> I'm not in ${guessedCity}. Try a different continent or region.
+        <span class="guess-hint">❌ Not quite!</span> I'm not in ${guessedCity}. You're looking in the wrong region.
       </div>`;
     default:
       return `I couldn't process your guess. Try again?`;
@@ -97,7 +97,7 @@ export function formatGuessResponseSync(guessedCity: string, result: GuessResult
       </div>`;
     case 'cold':
       return `<div class="guess-feedback">
-        <span class="guess-hint">❄️ That's cold!</span> I'm not in ${guessedCity}. Try a different continent or region.
+        <span class="guess-hint">❌ Not quite!</span> I'm not in ${guessedCity}. You're looking in the wrong region.
       </div>`;
     default:
       return `I couldn't process your guess. Try again?`;

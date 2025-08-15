@@ -1,9 +1,159 @@
 /* q//os Terminal Styles */
 
+/* Set the background color for the terminal page */
+.terminal-page,
+.terminal-layout,
+:root body:has(.terminal-page) {
+  background-color: rgb(40 42 54) !important;
+}
+
+/* Add a subtle desktop gradient */
+.terminal-layout {
+  background: linear-gradient(135deg, rgb(40 42 54) 0%, rgb(30 32 44) 100%) !important;
+}
+
+/* Make the terminal feel more unique */
 .qos-terminal {
-  --terminal-shadow-color: rgba(80, 250, 123, 0.1);
+  position: relative;
+}
+
+.qos-terminal::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2350fa7b' opacity='0.2'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-9 10H4v-2h7v2zm0-4H4V8h7v2zm10 8h-9v-2h9v2zm0-4h-9v-2h9v2zm0-4h-9V8h9v2z'/%3E%3C/svg%3E");
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* Terminal window styling */
+.terminal-window {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  border-color: var(--q-accent) !important;
+}
+
+.terminal-window:hover {
+  box-shadow: 0 5px 30px rgba(80, 250, 123, 0.2);
+  transform: translateY(-2px);
+}
+
+.terminal-titlebar {
+  user-select: none;
+  background: rgba(30, 31, 41, 0.95);
+  height: 32px;
+  border-bottom-color: var(--q-accent) !important;
+}
+
+/* Terminal window styling */
+.terminal-body {
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.terminal-body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--q-accent);
+  opacity: 0.3;
+  z-index: 5;
+}
+
+/* Custom terminal prompt styling */
+.terminal-icon {
+  font-weight: bold;
+  color: var(--q-accent);
+  display: inline-block;
+  transform: scale(1.2);
+}
+
+.qos-terminal {
+  --terminal-shadow-color: rgba(80, 250, 123, 0.15);
   box-shadow: 0 4px 20px var(--terminal-shadow-color);
   transition: all 0.3s ease;
+}
+
+/* Terminal specific background colors */
+.qos-terminal,
+.qos-terminal > div {
+  background-color: rgb(40 42 54) !important;
+}
+
+/* Ensure no background overrides from other parts of the UI */
+.qos-terminal * {
+  background-color: transparent;
+}
+
+/* Terminal style link */
+.terminal-link {
+  text-decoration: none;
+  border-bottom: 1px dashed var(--q-accent);
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.terminal-link:hover {
+  color: var(--q-accent-alt);
+  border-bottom: 1px solid var(--q-accent-alt);
+}
+
+/* Copy button for Twitter */
+.social-buttons {
+  display: inline-block;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* Remove extra spacing in terminal outputs */
+.hottake-output p,
+.guess-feedback p {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+.hottake-title,
+.guess-feedback {
+  margin-bottom: 2px;
+}
+
+.guess-hint,
+.guess-correct {
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+.guess-feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.copy-button {
+  display: inline-block;
+  font-size: 12px;
+  color: var(--q-bg);
+  background-color: var(--q-accent);
+  padding: 2px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.copy-button:hover {
+  background-color: var(--q-accent-alt);
 }
 
 .qos-terminal:focus-within {

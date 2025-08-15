@@ -10,7 +10,7 @@ const SimpleTerminalUI = dynamic(
   { 
     ssr: false,
     loading: () => (
-      <div className="animate-pulse flex items-center justify-center w-full h-full rounded-xl border border-[var(--q-border)] bg-[var(--q-card-bg)] p-4">
+      <div className="animate-pulse flex items-center justify-center w-full h-full rounded-xl border border-[var(--q-border)] p-4" style={{ backgroundColor: 'rgb(40 42 54)' }}>
         <div className="flex flex-col items-center gap-2">
           <div className="h-2.5 w-2.5 rounded-full bg-[var(--q-accent)] animate-ping"></div>
           <p className="text-[var(--q-muted)]">Initializing q//os terminal...</p>
@@ -45,11 +45,11 @@ export default function TerminalClientWrapper() {
   };
 
   return (
-    <div className="w-full h-[70vh] rounded-xl">
+    <div className="w-full h-full">
       {mounted ? (
         <SimpleTerminalUI key={renderKey} />
       ) : (
-        <div className="flex flex-col items-center justify-center w-full h-full rounded-xl border border-[var(--q-border)] bg-[var(--q-card-bg)] p-4">
+        <div className="flex flex-col items-center justify-center w-full h-full p-4">
           <div className="flex flex-col items-center gap-3">
             <div className="relative">
               <div className="w-6 h-6 border-2 border-[var(--q-accent)] border-t-transparent rounded-full animate-spin"></div>

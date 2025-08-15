@@ -116,7 +116,7 @@ export default function SimpleTerminal() {
           ...prev,
           { content: response.output, type: 'success' },
           { 
-            content: `<div class="mt-4 text-[var(--q-muted)]">Press <span class="text-[var(--q-accent)]">g</span> to play again.</div>`,
+            content: `<div class="mt-4"><span class="text-[var(--q-muted)]">Type</span> <span class="text-[var(--q-accent)]">cd /</span> <span class="text-[var(--q-muted)]">or visit</span> <a href="/" class="text-[var(--q-accent)] terminal-link">Go to main site</a></div>`,
             type: 'system'
           }
         ]);
@@ -131,17 +131,10 @@ export default function SimpleTerminal() {
         
         if (newGuessCount === 1) {
           // First hint - timezone/region
-          hint = `<div class="guess-hint mt-2">
-            <span class="text-[var(--q-warning)]">Hint #1:</span> 
-            <span>I'm in the ${getRandomRegionHint()} region.</span>
-          </div>`;
+          hint = `<div class="guess-hint mt-1"><span class="text-[var(--q-warning)]">Hint #1:</span> <span>I'm in the ${getRandomRegionHint()} region.</span></div>`;
         } else if (newGuessCount === 2) {
           // Second hint - coastal/language
-          hint = `<div class="guess-hint mt-2">
-            <span class="text-[var(--q-warning)]">Hint #2:</span> 
-            <span>The city is ${Math.random() > 0.5 ? 'coastal' : 'not coastal'} and 
-            people here commonly speak ${getRandomLanguageHint()}.</span>
-          </div>`;
+          hint = `<div class="guess-hint mt-1"><span class="text-[var(--q-warning)]">Hint #2:</span> <span>The city is ${Math.random() > 0.5 ? 'coastal' : 'not coastal'} and people here commonly speak ${getRandomLanguageHint()}.</span></div>`;
         } else if (newGuessCount >= 3) {
           // Final attempt - reveal answer
           try {
@@ -149,24 +142,15 @@ export default function SimpleTerminal() {
             const locationData = await locationResponse.json();
             const currentCity = locationData.city || 'Unknown';
             
-            hint = `<div class="guess-reveal mt-2">
-              <span class="text-[var(--q-accent)]">Game over!</span> 
-              <span>I'm currently in <b>${currentCity}</b>.</span>
-              <div class="mt-2 text-[var(--q-muted)]">Press <span class="text-[var(--q-accent)]">g</span> to play again.</div>
-            </div>`;
+            hint = `<div class="guess-reveal mt-1"><span class="text-[var(--q-accent)]">Game over!</span> <span>I'm currently in <b>${currentCity}</b>.</span><div class="mt-1"><span class="text-[var(--q-muted)]">Type</span> <span class="text-[var(--q-accent)]">cd /</span> <span class="text-[var(--q-muted)]">or visit</span> <a href="/" class="text-[var(--q-accent)] terminal-link">Go to main site</a></div></div>`;
           } catch (error) {
-            hint = `<div class="guess-reveal mt-2">
-              <span class="text-[var(--q-accent)]">Game over!</span> 
-              <span>I couldn't reveal my location due to an error.</span>
-              <div class="mt-2 text-[var(--q-muted)]">Press <span class="text-[var(--q-accent)]">g</span> to play again.</div>
-            </div>`;
+            hint = `<div class="guess-reveal mt-1"><span class="text-[var(--q-accent)]">Game over!</span> <span>I couldn't reveal my location due to an error.</span><div class="mt-1"><span class="text-[var(--q-muted)]">Type</span> <span class="text-[var(--q-accent)]">cd /</span> <span class="text-[var(--q-muted)]">or visit</span> <a href="/" class="text-[var(--q-accent)] terminal-link">Go to main site</a></div></div>`;
           }
         }
         
         setOutputLines(prev => [
           ...prev,
-          { content: response.output, type: 'output' },
-          { content: hint, type: 'system' }
+          { content: `${response.output}${hint}`, type: 'output' }
         ]);
       }
     } catch (error) {
@@ -215,17 +199,8 @@ export default function SimpleTerminal() {
       
       const data = await response.json();
       
-      // Format the response properly
-      const formattedOutput = `
-        <div class="mt-2">
-          <strong class="text-[var(--q-accent-alt)]">💡 SHORT TAKE:</strong>
-          <p>${data.shortTake}</p>
-        </div>
-        <div class="mt-3">
-          <strong class="text-[var(--q-accent-alt)]">🔍 DEEP DIVE:</strong>
-          <p>${data.deepDive}</p>
-        </div>
-      `;
+      // Format the response properly - just use short take, no deep dive
+      const formattedOutput = `<p>${data.shortTake}</p>`;
       
       // Remove loading text
       setOutputLines(prev => prev.filter(line => 
@@ -233,15 +208,9 @@ export default function SimpleTerminal() {
       ));
       
       // Format for social sharing
-      const tweetText = formatForTwitter(hotTake, data.shortTake, data.deepDive);
+      const tweetText = formatForTwitter(hotTake, data.shortTake);
       
-      const socialButtons = `
-        <div class="social-buttons">
-          <div class="copy-button twitter" data-text="${encodeURIComponent(tweetText)}" onclick="copyToClipboard(this)">
-            <span>Copy for Twitter</span>
-          </div>
-        </div>
-      `;
+      const socialButtons = `<div class="social-buttons"><div class="copy-button twitter" data-text="${encodeURIComponent(tweetText)}" onclick="copyToClipboard(this)"><span>Copy for Twitter</span></div></div>`;
       
       // Add copy to clipboard function
       if (!document.querySelector('#copy-script')) {
@@ -266,13 +235,10 @@ export default function SimpleTerminal() {
         ...prev,
         { 
           content: `<div class="hottake-output">
-            <div class="hottake-title">🔥 Your Hot Take: ${hotTake}</div>
-            ${formattedOutput}
-            ${socialButtons}
-            <div class="mt-4 text-[var(--q-muted)]">
-              Press <span class="text-[var(--q-accent)]">h</span> for another hot take.
-            </div>
-          </div>`, 
+<div class="hottake-title">🔥 Your Hot Take: ${hotTake} ${socialButtons}</div>
+${formattedOutput}
+<div class="mt-2"><span class="text-[var(--q-muted)]">Type</span> <span class="text-[var(--q-accent)]">cd /</span> <span class="text-[var(--q-muted)]">or visit</span> <a href="/" class="text-[var(--q-accent)] terminal-link">Go to main site</a></div>
+</div>`, 
           type: 'output' 
         }
       ]);
@@ -292,7 +258,7 @@ export default function SimpleTerminal() {
   };
   
   // Helper function for formatting social content
-  const formatForTwitter = (topic: string, shortTake: string, deepDive?: string): string => {
+  const formatForTwitter = (topic: string, shortTake: string): string => {
     // Format for Twitter with max 280 chars
     return `🔥 Hot Take on "${topic}"\n\n${shortTake.substring(0, 180)}...\n\nvia q//os terminal`;
   };
@@ -365,6 +331,12 @@ export default function SimpleTerminal() {
       return;
     }
     
+    // Special case for cd / to redirect to main site
+    if (trimmedInput.toLowerCase() === 'cd /' || trimmedInput.toLowerCase() === 'cd/') {
+      window.location.href = '/';
+      return;
+    }
+    
     // Landing mode keyboard shortcuts
     if (mode === 'landing') {
       if (trimmedInput.toLowerCase() === 'g') {
@@ -380,12 +352,16 @@ export default function SimpleTerminal() {
     if (mode === 'guess') {
       // In guess mode, treat any input as a city guess
       await handleGuessCommand([trimmedInput]);
+      // Prevent further input except for the return button
+      inputRef.current?.blur();
       return;
     }
     
     // Handle direct hot take inputs in hot take mode
     if (mode === 'hottake') {
       await handleHotTakeCommand([trimmedInput]);
+      // Prevent further input except for the return button
+      inputRef.current?.blur();
       return;
     }
 
@@ -501,17 +477,22 @@ export default function SimpleTerminal() {
 
   return (
     <div 
-      className="qos-terminal w-full h-full overflow-hidden font-mono text-sm rounded-xl border border-[var(--q-border)] shadow-md"
+      className="qos-terminal w-full h-full overflow-hidden font-mono text-sm"
       style={{ 
-        backgroundColor: 'var(--q-card-bg)',
         color: 'var(--q-text)',
+        backgroundColor: 'rgb(40 42 54)',
+        borderColor: 'var(--q-accent)',
       }}
       onClick={focusInput}
       ref={terminalRef}
     >
       <div 
         className="h-full overflow-y-auto p-4"
-        style={{ scrollbarWidth: 'thin', scrollbarColor: `var(--q-accent) var(--q-card-bg)` }}
+        style={{ 
+          scrollbarWidth: 'thin', 
+          scrollbarColor: `var(--q-accent) var(--q-card-bg)`,
+          backgroundColor: 'rgb(40 42 54)'
+        }}
       >
         {/* Terminal output */}
         <div>

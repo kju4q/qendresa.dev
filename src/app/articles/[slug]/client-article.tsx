@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import Layout from "@/components/Layout";
+import { TransitionLayout } from "@/components";
 import { Loading } from "@/components";
 
 export default function ClientArticle({ slug }: { slug: string }) {
@@ -37,7 +37,7 @@ export default function ClientArticle({ slug }: { slug: string }) {
 
   if (hasError) {
     return (
-      <Layout variant="article">
+      <TransitionLayout variant="article">
         <div className="p-8">
           <div className="max-w-4xl mx-auto py-10 px-4">
             <h1 className="text-3xl font-bold text-red-500 text-center mb-6">
@@ -49,15 +49,15 @@ export default function ClientArticle({ slug }: { slug: string }) {
             </p>
           </div>
         </div>
-      </Layout>
+      </TransitionLayout>
     );
   }
 
   return (
-    <Layout variant="article">
+    <TransitionLayout variant="article">
       <div className="p-8">
         <ArticleComponent />
       </div>
-    </Layout>
+    </TransitionLayout>
   );
 }

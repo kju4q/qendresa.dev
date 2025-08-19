@@ -5,25 +5,11 @@ import Link from "next/link";
 export default function About() {
   return (
     <TransitionLayout variant="default">
-      <div className="flex flex-col items-center mb-8">
-        <h1 className="text-3xl font-bold text-center text-[#50fa7b] tracking-wider">
-          About Me
-        </h1>
-        
-        <div className="mt-8 mb-6 text-center">
-          <Image
-            src="/profile.jpeg"
-            width={200}
-            height={200}
-            alt="Qendresa Hoti"
-            className="rounded-full border-2 border-[#ff79c6] mx-auto mb-6"
-          />
-        </div>
-        
+      <div className="flex flex-col items-center mb-8 mt-12">
         <div className="max-w-2xl mx-auto">
           <p className="mb-6 text-[#6272a4]">
-            Hi, I'm <span className="font-bold text-[#ff79c6]">Qendresa</span>, or
-            simply{" "}
+            Hi, I'm <span className="font-bold text-[#ff79c6]">Qendresa</span>,
+            or simply{" "}
             <a
               href="https://twitter.com/kjut4q"
               target="_blank"
@@ -33,28 +19,36 @@ export default function About() {
               Q <span className="ml-1">🐦</span>
             </a>
             . As a developer, open-source contributor, and community builder, I
-            thrive at the intersection of technology and collaboration. My journey
-            is about writing meaningful code, engaging with people, and documenting
-            my learning.
-          </p>
-          
-          <p className="mb-6 text-[#6272a4]">
-            When I'm not coding, you'll find me daydreaming about my next project,
-            indulging in chocolates, or exploring ways to make decentralized systems
-            more inclusive and efficient.
-          </p>
-          
-          <h2 className="text-xl font-semibold text-[#50fa7b] mb-4 mt-8">My Background</h2>
-          <p className="mb-6 text-[#6272a4]">
-            With a background in software engineering and blockchain technology, I've worked on a variety of projects
-            from web applications to decentralized protocols. I'm particularly interested in the intersection of
-            user experience design and blockchain technology, finding ways to make complex technologies accessible to everyone.
+            thrive at the intersection of technology and collaboration. My
+            journey is about writing meaningful code, engaging with people, and
+            documenting my learning.
           </p>
 
-          <h2 className="text-xl font-semibold text-[#50fa7b] mb-4 mt-8">What I'm Doing Now</h2>
           <p className="mb-6 text-[#6272a4]">
-            Currently, I'm focusing on building tools for Web3 developers and researching Layer 2 solutions for blockchain scaling.
-            I'm also committed to documenting my journey through writing and open-sourcing my projects whenever possible.
+            When I'm not coding, you'll find me daydreaming about my next
+            project, indulging in chocolates, or exploring ways to make
+            decentralized systems more inclusive and efficient.
+          </p>
+
+          <h2 className="text-xl font-semibold text-[#50fa7b] mb-4 mt-8">
+            My Background
+          </h2>
+          <p className="mb-6 text-[#6272a4]">
+            With a background in software engineering and blockchain technology,
+            I've worked on a variety of projects from web applications to
+            decentralized protocols. I'm particularly interested in the
+            intersection of user experience design and blockchain technology,
+            finding ways to make complex technologies accessible to everyone.
+          </p>
+
+          <h2 className="text-xl font-semibold text-[#50fa7b] mb-4 mt-8">
+            What I'm Doing Now
+          </h2>
+          <p className="mb-6 text-[#6272a4]">
+            Currently, I'm focusing on building tools for Web3 developers and
+            researching Layer 2 solutions for blockchain scaling. I'm also
+            committed to documenting my journey through writing and
+            open-sourcing my projects whenever possible.
           </p>
 
           <div className="mt-8 text-center">

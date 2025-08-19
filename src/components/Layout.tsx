@@ -21,9 +21,7 @@ export default function Layout({ children, variant = "default" }: LayoutProps) {
           <Header />
         </div>
       </div>
-      <div className="flex-1 flex flex-col">
-        {children}
-      </div>
+      <div className="flex-1 flex flex-col">{children}</div>
     </div>
   );
 }

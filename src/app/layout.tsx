@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body 
+      <body
         className={inter.className}
         // Explicitly allow Grammarly attributes to prevent React hydration warnings
         suppressHydrationWarning

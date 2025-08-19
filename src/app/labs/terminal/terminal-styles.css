@@ -9,7 +9,11 @@
 
 /* Add a subtle desktop gradient */
 .terminal-layout {
-  background: linear-gradient(135deg, rgb(40 42 54) 0%, rgb(30 32 44) 100%) !important;
+  background: linear-gradient(
+    135deg,
+    rgb(40 42 54) 0%,
+    rgb(30 32 44) 100%
+  ) !important;
 }
 
 /* Make the terminal feel more unique */
@@ -362,7 +366,7 @@
 }
 
 .qos-terminal:after {
-  content: '';
+  content: "";
   position: absolute;
   top: -2px;
   left: -2px;
@@ -424,12 +428,12 @@
 
 /* Page transition animations */
 @keyframes fadeOut {
-  from { 
-    opacity: 1; 
+  from {
+    opacity: 1;
     transform: translateY(0);
   }
-  to { 
-    opacity: 0; 
+  to {
+    opacity: 0;
     transform: translateY(-20px);
   }
 }
@@ -440,12 +444,12 @@
 }
 
 @keyframes fadeIn {
-  from { 
-    opacity: 0; 
+  from {
+    opacity: 0;
     transform: translateY(20px);
   }
-  to { 
-    opacity: 1; 
+  to {
+    opacity: 1;
     transform: translateY(0);
   }
 }

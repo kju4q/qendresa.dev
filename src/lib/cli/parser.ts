@@ -1,13 +1,16 @@
-import { availableCommands } from '../config/terminal';
+import { availableCommands } from "../config/terminal";
 
 /**
  * Split command line input into command and arguments
  */
-export function parseCommandLine(input: string): { command: string; args: string[] } {
-  const parts = input.trim().split(' ');
-  const command = parts[0] || '';
+export function parseCommandLine(input: string): {
+  command: string;
+  args: string[];
+} {
+  const parts = input.trim().split(" ");
+  const command = parts[0] || "";
   const args = parts.slice(1);
-  
+
   return { command, args };
 }
 
@@ -16,8 +19,8 @@ export function parseCommandLine(input: string): { command: string; args: string
  */
 export function getCommandCompletions(partialCommand: string): string[] {
   if (!partialCommand) return [];
-  
-  return availableCommands.filter(cmd => 
+
+  return availableCommands.filter((cmd) =>
     cmd.toLowerCase().startsWith(partialCommand.toLowerCase())
   );
 }
@@ -29,11 +32,11 @@ export class CommandHistory {
   private history: string[] = [];
   private position: number = -1;
   private readonly maxSize: number;
-  
+
   constructor(maxSize = 50) {
     this.maxSize = maxSize;
   }
-  
+
   /**
    * Add a command to history
    */
@@ -42,19 +45,19 @@ export class CommandHistory {
     if (!command || (this.history.length > 0 && this.history[0] === command)) {
       return;
     }
-    
+
     // Add to the beginning
     this.history.unshift(command);
-    
+
     // Keep history within max size
     if (this.history.length > this.maxSize) {
       this.history.pop();
     }
-    
+
     // Reset position
     this.position = -1;
   }
-  
+
   /**
    * Get previous command from history
    */
@@ -65,7 +68,7 @@ export class CommandHistory {
     }
     return undefined;
   }
-  
+
   /**
    * Get next command from history
    */
@@ -75,11 +78,11 @@ export class CommandHistory {
       return this.history[this.position];
     } else if (this.position === 0) {
       this.position = -1;
-      return '';
+      return "";
     }
     return undefined;
   }
-  
+
   /**
    * Reset the history position
    */

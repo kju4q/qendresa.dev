@@ -29,7 +29,7 @@ export default function Header(): ReactElement {
             <ul className="flex flex-wrap items-center gap-x-4 text-[#50fa7b]">
               <li>
                 <Link
-                  href="/"
+                  href="/home"
                   className="hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6]"
                 >
                   /home
@@ -45,7 +45,7 @@ export default function Header(): ReactElement {
               </li>
               <li>
                 <Link
-                  href="/#writing"
+                  href="/home#writing"
                   className="hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6]"
                 >
                   /blog
@@ -53,7 +53,7 @@ export default function Header(): ReactElement {
               </li>
               <li>
                 <Link
-                  href="/#projects"
+                  href="/home#projects"
                   className="hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6]"
                 >
                   /projects
@@ -61,15 +61,7 @@ export default function Header(): ReactElement {
               </li>
               <li>
                 <Link
-                  href="/labs/terminal"
-                  className="hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6]"
-                >
-                  /terminal
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/#now"
+                  href="/home#now"
                   className="hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6]"
                 >
                   /now

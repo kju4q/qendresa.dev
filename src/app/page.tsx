@@ -1,123 +1,60 @@
 "use client";
 
-import Link from "next/link";
-import { getRecentPosts } from "../utils/getArticles";
-import dynamic from "next/dynamic";
-import projects from "../lib/content/projects";
-
-const TransitionLayout = dynamic(
-  () => import("../components/TransitionLayout"),
-  {
-    ssr: false,
-  }
-);
+import TerminalClientWrapper from "./labs/terminal/client";
+import PageTransition from "@/components/PageTransition";
+import "./labs/terminal/terminal-styles.css";
 
 export default function Home() {
-  const recentPosts = getRecentPosts(8); // Limit to 8 most recent posts
-
   return (
-    <TransitionLayout variant="default">
-      <div className="flex flex-col justify-between h-full min-h-[calc(100vh-5rem)]">
-        <div className="flex-grow-0">
-          <div className="max-w-2xl mx-auto px-6 py-4 space-y-8">
-            {/* Writing Section */}
-            <section id="writing">
-              <h2 className="text-lg font-mono text-[#50fa7b] mb-3">Writing</h2>
-              <ul className="space-y-2 text-sm">
-                {recentPosts.map((post) => (
-                  <li key={post.slug} className="group">
-                    <div className="flex flex-col space-y-1">
-                      <Link
-                        href={`/articles/${post.slug}`}
-                        className="text-[#f8f8f2] group-hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6] focus:ring-1 focus:ring-[#ff79c6] leading-relaxed"
-                      >
-                        {post.title}
-                      </Link>
-                      <span className="text-[#6272a4] font-mono text-xs">
-                        {post.date}
-                      </span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </section>
-
-            {/* Projects Section */}
-            <section id="projects">
-              <h2 className="text-lg font-mono text-[#50fa7b] mb-3">
-                Projects
-              </h2>
-              <ul className="space-y-2 text-sm">
-                {projects.map((project, index) => (
-                  <li key={index} className="group">
-                    <div className="flex flex-col space-y-1">
-                      <Link
-                        href={project.href}
-                        className="text-[#f8f8f2] group-hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6] focus:ring-1 focus:ring-[#ff79c6]"
-                        target={
-                          project.href.startsWith("http") ? "_blank" : undefined
-                        }
-                        rel={
-                          project.href.startsWith("http")
-                            ? "noopener noreferrer"
-                            : undefined
-                        }
-                      >
-                        {project.title}
-                      </Link>
-                      <span className="text-[#6272a4] leading-relaxed">
-                        {project.blurb}
-                      </span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </section>
+    <div
+      className="terminal-page flex flex-col min-h-screen justify-center"
+      style={{ backgroundColor: "transparent" }}
+    >
+      <div
+        className="terminal-window rounded-t-lg overflow-hidden shadow-xl transform rotate-0.5 mx-auto max-w-4xl"
+        style={{ border: "2px solid var(--q-accent)" }}
+      >
+        <header
+          className="terminal-titlebar p-2 flex items-center justify-between"
+          style={{
+            backgroundColor: "rgba(0,0,0,0.2)",
+            borderBottom: "1px solid var(--q-accent)",
+          }}
+        >
+          <div className="flex items-center gap-2 ml-1">
+            <span className="terminal-icon text-[var(--q-accent)]">❯</span>
+            <span className="text-sm font-mono font-semibold">q//os</span>
           </div>
-        </div>
-
-        {/* Footer */}
-        <footer className="border-t border-[#44475a] mt-8">
-          <div className="max-w-2xl mx-auto px-6">
-            <nav className="flex flex-wrap justify-center space-x-2 py-2 text-xs text-[#6272a4] font-mono">
-              <Link
-                href="/"
-                className="hover:text-[#50fa7b] focus:text-[#50fa7b] focus:outline-none focus:ring-1 focus:ring-[#50fa7b]"
-              >
-                home
-              </Link>
-              <span>·</span>
-              <Link
-                href="/about"
-                className="hover:text-[#50fa7b] focus:text-[#50fa7b] focus:outline-none focus:ring-1 focus:ring-[#50fa7b]"
-              >
-                about
-              </Link>
-              <span>·</span>
-              <Link
-                href="/#writing"
-                className="hover:text-[#50fa7b] focus:text-[#50fa7b] focus:outline-none focus:ring-1 focus:ring-[#50fa7b]"
-              >
-                blog
-              </Link>
-              <span>·</span>
-              <Link
-                href="/#projects"
-                className="hover:text-[#50fa7b] focus:text-[#50fa7b] focus:outline-none focus:ring-1 focus:ring-[#50fa7b]"
-              >
-                projects
-              </Link>
-              <span>·</span>
-              <Link
-                href="/labs/terminal"
-                className="hover:text-[#50fa7b] focus:text-[#50fa7b] focus:outline-none focus:ring-1 focus:ring-[#50fa7b]"
-              >
-                terminal
-              </Link>
-            </nav>
+          <div className="text-sm font-medium text-center flex items-center gap-1">
+            <span className="text-[var(--q-accent)]">terminal@</span>
+            <span>qendresa.dev</span>
           </div>
-        </footer>
+          <div className="text-xs text-[var(--q-muted)] mr-1 font-mono">
+            v1.0.0
+          </div>
+        </header>
+        <main
+          className="terminal-body"
+          style={{ backgroundColor: "rgb(40 42 54)" }}
+        >
+          <div className="h-[450px]">
+            <TerminalClientWrapper />
+          </div>
+        </main>
       </div>
-    </TransitionLayout>
+      <footer className="mt-6 text-sm text-[var(--q-muted)] text-center mx-auto">
+        <p className="flex items-center justify-center gap-2">
+          <span className="text-[var(--q-accent)]">❯</span>
+          <span>© {new Date().getFullYear()} Qendresa Hoti</span>
+          <PageTransition
+            href="/home"
+            className="ml-1 text-[var(--q-accent)] hover:underline flex items-center"
+          >
+            <span className="mr-1">cd /home</span>
+            <span className="text-xs">↩</span>
+          </PageTransition>
+        </p>
+      </footer>
+    </div>
   );
 }

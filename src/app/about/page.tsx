@@ -53,7 +53,7 @@ export default function About() {
 
           <div className="mt-8 text-center">
             <Link
-              href="/"
+              href="/home"
               className="text-[#50fa7b] hover:underline inline-flex items-center"
             >
               Return to home

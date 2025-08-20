@@ -7,7 +7,7 @@ type LayoutProps = {
 
 export default function Layout({ children, variant = "default" }: LayoutProps) {
   return (
-    <div className="min-h-screen font-mono bg-[#282a36] flex flex-col">
+    <div className="font-mono bg-[#282a36] flex flex-col min-h-screen h-screen overflow-auto">
       <div className="w-full flex justify-center">
         <div
           className={`${
@@ -21,7 +21,7 @@ export default function Layout({ children, variant = "default" }: LayoutProps) {
           <Header />
         </div>
       </div>
-      <div className="flex-1 flex flex-col">{children}</div>
+      <main className="flex-grow flex flex-col h-full">{children}</main>
     </div>
   );
 }

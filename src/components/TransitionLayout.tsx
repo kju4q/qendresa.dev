@@ -27,7 +27,7 @@ export default function TransitionLayout({
   return (
     <Layout variant={variant}>
       <div
-        className={`transition-opacity duration-500 ${
+        className={`transition-opacity duration-500 flex flex-col h-full ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { getRecentPosts } from "../../utils/getArticles";
 import dynamic from "next/dynamic";
 import projects from "../../lib/content/projects";
+import { Footer } from "../../components";
+import "./home.css";
 
 const TransitionLayout = dynamic(
   () => import("../../components/TransitionLayout"),
@@ -17,13 +19,13 @@ export default function HomePage() {
 
   return (
     <TransitionLayout variant="default">
-      <div className="flex flex-col justify-between h-full min-h-[calc(100vh-5rem)]">
-        <div className="flex-grow-0">
-          <div className="max-w-2xl mx-auto px-6 py-4 space-y-8 mt-12">
+      <div id="home-page-container">
+        <div id="home-content">
+          <div className="max-w-2xl mx-auto px-6 py-2 space-y-4">
             {/* Writing Section */}
             <section id="writing">
-              <h2 className="text-lg font-mono text-[#50fa7b] mb-3">Writing</h2>
-              <ul className="space-y-2 text-sm">
+              <h2 className="text-lg font-mono text-[#50fa7b] mb-2">Writing</h2>
+              <ul className="space-y-1 text-sm">
                 {recentPosts.map((post) => (
                   <li key={post.slug} className="group">
                     <div className="flex flex-col space-y-1">
@@ -44,10 +46,10 @@ export default function HomePage() {
 
             {/* Projects Section */}
             <section id="projects">
-              <h2 className="text-lg font-mono text-[#50fa7b] mb-3">
+              <h2 className="text-lg font-mono text-[#50fa7b] mb-2">
                 Projects
               </h2>
-              <ul className="space-y-2 text-sm">
+              <ul className="space-y-1 text-sm">
                 {projects.map((project, index) => (
                   <li key={index} className="group">
                     <div className="flex flex-col space-y-1">
@@ -77,39 +79,7 @@ export default function HomePage() {
         </div>
 
         {/* Footer */}
-        <footer className="border-t border-[#44475a] mt-8">
-          <div className="max-w-2xl mx-auto px-6">
-            <nav className="flex flex-wrap justify-center space-x-2 py-2 text-xs text-[#6272a4] font-mono">
-              <Link
-                href="/"
-                className="hover:text-[#50fa7b] focus:text-[#50fa7b] focus:outline-none focus:ring-1 focus:ring-[#50fa7b]"
-              >
-                terminal
-              </Link>
-              <span>·</span>
-              <Link
-                href="/about"
-                className="hover:text-[#50fa7b] focus:text-[#50fa7b] focus:outline-none focus:ring-1 focus:ring-[#50fa7b]"
-              >
-                about
-              </Link>
-              <span>·</span>
-              <Link
-                href="#writing"
-                className="hover:text-[#50fa7b] focus:text-[#50fa7b] focus:outline-none focus:ring-1 focus:ring-[#50fa7b]"
-              >
-                blog
-              </Link>
-              <span>·</span>
-              <Link
-                href="#projects"
-                className="hover:text-[#50fa7b] focus:text-[#50fa7b] focus:outline-none focus:ring-1 focus:ring-[#50fa7b]"
-              >
-                projects
-              </Link>
-            </nav>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </TransitionLayout>
   );

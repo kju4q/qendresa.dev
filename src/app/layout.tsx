@@ -18,9 +18,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <body
-        className={inter.className}
+        className={`${inter.className} h-full`}
         // Explicitly allow Grammarly attributes to prevent React hydration warnings
         suppressHydrationWarning
       >

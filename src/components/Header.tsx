@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 export default function Header(): ReactElement {
   const pathname = usePathname();
   return (
-    <section className="mt-12">
+    <section className="mt-6">
       <div className="flex items-start gap-8">
         <Image
           src="/profile.jpeg"
@@ -80,7 +80,7 @@ export default function Header(): ReactElement {
           </nav>
 
           {(pathname === "/" || pathname === "/home") && (
-            <div className="text-xs text-[#6272a4] font-mono flex items-center gap-3 mt-8 mb-12">
+            <div className="text-xs text-[#6272a4] font-mono flex items-center gap-3 mt-6 mb-6">
               <span>find me on</span>
               <div className="flex items-center gap-4">
                 <a

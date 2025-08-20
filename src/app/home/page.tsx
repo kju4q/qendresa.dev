@@ -19,7 +19,7 @@ export default function HomePage() {
     <TransitionLayout variant="default">
       <div className="flex flex-col justify-between h-full min-h-[calc(100vh-5rem)]">
         <div className="flex-grow-0">
-          <div className="max-w-2xl mx-auto px-6 py-4 space-y-8">
+          <div className="max-w-2xl mx-auto px-6 py-4 space-y-8 mt-12">
             {/* Writing Section */}
             <section id="writing">
               <h2 className="text-lg font-mono text-[#50fa7b] mb-3">Writing</h2>

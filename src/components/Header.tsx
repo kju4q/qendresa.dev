@@ -59,6 +59,7 @@ export default function Header(): ReactElement {
                   /projects
                 </Link>
               </li>
+
               <li>
                 <Link
                   href="/home#now"
@@ -78,7 +79,7 @@ export default function Header(): ReactElement {
             </ul>
           </nav>
 
-          {pathname === "/" && (
+          {(pathname === "/" || pathname === "/home") && (
             <div className="text-xs text-[#6272a4] font-mono flex items-center gap-3 mt-8 mb-12">
               <span>find me on</span>
               <div className="flex items-center gap-4">

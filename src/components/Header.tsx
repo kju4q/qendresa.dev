@@ -45,7 +45,7 @@ export default function Header(): ReactElement {
               </li>
               <li>
                 <Link
-                  href="/home#writing"
+                  href="/blog"
                   className="hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6]"
                 >
                   /blog

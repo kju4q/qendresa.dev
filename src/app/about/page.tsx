@@ -7,7 +7,6 @@ export default function About() {
   return (
     <TransitionLayout variant="default">
       <div id="home-page-container">
-        <div>qend</div>
         <div id="home-content" className="flex flex-col items-center">
           <div className="max-w-2xl mt-12">
             <p className="mb-3 text-[#6272a4]">

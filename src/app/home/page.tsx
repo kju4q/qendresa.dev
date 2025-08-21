@@ -23,8 +23,12 @@ export default function HomePage() {
         <div id="home-content">
           <div className="max-w-2xl mx-auto px-6 py-2 space-y-4">
             {/* Writing Section */}
-            <section id="writing">
-              <h2 className="text-lg font-mono text-[#50fa7b] mb-2">Writing</h2>
+            <section id="writing" className="mb-8 mt-8">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-mono text-[#50fa7b] mb-2">
+                  Writing
+                </h2>
+              </div>
               <ul className="space-y-1 text-sm">
                 {recentPosts.map((post) => (
                   <li key={post.slug} className="group">
@@ -45,7 +49,7 @@ export default function HomePage() {
             </section>
 
             {/* Projects Section */}
-            <section id="projects">
+            <section id="projects" className="mt-8">
               <h2 className="text-lg font-mono text-[#50fa7b] mb-2">
                 Projects
               </h2>

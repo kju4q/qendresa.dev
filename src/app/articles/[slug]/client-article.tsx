@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-import { TransitionLayout, Footer } from "@/components";
+import { ArticleOnlyLayout, Footer } from "@/components";
 import { Loading } from "@/components";
 import "../../home/home.css";
 
@@ -14,21 +14,23 @@ export default function ClientArticle({ slug }: { slug: string }) {
   const ArticleComponent = dynamic(
     () => {
       // Skip trying to import the page itself or any special files
-      if (slug === 'page' || slug === 'client-article' || slug === '[slug]') {
+      if (slug === "page" || slug === "client-article" || slug === "[slug]") {
         setHasError(true);
         return Promise.resolve(() => null);
       }
-      
+
       // Use proxy components to avoid circular references
-      return import(`@/components/articles/${slug}`).then((mod) => {
-        setIsLoading(false);
-        return mod.default;
-      }).catch((error) => {
-        console.error(`Failed to load article: ${slug}`, error);
-        setIsLoading(false);
-        setHasError(true);
-        return () => null;
-      });
+      return import(`@/components/articles/${slug}`)
+        .then((mod) => {
+          setIsLoading(false);
+          return mod.default;
+        })
+        .catch((error) => {
+          console.error(`Failed to load article: ${slug}`, error);
+          setIsLoading(false);
+          setHasError(true);
+          return () => null;
+        });
     },
     {
       loading: () => <Loading />,
@@ -38,7 +40,7 @@ export default function ClientArticle({ slug }: { slug: string }) {
 
   if (hasError) {
     return (
-      <TransitionLayout variant="article">
+      <ArticleOnlyLayout>
         <div id="home-page-container">
           <div id="home-content" className="p-8">
             <div className="max-w-4xl mx-auto py-10 px-4">
@@ -53,18 +55,18 @@ export default function ClientArticle({ slug }: { slug: string }) {
           </div>
           <Footer />
         </div>
-      </TransitionLayout>
+      </ArticleOnlyLayout>
     );
   }
 
   return (
-    <TransitionLayout variant="article">
+    <ArticleOnlyLayout>
       <div id="home-page-container">
         <div id="home-content" className="p-8">
           <ArticleComponent />
         </div>
         <Footer />
       </div>
-    </TransitionLayout>
+    </ArticleOnlyLayout>
   );
 }

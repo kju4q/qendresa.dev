@@ -39,8 +39,8 @@ export default function HomePage() {
                       >
                         {post.title}
                       </Link>
-                      <span className="text-[#6272a4] font-mono text-xs">
-                        {post.date}
+                      <span className="text-[#6272a4] text-xs">
+                        {post.description}
                       </span>
                     </div>
                   </li>

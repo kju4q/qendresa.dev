@@ -60,22 +60,23 @@ export default function Header(): ReactElement {
                 </Link>
               </li>
 
-              <li>
+              {/* currently commented out */}
+              {/* <li>
                 <Link
                   href="/home#now"
                   className="hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6]"
                 >
                   /now
                 </Link>
-              </li>
-              <li>
+              </li> */}
+              {/* <li>
                 <Link
                   href="/photos"
                   className="hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6]"
                 >
                   /photos
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </nav>
 

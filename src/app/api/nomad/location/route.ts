@@ -26,33 +26,26 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// Simulate dynamic location
+// Get real dynamic location with anonymity for first week
 async function getDynamicLocation(): Promise<string> {
-  // This could be enhanced to:
-  // 1. Call a real geolocation API
-  // 2. Pull from a database or service where you update your location
-  // 3. Use a rotating list of locations based on time of day/week
+  // Check for environment variables with real location and move date
+  // These don't need NEXT_PUBLIC_ prefix because they're only used server-side in this API route
+  const currentLocation = process.env.NOMAD_CURRENT_CITY || "Unknown";
+  const locationChangeDate = process.env.NOMAD_LOCATION_CHANGE_DATE
+    ? new Date(process.env.NOMAD_LOCATION_CHANGE_DATE)
+    : null;
 
-  // For demo purposes, let's rotate through some tech hubs
-  const locations = [
-    "Helsinki",
-    "San Francisco",
-    "Tokyo",
-    "Berlin",
-    "Singapore",
-    "Stockholm",
-    "London",
-    "Amsterdam",
-    "Toronto",
-    "Seoul",
-  ];
+  // Calculate if it's been less than a week since location change
+  const isNewLocation = locationChangeDate
+    ? new Date().getTime() - locationChangeDate.getTime() <
+      7 * 24 * 60 * 60 * 1000 // 7 days in ms
+    : false;
 
-  // Use date to make it somewhat deterministic but change daily
-  const today = new Date();
-  const dayOfYear = Math.floor(
-    (today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 86400000
-  );
-  const locationIndex = dayOfYear % locations.length;
+  // If location is new (less than a week old), return "Somewhere new" instead of the actual city
+  if (isNewLocation) {
+    return "Somewhere new";
+  }
 
-  return locations[locationIndex];
+  // Return the actual location after a week has passed
+  return currentLocation;
 }

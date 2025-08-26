@@ -21,7 +21,12 @@ export const nomadConfig = {
 
     try {
       // Try to get from API first - this is our preferred source
-      const response = await fetch("/api/nomad/location");
+      // Use relative URL if we're in a browser, or absolute URL with env variable if in Node.js
+      const baseUrl =
+        typeof window !== "undefined"
+          ? ""
+          : process.env.NEXT_PUBLIC_SITE_URL || "";
+      const response = await fetch(`${baseUrl}/api/nomad/location`);
       if (response.ok) {
         const data = await response.json();
         // Cache the result
@@ -34,8 +39,8 @@ export const nomadConfig = {
     }
 
     // Fallback to environment variable if API fails
-    if (process.env.NOMAD_CITY) {
-      return process.env.NOMAD_CITY;
+    if (process.env.NOMAD_CURRENT_CITY) {
+      return process.env.NOMAD_CURRENT_CITY;
     }
 
     // Final fallback to default
@@ -54,7 +59,7 @@ export const nomadConfig = {
     }
 
     // Fallback to environment or default
-    return process.env.NOMAD_CITY || nomadConfig.defaultCity;
+    return process.env.NOMAD_CURRENT_CITY || nomadConfig.defaultCity;
   },
 
   // Weather-related settings

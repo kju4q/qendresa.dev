@@ -12,12 +12,21 @@ export type GuessResult = "correct" | "warm" | "cold";
 export async function checkCityGuess(
   guessedCity: string
 ): Promise<GuessResult> {
+  // Get the current city
+  const currentCity = await nomadConfig.getCurrentCity();
+
+  // If we're in "Somewhere new" mode, all guesses are considered "cold"
+  // We'll provide the mystery message in the formatGuessResponse function
+  if (currentCity === "Somewhere new") {
+    return "cold";
+  }
+
   // Normalize both city names for comparison (lowercase, no special chars)
   const normalizedGuess = normalizeCity(guessedCity);
-  const currentCity = normalizeCity(await nomadConfig.getCurrentCity());
+  const normalizedCurrentCity = normalizeCity(currentCity);
 
   // Check for exact match
-  if (normalizedGuess === currentCity) {
+  if (normalizedGuess === normalizedCurrentCity) {
     return "correct";
   }
 
@@ -28,7 +37,7 @@ export async function checkCityGuess(
   // - Cities within certain km/mi distance
 
   // Mock implementation: check if the first letter matches as a 'warm' guess
-  if (normalizedGuess[0] === currentCity[0]) {
+  if (normalizedGuess[0] === normalizedCurrentCity[0]) {
     return "warm";
   }
 
@@ -40,17 +49,25 @@ export async function checkCityGuess(
  * Synchronous version for cases where async isn't possible
  */
 export function checkCityGuessSync(guessedCity: string): GuessResult {
+  // Get the current city
+  const currentCity = nomadConfig.getCurrentCitySync();
+
+  // If we're in "Somewhere new" mode, all guesses are considered "cold"
+  if (currentCity === "Somewhere new") {
+    return "cold";
+  }
+
   // Normalize both city names for comparison (lowercase, no special chars)
   const normalizedGuess = normalizeCity(guessedCity);
-  const currentCity = normalizeCity(nomadConfig.getCurrentCitySync());
+  const normalizedCurrentCity = normalizeCity(currentCity);
 
   // Check for exact match
-  if (normalizedGuess === currentCity) {
+  if (normalizedGuess === normalizedCurrentCity) {
     return "correct";
   }
 
   // Mock implementation: check if the first letter matches as a 'warm' guess
-  if (normalizedGuess[0] === currentCity[0]) {
+  if (normalizedGuess[0] === normalizedCurrentCity[0]) {
     return "warm";
   }
 
@@ -66,6 +83,13 @@ export async function formatGuessResponse(
   result: GuessResult
 ): Promise<string> {
   const currentCity = await nomadConfig.getCurrentCity();
+
+  // Special handling for "Somewhere new" location
+  if (currentCity === "Somewhere new") {
+    return `<div class="guess-feedback">
+      <span class="guess-hint">🧭 Mystery location!</span> I've recently moved and am keeping my location private for now. Try again in a few days!
+    </div>`;
+  }
 
   switch (result) {
     case "correct":
@@ -93,6 +117,13 @@ export function formatGuessResponseSync(
   result: GuessResult
 ): string {
   const currentCity = nomadConfig.getCurrentCitySync();
+
+  // Special handling for "Somewhere new" location
+  if (currentCity === "Somewhere new") {
+    return `<div class="guess-feedback">
+      <span class="guess-hint">🧭 Mystery location!</span> I've recently moved and am keeping my location private for now. Try again in a few days!
+    </div>`;
+  }
 
   switch (result) {
     case "correct":

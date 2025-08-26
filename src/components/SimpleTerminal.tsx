@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from 'next/navigation';
 import {
   CommandHistory,
   parseCommandLine,
@@ -15,6 +16,7 @@ import {
 
 // Simple DOM-based terminal
 export default function SimpleTerminal() {
+  const router = useRouter();
   const terminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const outputEndRef = useRef<HTMLDivElement>(null); // For auto-scroll
@@ -161,7 +163,7 @@ export default function SimpleTerminal() {
         } else if (newGuessCount >= 3) {
           // Final attempt - reveal answer
           try {
-            const locationResponse = await fetch("/api/nomad/weather");
+            const locationResponse = await fetch("/api/nomad/location");
             const locationData = await locationResponse.json();
             const currentCity = locationData.city || "Unknown";
 
@@ -273,7 +275,7 @@ export default function SimpleTerminal() {
         ...prev,
         {
           content: `<div class="hottake-output">
-<div class="hottake-title">🔥 Your Hot Take: ${hotTake} ${socialButtons}</div>
+<div class="hottake-title"> Your Hot Take: ${hotTake} ${socialButtons}</div>
 ${formattedOutput}
 <div class="mt-2"><span class="text-[var(--q-muted)]">Type</span> <span class="text-[var(--q-accent)] terminal-command" data-command="cd /">cd /</span> <span class="text-[var(--q-muted)]">to return to main site</span></div>
 </div>`,
@@ -405,6 +407,31 @@ ${formattedOutput}
     };
   }, [outputLines]);
 
+  // Add a useEffect to maintain focus on the input field
+  useEffect(() => {
+    // Focus the input when the component mounts
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+
+    // Set up an interval to check focus and refocus if needed
+    const focusInterval = setInterval(() => {
+      // Only focus if the document is active and the terminal is visible
+      if (
+        document.hasFocus() &&
+        terminalRef.current &&
+        terminalRef.current.offsetParent !== null &&
+        document.activeElement !== inputRef.current
+      ) {
+        inputRef.current?.focus();
+      }
+    }, 300); // Check every 300ms
+
+    return () => {
+      clearInterval(focusInterval);
+    };
+  }, []);
+
   // Handle command execution
   const handleExecuteCommand = async () => {
     if (!input.trim()) return;
@@ -424,17 +451,21 @@ ${formattedOutput}
       },
     ]);
 
-    // Special case for clear
+    // Special case for clear - works in all modes
     if (trimmedInput.toLowerCase() === "clear") {
       setOutputLines([]);
       return;
     }
 
-    // Special case for cd / to redirect to main site with transition
+    // Special case for cd / or cd.. to redirect to main site with transition
+    // These commands take priority over all other handling - work in all modes
     if (
       trimmedInput.toLowerCase() === "cd /" ||
-      trimmedInput.toLowerCase() === "cd/"
+      trimmedInput.toLowerCase() === "cd/" ||
+      trimmedInput.toLowerCase() === "cd.."
     ) {
+      console.log("Redirecting to homepage...");
+      
       // Add a transition class to the terminal
       if (terminalRef.current) {
         terminalRef.current.classList.add("page-transition-exit");
@@ -442,8 +473,15 @@ ${formattedOutput}
 
       // Delay navigation to allow animation to play
       setTimeout(() => {
-        window.location.href = "/";
+        // Navigate to the home page content
+        router.push('/home');
       }, 500);
+      return;
+    }
+
+    // Special case for plain "cd" to reset to landing/pick mode - works in all modes
+    if (trimmedInput.toLowerCase() === "cd") {
+      resetToLanding();
       return;
     }
 
@@ -459,6 +497,7 @@ ${formattedOutput}
     }
 
     // Handle direct city guesses in guess mode (without requiring "guess" command)
+    // But make sure to exclude our special commands (clear, cd, cd/, cd..)
     if (mode === "guess") {
       // In guess mode, treat any input as a city guess
       await handleGuessCommand([trimmedInput]);
@@ -468,6 +507,7 @@ ${formattedOutput}
     }
 
     // Handle direct hot take inputs in hot take mode
+    // But make sure to exclude our special commands (clear, cd, cd/, cd..)
     if (mode === "hottake") {
       await handleHotTakeCommand([trimmedInput]);
       // Prevent further input except for the return button
@@ -552,6 +592,9 @@ ${formattedOutput}
         },
       ]);
     }
+
+    // Ensure input stays focused after command execution
+    setTimeout(focusInput, 10);
   };
 
   // Handle keyboard input

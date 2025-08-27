@@ -48,8 +48,8 @@ export default function HomePage() {
               </ul>
             </section>
 
-            {/* Projects Section */}
-            <section id="projects" className="mt-8">
+            {/* Projects Section - commented out for now */}
+            {/* <section id="projects" className="mt-8">
               <h2 className="text-lg font-mono text-[#50fa7b] mb-2">
                 Projects
               </h2>
@@ -78,7 +78,7 @@ export default function HomePage() {
                   </li>
                 ))}
               </ul>
-            </section>
+            </section> */}
           </div>
         </div>
 

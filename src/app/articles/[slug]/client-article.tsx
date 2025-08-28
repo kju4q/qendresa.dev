@@ -43,14 +43,16 @@ export default function ClientArticle({ slug }: { slug: string }) {
       <ArticleOnlyLayout>
         <div id="home-page-container">
           <div id="home-content" className="p-8">
-            <div className="max-w-4xl mx-auto py-10 px-4">
-              <h1 className="text-3xl font-bold text-red-500 text-center mb-6">
-                Article Not Found
-              </h1>
-              <p className="text-center">
-                The article you're looking for doesn't exist or couldn't be
-                loaded.
-              </p>
+            <div className="max-w-4xl mx-auto">
+              <div className="py-10 px-4">
+                <h1 className="text-3xl font-bold text-red-500 text-center mb-6">
+                  Article Not Found
+                </h1>
+                <p className="text-center">
+                  The article you're looking for doesn't exist or couldn't be
+                  loaded.
+                </p>
+              </div>
             </div>
           </div>
           <Footer />
@@ -63,7 +65,9 @@ export default function ClientArticle({ slug }: { slug: string }) {
     <ArticleOnlyLayout>
       <div id="home-page-container">
         <div id="home-content" className="p-8">
-          <ArticleComponent />
+          <div className="max-w-4xl mx-auto">
+            <ArticleComponent />
+          </div>
         </div>
         <Footer />
       </div>

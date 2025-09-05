@@ -29,7 +29,7 @@ export default function Footer() {
           </Link>
           <span>·</span>
           <Link
-            href="/home#projects"
+            href="/projects"
             className="hover:text-[#50fa7b] focus:text-[#50fa7b] focus:outline-none focus:ring-1 focus:ring-[#50fa7b]"
           >
             projects

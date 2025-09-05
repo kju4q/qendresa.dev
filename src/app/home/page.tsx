@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { getRecentPosts } from "../../utils/getArticles";
 import dynamic from "next/dynamic";
-import projects from "../../lib/content/projects";
 import { Footer } from "../../components";
 import "./home.css";
 
@@ -66,38 +65,6 @@ export default function HomePage() {
                 </li>
               </ul>
             </section>
-
-            {/* Projects Section - commented out for now */}
-            {/* <section id="projects" className="mt-8">
-              <h2 className="text-lg font-mono text-[#50fa7b] mb-2">
-                Projects
-              </h2>
-              <ul className="space-y-1 text-sm">
-                {projects.map((project, index) => (
-                  <li key={index} className="group">
-                    <div className="flex flex-col space-y-1">
-                      <Link
-                        href={project.href}
-                        className="text-[#f8f8f2] group-hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6] focus:ring-1 focus:ring-[#ff79c6]"
-                        target={
-                          project.href.startsWith("http") ? "_blank" : undefined
-                        }
-                        rel={
-                          project.href.startsWith("http")
-                            ? "noopener noreferrer"
-                            : undefined
-                        }
-                      >
-                        {project.title}
-                      </Link>
-                      <span className="text-[#6272a4] leading-relaxed">
-                        {project.blurb}
-                      </span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </section> */}
           </div>
         </div>
 

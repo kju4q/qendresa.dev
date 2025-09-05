@@ -67,14 +67,14 @@ export default function Header(): ReactElement {
                   /vibe
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   href="/food"
                   className="hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6]"
                 >
                   /food
                 </Link>
-              </li>
+              </li> */}
 
               {/* currently commented out */}
               {/* <li>

@@ -43,14 +43,14 @@ export default function Header(): ReactElement {
                   /about
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   href="/blog"
                   className="hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6]"
                 >
                   /blog
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   href="/projects"

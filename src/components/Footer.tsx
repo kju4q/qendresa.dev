@@ -34,6 +34,13 @@ export default function Footer() {
           >
             projects
           </Link>
+          <span>·</span>
+          <Link
+            href="/talks"
+            className="hover:text-[#50fa7b] focus:text-[#50fa7b] focus:outline-none focus:ring-1 focus:ring-[#50fa7b]"
+          >
+            talks
+          </Link>
         </nav>
       </div>
     </footer>

@@ -8,9 +8,17 @@ interface Article {
 // Sample articles data - in a real app, this would come from a CMS or database
 const articles: Article[] = [
   {
+    slug: "substack-unmasking-llm",
+    title:
+      "Unmasking the LLM: What Really Happens between Your Question and its Answer (and How to Trust it!)",
+    date: "2024-12-15",
+    description:
+      "How I measure LLM speed, check if code actually works, and prove the results you see are real.",
+  },
+  {
     slug: "LiquidityFragmentationInLayer2sAndBeyond",
     title: "Liquidity Fragmentation in Layer 2s and Beyond",
-    date: "2025-07-30",
+    date: "2024-07-30",
     description:
       "Exploring the challenges of fragmented liquidity across L2 networks",
   },

@@ -22,6 +22,13 @@ export default function Footer() {
           </Link>
           <span>·</span>
           <Link
+            href="/newsletter"
+            className="hover:text-[#50fa7b] focus:text-[#50fa7b] focus:outline-none focus:ring-1 focus:ring-[#50fa7b]"
+          >
+            newsletter
+          </Link>
+          <span>·</span>
+          <Link
             href="/blog"
             className="hover:text-[#50fa7b] focus:text-[#50fa7b] focus:outline-none focus:ring-1 focus:ring-[#50fa7b]"
           >

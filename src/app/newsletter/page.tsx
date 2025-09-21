@@ -96,7 +96,7 @@ export default function Newsletter() {
                       <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full bg-[#50fa7b] text-[#282a36] font-medium py-2 px-4 rounded hover:bg-[#50fa7b]/90 focus:outline-none focus:ring-2 focus:ring-[#50fa7b] focus:ring-offset-2 focus:ring-offset-[#282a36] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-[#44475a] border border-[#6272a4] text-[#f8f8f2] font-medium py-2 px-4 rounded hover:bg-[#6272a4] hover:border-[#50fa7b] hover:text-[#50fa7b] focus:outline-none focus:ring-2 focus:ring-[#50fa7b] focus:ring-offset-2 focus:ring-offset-[#282a36] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {isLoading ? "Subscribing..." : "Subscribe"}
                       </button>
@@ -122,12 +122,6 @@ export default function Newsletter() {
                       </button>
                     </div>
                   )}
-                </div>
-
-                <div className="text-xs text-[#6272a4] space-y-1">
-                  <p>• No spam, just thoughtful content</p>
-                  <p>• Unsubscribe anytime</p>
-                  <p>• Typically 1-2 emails per month</p>
                 </div>
 
                 <div className="mt-6 pt-4 border-t border-[#44475a]">

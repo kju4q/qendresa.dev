@@ -11,6 +11,18 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "No topic provided" }, { status: 400 });
   }
 
+  // Input validation and sanitization to prevent injection attacks
+  // Limit topic length to prevent DoS attacks
+  if (topic.length > 100) {
+    return NextResponse.json(
+      { error: "Topic too long. Maximum 100 characters." },
+      { status: 400 }
+    );
+  }
+
+  // Sanitize: remove potentially dangerous characters
+  const sanitizedTopic = topic.replace(/[<>\"'&]/g, "");
+
   // For now, we'll return mock responses
   // In a real implementation, you would use an AI service to generate responses
 
@@ -36,8 +48,8 @@ export async function GET(request: NextRequest) {
     },
   };
 
-  // Normalize the topic for matching
-  const normalizedTopic = topic.toLowerCase().trim();
+  // Normalize the topic for matching (use sanitized version)
+  const normalizedTopic = sanitizedTopic.toLowerCase().trim();
 
   // Look for an exact match first
   if (responses[normalizedTopic]) {
@@ -51,9 +63,9 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // Default response for unknown topics
+  // Default response for unknown topics (use sanitized topic to prevent XSS)
   return NextResponse.json({
-    shortTake: `${topic} is a fascinating subject with evolving perspectives across different domains.`,
-    deepDive: `I would love to discuss ${topic} in detail! Currently, I have limited information on this specific topic. In a future version, I will connect to an AI to provide detailed insights on ${topic} and many other topics you might be interested in.\n\nFor now, I recommend checking resources like Wikipedia, academic journals, or specialized publications to learn more about ${topic}.`,
+    shortTake: `${sanitizedTopic} is a fascinating subject with evolving perspectives across different domains.`,
+    deepDive: `I would love to discuss ${sanitizedTopic} in detail! Currently, I have limited information on this specific topic. In a future version, I will connect to an AI to provide detailed insights on ${sanitizedTopic} and many other topics you might be interested in.\n\nFor now, I recommend checking resources like Wikipedia, academic journals, or specialized publications to learn more about ${sanitizedTopic}.`,
   });
 }

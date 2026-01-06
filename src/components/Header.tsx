@@ -75,6 +75,14 @@ export default function Header(): ReactElement {
                   /talks
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/podcast"
+                  className="hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6]"
+                >
+                  /podcast
+                </Link>
+              </li>
               {/* <li>
                 <Link
                   href="/vibe"

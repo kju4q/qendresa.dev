@@ -1,16 +1,7 @@
 import { TransitionLayout, Footer } from "../../components";
 import Link from "next/link";
+import podcasts from "../../lib/content/podcasts";
 import "../home/home.css";
-
-// Podcast data - you can update this with your actual podcasts
-const podcasts = [
-  {
-    title: "Keeping up with the builders",
-    href: "#",
-    platform: "Coming soon",
-    description: "Coming soon",
-  },
-];
 
 export default function Podcast() {
   return (
@@ -56,4 +47,3 @@ export default function Podcast() {
     </TransitionLayout>
   );
 }
-

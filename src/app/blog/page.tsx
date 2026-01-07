@@ -1,17 +1,8 @@
-"use client";
-
 import Link from "next/link";
 import { getArticles } from "../../utils/getArticles";
-import dynamic from "next/dynamic";
 import { Footer } from "../../components";
+import TransitionLayout from "../../components/TransitionLayout";
 import "../home/home.css";
-
-const TransitionLayout = dynamic(
-  () => import("../../components/TransitionLayout"),
-  {
-    ssr: false,
-  }
-);
 
 export default function BlogPage() {
   const allPosts = getArticles(); // Get all articles
@@ -34,8 +25,10 @@ export default function BlogPage() {
                         {post.date}
                       </span>
                       <Link
-                        href={`/articles/${post.slug}`}
+                        href={post.externalUrl ?? `/articles/${post.slug}`}
                         className="text-[#f8f8f2] group-hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6] focus:ring-1 focus:ring-[#ff79c6] leading-relaxed"
+                        target={post.externalUrl ? "_blank" : undefined}
+                        rel={post.externalUrl ? "noopener noreferrer" : undefined}
                       >
                         {post.title}
                       </Link>

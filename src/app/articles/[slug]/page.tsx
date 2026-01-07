@@ -1,6 +1,8 @@
 // This is a Server Component
 import type { Metadata } from "next";
 import { getArticles } from "@/utils/getArticles";
+import { getMdxArticleBySlug } from "@/lib/content/articles";
+import { ArticleOnlyLayout, Footer } from "@/components";
 
 // Import client component with proper path
 import ClientArticle from "./client-article";
@@ -36,7 +38,22 @@ export async function generateMetadata({
 // Main page component (Server Component)
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { slug } = await params;
-  
+
+  const mdxArticle = await getMdxArticleBySlug(slug);
+
+  if (mdxArticle) {
+    return (
+      <ArticleOnlyLayout>
+        <div id="home-page-container">
+          <div id="home-content" className="p-8">
+            <div className="max-w-4xl mx-auto">{mdxArticle.content}</div>
+          </div>
+          <Footer />
+        </div>
+      </ArticleOnlyLayout>
+    );
+  }
+
   // Return the client component with the slug prop
   return <ClientArticle slug={slug} />;
 }

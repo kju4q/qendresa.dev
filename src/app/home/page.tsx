@@ -1,17 +1,8 @@
-"use client";
-
 import Link from "next/link";
 import { getRecentPosts } from "../../utils/getArticles";
-import dynamic from "next/dynamic";
 import { Footer } from "../../components";
+import TransitionLayout from "../../components/TransitionLayout";
 import "./home.css";
-
-const TransitionLayout = dynamic(
-  () => import("../../components/TransitionLayout"),
-  {
-    ssr: false,
-  }
-);
 
 export default function HomePage() {
   const recentPosts = getRecentPosts(8); // Limit to 8 most recent posts
@@ -32,23 +23,11 @@ export default function HomePage() {
                 {recentPosts.map((post) => (
                   <li key={post.slug} className="group mb-8">
                     <div className="flex flex-col space-y-1">
-                      <Link
-                        href={
-                          post.slug === "substack-unmasking-llm"
-                            ? "https://qendresahoti.substack.com/p/unmasking-the-llm-what-really-happens"
-                            : `/articles/${post.slug}`
-                        }
+                    <Link
+                        href={post.externalUrl ?? `/articles/${post.slug}`}
                         className="text-[#f8f8f2] group-hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6] focus:ring-1 focus:ring-[#ff79c6] leading-relaxed"
-                        target={
-                          post.slug === "substack-unmasking-llm"
-                            ? "_blank"
-                            : undefined
-                        }
-                        rel={
-                          post.slug === "substack-unmasking-llm"
-                            ? "noopener noreferrer"
-                            : undefined
-                        }
+                        target={post.externalUrl ? "_blank" : undefined}
+                        rel={post.externalUrl ? "noopener noreferrer" : undefined}
                       >
                         {post.title}
                       </Link>

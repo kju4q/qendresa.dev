@@ -1,12 +1,16 @@
-interface Article {
+import "server-only";
+
+import { getMdxArticlesMeta } from "@/lib/content/articles";
+
+export interface Article {
   slug: string;
   title: string;
   date: string;
   description: string;
+  externalUrl?: string;
 }
 
-// Sample articles data - in a real app, this would come from a CMS or database
-const articles: Article[] = [
+const externalArticles: Article[] = [
   {
     slug: "substack-unmasking-llm",
     title:
@@ -14,24 +18,16 @@ const articles: Article[] = [
     date: "2024-12-15",
     description:
       "How I measure LLM speed, check if code actually works, and prove the results you see are real.",
+    externalUrl:
+      "https://qendresahoti.substack.com/p/unmasking-the-llm-what-really-happens",
   },
-  {
-    slug: "LiquidityFragmentationInLayer2sAndBeyond",
-    title: "Liquidity Fragmentation in Layer 2s and Beyond",
-    date: "2024-07-30",
-    description:
-      "Exploring the challenges of fragmented liquidity across L2 networks",
-  },
-  // {
-  //   slug: "EthereumScalabilityChallenge",
-  //   title: "Ethereum Scalability Challenge",
-  //   date: "2025-06-15",
-  //   description: "Analyzing Ethereum's path to scaling for global adoption",
-  // },
 ];
 
 export function getArticles(): Article[] {
-  return articles.sort(
+  const mdxArticles = getMdxArticlesMeta();
+  const merged = [...mdxArticles, ...externalArticles];
+
+  return merged.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 }

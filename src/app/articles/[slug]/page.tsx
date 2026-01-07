@@ -6,17 +6,18 @@ import { getArticles } from "@/utils/getArticles";
 import ClientArticle from "./client-article";
 
 type ArticlePageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 // Function to dynamically generate metadata based on the slug
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const { slug } = await params;
   const articles = getArticles();
-  const article = articles.find((a) => a.slug === params.slug);
+  const article = articles.find((a) => a.slug === slug);
 
   if (article) {
     return {
@@ -33,8 +34,8 @@ export async function generateMetadata({
 }
 
 // Main page component (Server Component)
-export default function ArticlePage({ params }: ArticlePageProps) {
-  const { slug } = params;
+export default async function ArticlePage({ params }: ArticlePageProps) {
+  const { slug } = await params;
   
   // Return the client component with the slug prop
   return <ClientArticle slug={slug} />;

@@ -13,6 +13,7 @@
     "@mdx-js/mdx": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
     "gray-matter": "^4.0.3",
+    "@supabase/supabase-js": "^2.48.1",
     "next": "^15.1.6",
     "next-mdx-remote": "^5.0.0",
     "react": "^19.2.1",

@@ -21,12 +21,8 @@ export async function checkCityGuess(
     return "cold";
   }
 
-  // Normalize both city names for comparison (lowercase, no special chars)
-  const normalizedGuess = normalizeCity(guessedCity);
-  const normalizedCurrentCity = normalizeCity(currentCity);
-
-  // Check for exact match
-  if (normalizedGuess === normalizedCurrentCity) {
+  // Check for exact match or close textual match
+  if (isCityMatch(guessedCity, currentCity)) {
     return "correct";
   }
 
@@ -37,6 +33,8 @@ export async function checkCityGuess(
   // - Cities within certain km/mi distance
 
   // Mock implementation: check if the first letter matches as a 'warm' guess
+  const normalizedGuess = normalizeCity(guessedCity);
+  const normalizedCurrentCity = normalizeCity(currentCity);
   if (normalizedGuess[0] === normalizedCurrentCity[0]) {
     return "warm";
   }
@@ -57,16 +55,14 @@ export function checkCityGuessSync(guessedCity: string): GuessResult {
     return "cold";
   }
 
-  // Normalize both city names for comparison (lowercase, no special chars)
-  const normalizedGuess = normalizeCity(guessedCity);
-  const normalizedCurrentCity = normalizeCity(currentCity);
-
-  // Check for exact match
-  if (normalizedGuess === normalizedCurrentCity) {
+  // Check for exact match or close textual match
+  if (isCityMatch(guessedCity, currentCity)) {
     return "correct";
   }
 
   // Mock implementation: check if the first letter matches as a 'warm' guess
+  const normalizedGuess = normalizeCity(guessedCity);
+  const normalizedCurrentCity = normalizeCity(currentCity);
   if (normalizedGuess[0] === normalizedCurrentCity[0]) {
     return "warm";
   }
@@ -151,4 +147,41 @@ function normalizeCity(city: string): string {
     .toLowerCase()
     .replace(/[^\w\s]/g, "") // Remove special characters
     .replace(/\s+/g, ""); // Remove whitespace
+}
+
+function isCityMatch(guess: string, current: string): boolean {
+  const normalizedGuess = normalizeCity(guess);
+  const normalizedCurrent = normalizeCity(current);
+
+  if (!normalizedGuess || !normalizedCurrent) {
+    return false;
+  }
+
+  if (normalizedGuess === normalizedCurrent) {
+    return true;
+  }
+
+  const guessParts = normalizeCityParts(guess);
+  const currentParts = normalizeCityParts(current);
+
+  if (guessParts.some((part) => currentParts.includes(part))) {
+    return true;
+  }
+
+  if (
+    normalizedGuess.length >= 4 &&
+    (normalizedCurrent.includes(normalizedGuess) ||
+      normalizedGuess.includes(normalizedCurrent))
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+function normalizeCityParts(city: string): string[] {
+  return city
+    .split(/[,/|-]/)
+    .map((part) => normalizeCity(part))
+    .filter(Boolean);
 }

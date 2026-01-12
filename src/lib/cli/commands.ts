@@ -32,8 +32,11 @@ export async function processCommand(
     case "g":
       return { output: "Entering guess mode..." };
     case "h":
-    case "hottake":
-      return handleTeachMe(args); // Reuse teachme for hot take functionality
+    case "hot":
+      return {
+        output: `Hot board mode is available in the split terminal. Type "hot board" to open it.`,
+        type: "command",
+      };
     case "guess":
       return handleGuess(args);
     case "help":
@@ -46,7 +49,11 @@ export async function processCommand(
           </div>
           <div class="command-entry">
             <span class="command-name">h</span>
-            <span class="command-desc">Start "Hot take" mode</span>
+            <span class="command-desc">Open "Hot board" mode</span>
+          </div>
+          <div class="command-entry">
+            <span class="command-name">hot board</span>
+            <span class="command-desc">Open the hot take board</span>
           </div>
           <div class="command-entry">
             <span class="command-name">clear</span>

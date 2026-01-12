@@ -32,14 +32,41 @@ export default function SimpleTerminal() {
     }>
   >([]); // Start empty
   const [accentColor, setAccentColor] = useState("var(--q-accent)");
-  const [mode, setMode] = useState<"landing" | "guess" | "hottake">("landing");
+  const [mode, setMode] = useState<"landing" | "guess" | "hotboard">("landing");
   const [guessCount, setGuessCount] = useState(0);
+  const [anonId, setAnonId] = useState<string | null>(null);
+  const [hotTakes, setHotTakes] = useState<
+    Array<{
+      id: string;
+      text: string;
+      created_at: string;
+      vote_count: number;
+      isOwn: boolean;
+      canVote: boolean;
+    }>
+  >([]);
+  const [hotBoardStatus, setHotBoardStatus] = useState<
+    "idle" | "loading" | "error"
+  >("idle");
+  const [hotBoardMessage, setHotBoardMessage] = useState<string | null>(null);
 
   // Focus input when terminal is clicked
   const focusInput = () => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
+  };
+
+  const ensureAnonId = () => {
+    if (typeof window === "undefined") return null;
+    const stored = localStorage.getItem("q_hot_take_anon_id");
+    if (stored) return stored;
+    const generated =
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    localStorage.setItem("q_hot_take_anon_id", generated);
+    return generated;
   };
 
   // Start guess city mode
@@ -59,15 +86,16 @@ export default function SimpleTerminal() {
     setTimeout(focusInput, 100);
   };
 
-  // Start hot take mode
-  const startHotTakeMode = () => {
-    setMode("hottake");
+  // Start hot board mode
+  const startHotBoardMode = () => {
+    setMode("hotboard");
+    setHotBoardMessage(null);
     setOutputLines([
       {
         content: `<div class="hottake-intro">
-          <div class="text-[var(--q-accent)] font-semibold">🔥 Your Hot Take</div>
-          <p>What's your hot take or curiosity today?</p>
-          <p>Simply type your thought and press Enter (e.g. <span class="text-[var(--q-accent)]">NFTs are just expensive jpegs</span>)</p>
+          <div class="text-[var(--q-accent)] font-semibold">🔥 Hot Board</div>
+          <p>Drop a hot take and watch it land on the board.</p>
+          <p>Type your take and press Enter (e.g. <span class="text-[var(--q-accent)]">Open source is a social technology</span>)</p>
         </div>`,
         type: "system",
       },
@@ -86,7 +114,7 @@ export default function SimpleTerminal() {
       {
         content: `<div class="mt-2">
           <span class="interactive-option" data-option="g">[ g ] guess my city</span>    
-          <span class="interactive-option" data-option="h">[ h ] your hot take</span>
+          <span class="interactive-option" data-option="hot">[ hot ] hot board</span>
         </div>`,
         type: "system",
       },
@@ -197,117 +225,75 @@ export default function SimpleTerminal() {
     }
   };
 
-  // Handle hot take command
-  const handleHotTakeCommand = async (args: string[]) => {
-    if (!args.length) {
-      setOutputLines((prev) => [
-        ...prev,
-        {
-          content:
-            "Please enter your hot take or curiosity. For example: are NFTs just a fad?",
-          type: "error",
-        },
-      ]);
-      return;
-    }
-
-    const hotTake = args.join(" ");
-
-    // Show loading indicator
-    setOutputLines((prev) => [
-      ...prev,
-      {
-        content: `<span class="terminal-loading">${terminalConfig.loadingText}</span>`,
-        type: "system",
-      },
-    ]);
-
+  const fetchHotTakes = async () => {
+    if (!anonId) return;
+    setHotBoardStatus("loading");
     try {
-      // Use the teachme API endpoint for now
       const response = await fetch(
-        `/api/nomad/teachme?topic=${encodeURIComponent(hotTake)}`
+        `/api/hottake?anonId=${encodeURIComponent(anonId)}`
       );
-
-      if (!response.ok) {
-        throw new Error(`Error processing hot take: ${response.statusText}`);
-      }
-
       const data = await response.json();
-
-      // Format the response properly - just use short take, no deep dive
-      const formattedOutput = `<p>${data.shortTake}</p>`;
-
-      // Remove loading text
-      setOutputLines((prev) =>
-        prev.filter(
-          (line) =>
-            !line.content.includes(terminalConfig.loadingText.replace("⟳", ""))
-        )
-      );
-
-      // Format for social sharing
-      const tweetText = formatForTwitter(hotTake, data.shortTake);
-
-      const socialButtons = `<div class="social-buttons"><div class="copy-button twitter" data-text="${encodeURIComponent(
-        tweetText
-      )}" onclick="copyToClipboard(this)"><span>Copy for Twitter</span></div></div>`;
-
-      // Add copy to clipboard function
-      if (!document.querySelector("#copy-script")) {
-        const script = document.createElement("script");
-        script.id = "copy-script";
-        script.innerHTML = `
-          function copyToClipboard(element) {
-            const text = decodeURIComponent(element.getAttribute('data-text'));
-            navigator.clipboard.writeText(text).then(() => {
-              const originalText = element.innerHTML;
-              element.innerHTML = '<span>Copied!</span>';
-              setTimeout(() => {
-                element.innerHTML = originalText;
-              }, 2000);
-            });
-          }
-        `;
-        document.body.appendChild(script);
+      if (!response.ok) {
+        throw new Error(data?.error || "Failed to load hot takes.");
       }
-
-      setOutputLines((prev) => [
-        ...prev,
-        {
-          content: `<div class="hottake-output">
-<div class="hottake-title"> Your Hot Take: ${hotTake} ${socialButtons}</div>
-${formattedOutput}
-<div class="mt-2"><span class="text-[var(--q-muted)]">Type</span> <span class="text-[var(--q-accent)] terminal-command" data-command="cd /">cd /</span> <span class="text-[var(--q-muted)]">to return to main site</span></div>
-</div>`,
-          type: "output",
-        },
-      ]);
+      setHotTakes(data.takes || []);
+      setHotBoardStatus("idle");
     } catch (error) {
-      setOutputLines((prev) =>
-        prev.filter(
-          (line) => !line.content.includes(terminalConfig.loadingText)
-        )
+      setHotBoardStatus("error");
+      setHotBoardMessage(
+        error instanceof Error ? error.message : "Failed to load hot takes."
       );
-
-      setOutputLines((prev) => [
-        ...prev,
-        {
-          content: `Error processing hot take: ${
-            error instanceof Error ? error.message : "Unknown error"
-          }`,
-          type: "error",
-        },
-      ]);
     }
   };
 
-  // Helper function for formatting social content
-  const formatForTwitter = (topic: string, shortTake: string): string => {
-    // Format for Twitter with max 280 chars
-    return `🔥 Hot Take on "${topic}"\n\n${shortTake.substring(
-      0,
-      180
-    )}...\n\nvia q//os terminal`;
+  const submitHotTake = async (text: string) => {
+    if (!anonId) return;
+    setHotBoardMessage(null);
+    try {
+      const response = await fetch("/api/hottake", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text, anonId }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.error || "Failed to submit hot take.");
+      }
+      setHotBoardMessage("Hot take submitted.");
+      await fetchHotTakes();
+    } catch (error) {
+      setHotBoardMessage(
+        error instanceof Error ? error.message : "Failed to submit hot take."
+      );
+    }
+  };
+
+  const voteHotTake = async (hotTakeId: string) => {
+    if (!anonId) return;
+    setHotBoardMessage(null);
+    try {
+      const response = await fetch("/api/hottake/vote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ hotTakeId, anonId }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data?.error || "Failed to vote.");
+      }
+      setHotBoardMessage("Vote recorded.");
+      setHotTakes((prev) =>
+        prev.map((take) =>
+          take.id === hotTakeId
+            ? { ...take, vote_count: data.vote_count, canVote: false }
+            : take
+        )
+      );
+    } catch (error) {
+      setHotBoardMessage(
+        error instanceof Error ? error.message : "Failed to vote."
+      );
+    }
   };
 
   // Helper functions for hints
@@ -345,6 +331,19 @@ ${formattedOutput}
     resetToLanding();
   }, []);
 
+  useEffect(() => {
+    const id = ensureAnonId();
+    if (id) {
+      setAnonId(id);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (mode === "hotboard" && anonId) {
+      fetchHotTakes();
+    }
+  }, [mode, anonId]);
+
   // Scroll to bottom when output changes and set up click handlers
   useEffect(() => {
     if (outputEndRef.current) {
@@ -362,8 +361,8 @@ ${formattedOutput}
           );
           if (optionType === "g") {
             startGuessMode();
-          } else if (optionType === "h") {
-            startHotTakeMode();
+          } else if (optionType === "hot") {
+            startHotBoardMode();
           }
         });
       });
@@ -490,8 +489,12 @@ ${formattedOutput}
       if (trimmedInput.toLowerCase() === "g") {
         startGuessMode();
         return;
-      } else if (trimmedInput.toLowerCase() === "h") {
-        startHotTakeMode();
+      } else if (
+        trimmedInput.toLowerCase() === "h" ||
+        trimmedInput.toLowerCase() === "hot" ||
+        trimmedInput.toLowerCase() === "hot board"
+      ) {
+        startHotBoardMode();
         return;
       }
     }
@@ -506,12 +509,17 @@ ${formattedOutput}
       return;
     }
 
-    // Handle direct hot take inputs in hot take mode
-    // But make sure to exclude our special commands (clear, cd, cd/, cd..)
-    if (mode === "hottake") {
-      await handleHotTakeCommand([trimmedInput]);
-      // Prevent further input except for the return button
-      inputRef.current?.blur();
+    // Handle direct hot take inputs in hot board mode
+    if (mode === "hotboard") {
+      if (
+        trimmedInput.toLowerCase() === "hot" ||
+        trimmedInput.toLowerCase() === "hot board" ||
+        trimmedInput.toLowerCase() === "h"
+      ) {
+        startHotBoardMode();
+        return;
+      }
+      await submitHotTake(trimmedInput);
       return;
     }
 
@@ -523,9 +531,6 @@ ${formattedOutput}
       if (command.toLowerCase() === "guess") {
         await handleGuessCommand(args);
         return;
-      } else if (command.toLowerCase() === "hottake") {
-        await handleHotTakeCommand(args);
-        return;
       }
 
       // If g/h commands are entered, switch modes regardless of current mode
@@ -533,35 +538,17 @@ ${formattedOutput}
         startGuessMode();
         return;
       } else if (command.toLowerCase() === "h") {
-        startHotTakeMode();
+        startHotBoardMode();
         return;
-      }
-
-      // Show loading for async commands
-      if (["hottake"].includes(command.toLowerCase())) {
-        setOutputLines((prev) => [
-          ...prev,
-          {
-            content: `<span class="terminal-loading">${terminalConfig.loadingText}</span>`,
-            type: "system",
-          },
-        ]);
+      } else if (command.toLowerCase() === "hot") {
+        if (args.length === 0 || args[0]?.toLowerCase() === "board") {
+          startHotBoardMode();
+          return;
+        }
       }
 
       // Execute the command
       const response = await processCommand(command, args);
-
-      // Remove loading text if it was added
-      if (["hottake"].includes(command.toLowerCase())) {
-        setOutputLines((prev) =>
-          prev.filter(
-            (line) =>
-              !line.content.includes(
-                terminalConfig.loadingText.replace("⟳", "")
-              )
-          )
-        );
-      }
 
       // Display command output
       const outputType =
@@ -608,9 +595,9 @@ ${formattedOutput}
       e.preventDefault();
       startGuessMode();
     } else if (e.key === "h" && mode === "landing" && input === "") {
-      // Start hot take mode with 'h' key
+      // Start hot board mode with 'h' key
       e.preventDefault();
-      startHotTakeMode();
+      startHotBoardMode();
     } else if (e.key === "Tab") {
       // Tab completion
       e.preventDefault();
@@ -643,6 +630,96 @@ ${formattedOutput}
     }
   };
 
+  const outputContent = (
+    <div>
+      {outputLines.map((line, index) => {
+        if (line.type === "system") {
+          // System messages - render HTML content
+          return (
+            <div
+              key={index}
+              className="whitespace-pre-wrap mb-2 text-[var(--q-muted)]"
+              dangerouslySetInnerHTML={{ __html: line.content }}
+            />
+          );
+        } else if (line.type === "input") {
+          // Input commands
+          return (
+            <div key={index} className="whitespace-pre-wrap mb-1 font-bold">
+              {line.content}
+            </div>
+          );
+        } else if (line.type === "error") {
+          // Error messages - render HTML content
+          return (
+            <div
+              key={index}
+              className="whitespace-pre-wrap mb-2 text-[var(--q-error)]"
+              dangerouslySetInnerHTML={{ __html: line.content }}
+            />
+          );
+        } else if (line.type === "success") {
+          // Success messages - render HTML content
+          return (
+            <div
+              key={index}
+              className="whitespace-pre-wrap mb-2 text-[var(--q-success)]"
+              dangerouslySetInnerHTML={{ __html: line.content }}
+            />
+          );
+        } else if (line.type === "command") {
+          // Command outputs for help command - render HTML content
+          return (
+            <div
+              key={index}
+              className="whitespace-pre-wrap mb-1"
+              dangerouslySetInnerHTML={{ __html: line.content }}
+            />
+          );
+        } else {
+          // Regular command outputs - render HTML content
+          return (
+            <div
+              key={index}
+              className="whitespace-pre-wrap mb-2"
+              dangerouslySetInnerHTML={{ __html: line.content }}
+            />
+          );
+        }
+      })}
+    </div>
+  );
+
+  const inputLine = (
+    <div className="flex items-center">
+      <span className="text-[var(--q-accent)]">
+        {terminalConfig.promptSymbol}
+      </span>
+      <input
+        ref={inputRef}
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        onKeyDown={handleKeyDown}
+        className="flex-1 bg-transparent border-none outline-none px-1"
+        style={{ caretColor: "var(--q-accent)" }}
+        autoFocus
+        aria-label="Terminal input"
+        spellCheck="false"
+        autoCapitalize="off"
+        autoComplete="off"
+        autoCorrect="off"
+        placeholder={mode === "hotboard" ? "share your hot take..." : undefined}
+      />
+    </div>
+  );
+
+  const formatBoardDate = (value: string) => {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  };
+
   return (
     <div
       className="qos-terminal w-full h-full overflow-hidden font-mono text-sm"
@@ -662,89 +739,86 @@ ${formattedOutput}
           backgroundColor: "rgb(40 42 54)",
         }}
       >
-        {/* Terminal output */}
-        <div>
-          {outputLines.map((line, index) => {
-            if (line.type === "system") {
-              // System messages - render HTML content
-              return (
-                <div
-                  key={index}
-                  className="whitespace-pre-wrap mb-2 text-[var(--q-muted)]"
-                  dangerouslySetInnerHTML={{ __html: line.content }}
-                />
-              );
-            } else if (line.type === "input") {
-              // Input commands
-              return (
-                <div key={index} className="whitespace-pre-wrap mb-1 font-bold">
-                  {line.content}
+        {mode === "hotboard" ? (
+          <div className="grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_320px] gap-4 h-full">
+            <div className="flex flex-col h-full">
+              {outputContent}
+              {hotBoardMessage && (
+                <div className="text-xs text-[var(--q-accent-alt)] mb-2">
+                  {hotBoardMessage}
                 </div>
-              );
-            } else if (line.type === "error") {
-              // Error messages - render HTML content
-              return (
-                <div
-                  key={index}
-                  className="whitespace-pre-wrap mb-2 text-[var(--q-error)]"
-                  dangerouslySetInnerHTML={{ __html: line.content }}
-                />
-              );
-            } else if (line.type === "success") {
-              // Success messages - render HTML content
-              return (
-                <div
-                  key={index}
-                  className="whitespace-pre-wrap mb-2 text-[var(--q-success)]"
-                  dangerouslySetInnerHTML={{ __html: line.content }}
-                />
-              );
-            } else if (line.type === "command") {
-              // Command outputs for help command - render HTML content
-              return (
-                <div
-                  key={index}
-                  className="whitespace-pre-wrap mb-1"
-                  dangerouslySetInnerHTML={{ __html: line.content }}
-                />
-              );
-            } else {
-              // Regular command outputs - render HTML content
-              return (
-                <div
-                  key={index}
-                  className="whitespace-pre-wrap mb-2"
-                  dangerouslySetInnerHTML={{ __html: line.content }}
-                />
-              );
-            }
-          })}
-        </div>
+              )}
+              {inputLine}
+              <div ref={outputEndRef}></div>
+            </div>
 
-        {/* Current command line */}
-        <div className="flex items-center">
-          <span className="text-[var(--q-accent)]">
-            {terminalConfig.promptSymbol}
-          </span>
-          <input
-            ref={inputRef}
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            className="flex-1 bg-transparent border-none outline-none px-1"
-            style={{ caretColor: "var(--q-accent)" }}
-            autoFocus
-            aria-label="Terminal input"
-            spellCheck="false"
-            autoCapitalize="off"
-            autoComplete="off"
-            autoCorrect="off"
-          />
-        </div>
-
-        {/* Auto-scroll anchor */}
-        <div ref={outputEndRef}></div>
+            <aside className="border-l border-[var(--q-border)] pl-4 h-full">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-[var(--q-accent)] text-xs uppercase tracking-wide">
+                  Hot Board
+                </h3>
+                <span className="text-[var(--q-muted)] text-[10px]">
+                  all-time
+                </span>
+              </div>
+              <div className="space-y-3 max-h-[520px] overflow-y-auto pr-2">
+                {hotBoardStatus === "loading" && (
+                  <div className="text-xs text-[var(--q-muted)]">
+                    Loading hot takes...
+                  </div>
+                )}
+                {hotBoardStatus === "error" && (
+                  <div className="text-xs text-[var(--q-error)]">
+                    Failed to load board.
+                  </div>
+                )}
+                {hotBoardStatus === "idle" && hotTakes.length === 0 && (
+                  <div className="text-xs text-[var(--q-muted)]">
+                    No hot takes yet. Be the first.
+                  </div>
+                )}
+                {hotTakes.map((take, index) => (
+                  <div
+                    key={take.id}
+                    className="border border-[var(--q-border)] rounded-md p-3 bg-[#1f2130]"
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="text-xs text-[var(--q-muted)]">
+                        #{index + 1} • {formatBoardDate(take.created_at)}
+                      </div>
+                      <div className="text-xs text-[var(--q-muted)]">
+                        {take.vote_count ?? 0} votes
+                      </div>
+                    </div>
+                    <p className="text-sm text-[var(--q-text)] mt-2">
+                      {take.text}
+                    </p>
+                    <div className="mt-3 flex items-center gap-2">
+                      <button
+                        type="button"
+                        className="text-xs px-2.5 py-1 rounded border border-[var(--q-accent)] text-[var(--q-accent)] hover:text-[var(--q-accent-alt)] hover:border-[var(--q-accent-alt)] disabled:opacity-50 disabled:cursor-not-allowed"
+                        onClick={() => voteHotTake(take.id)}
+                        disabled={!take.canVote || take.isOwn}
+                      >
+                        {take.isOwn
+                          ? "Your take"
+                          : take.canVote
+                          ? "Vote"
+                          : "Voted"}
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </aside>
+          </div>
+        ) : (
+          <>
+            {outputContent}
+            {inputLine}
+            <div ref={outputEndRef}></div>
+          </>
+        )}
       </div>
     </div>
   );

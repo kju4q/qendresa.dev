@@ -20,13 +20,13 @@ export const terminalConfig = {
 };
 
 // Available terminal commands
-export const availableCommands = ["g", "h", "guess", "hottake", "clear"];
+export const availableCommands = ["g", "h", "hot", "guess", "clear"];
 
 // Command help text
 export const commandDescriptions: Record<string, string> = {
   g: 'Start "Guess my city" game',
-  h: 'Start "Hot take" mode',
+  h: 'Open "Hot board" mode',
+  hot: 'Open "Hot board" mode',
   guess: 'Make a city guess (e.g., "guess paris")',
-  hottake: "Share your hot take or curiosity",
   clear: "Clear the terminal",
 };

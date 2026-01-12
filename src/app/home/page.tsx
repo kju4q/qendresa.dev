@@ -21,19 +21,27 @@ export default function HomePage() {
               </div>
               <ul className="space-y-1 text-sm">
                 {recentPosts.map((post) => (
-                  <li key={post.slug} className="group mb-8">
-                    <div className="flex flex-col space-y-1">
-                    <Link
-                        href={post.externalUrl ?? `/articles/${post.slug}`}
-                        className="text-[#f8f8f2] group-hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6] focus:ring-1 focus:ring-[#ff79c6] leading-relaxed"
-                        target={post.externalUrl ? "_blank" : undefined}
-                        rel={post.externalUrl ? "noopener noreferrer" : undefined}
-                      >
-                        {post.title}
-                      </Link>
-                      <span className="text-[#6272a4] text-xs">
-                        {post.description}
-                      </span>
+                  <li key={post.slug} className="group mb-8 pb-2">
+                    <div className="flex items-start gap-2">
+                      <span
+                        className="mt-2 h-1.5 w-1.5 rounded-full bg-[#50fa7b]"
+                        aria-hidden="true"
+                      />
+                      <div className="flex flex-col space-y-1">
+                        <Link
+                          href={post.externalUrl ?? `/articles/${post.slug}`}
+                          className="text-[#f8f8f2] group-hover:text-[#ff79c6] focus:outline-none focus:text-[#ff79c6] focus:ring-1 focus:ring-[#ff79c6] leading-relaxed"
+                          target={post.externalUrl ? "_blank" : undefined}
+                          rel={
+                            post.externalUrl ? "noopener noreferrer" : undefined
+                          }
+                        >
+                          {post.title}
+                        </Link>
+                        <span className="text-[#6272a4] text-xs">
+                          {post.description}
+                        </span>
+                      </div>
                     </div>
                   </li>
                 ))}

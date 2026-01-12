@@ -42,6 +42,7 @@ export function getMdxArticlesMeta(): ArticleMeta[] {
         description: String(data.description || ""),
       };
     })
+    .filter((article) => article.slug !== "mdx-pipeline-check")
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 

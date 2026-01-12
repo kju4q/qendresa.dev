@@ -594,10 +594,6 @@ export default function SimpleTerminal() {
       // Start guess mode with 'g' key
       e.preventDefault();
       startGuessMode();
-    } else if (e.key === "h" && mode === "landing" && input === "") {
-      // Start hot board mode with 'h' key
-      e.preventDefault();
-      startHotBoardMode();
     } else if (e.key === "Tab") {
       // Tab completion
       e.preventDefault();

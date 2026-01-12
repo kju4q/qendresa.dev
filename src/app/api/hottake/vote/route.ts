@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseServer } from "@/lib/server/supabase";
 import { getUserHash, getWeekStartUtc } from "@/lib/server/hot-take";
+import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
 
 export const dynamic = "force-dynamic";
 
@@ -10,13 +11,23 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Missing hotTakeId or anonId." }, { status: 400 });
   }
 
-  const userHash = getUserHash(String(body.anonId));
+  const anonId = String(body.anonId);
+  const ip = getClientIp(request);
+  const limit = rateLimit(`hottake:vote:${ip}:${anonId}`, 20, 10 * 60 * 1000);
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { error: "Too many votes. Try again later." },
+      { status: 429, headers: { "Retry-After": String(limit.retryAfter) } }
+    );
+  }
+
+  const userHash = getUserHash(anonId);
   const hotTakeId = String(body.hotTakeId);
   const weekStart = getWeekStartUtc();
 
   const { data: take, error: takeError } = await supabaseServer
     .from("hot_takes")
-    .select("id,user_hash,vote_count")
+    .select("id,user_hash")
     .eq("id", hotTakeId)
     .single();
 
@@ -44,15 +55,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: voteError.message }, { status: 500 });
   }
 
-  const nextCount = (take.vote_count || 0) + 1;
-  const { error: updateError } = await supabaseServer
+  const { data: updated, error: updateError } = await supabaseServer
     .from("hot_takes")
-    .update({ vote_count: nextCount })
+    .select("vote_count")
     .eq("id", hotTakeId);
 
   if (updateError) {
     return NextResponse.json({ error: updateError.message }, { status: 500 });
   }
 
-  return NextResponse.json({ vote_count: nextCount });
+  const voteCount = updated?.[0]?.vote_count ?? 0;
+  return NextResponse.json({ vote_count: voteCount });
 }

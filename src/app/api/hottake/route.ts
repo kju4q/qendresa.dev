@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseServer } from "@/lib/server/supabase";
 import { getUserHash, getWeekStartUtc, sanitizeHotTake } from "@/lib/server/hot-take";
+import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
 
 export const dynamic = "force-dynamic";
 
@@ -53,6 +54,16 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Missing text or anonId." }, { status: 400 });
   }
 
+  const anonId = String(body.anonId);
+  const ip = getClientIp(request);
+  const limit = rateLimit(`hottake:create:${ip}:${anonId}`, 5, 10 * 60 * 1000);
+  if (!limit.allowed) {
+    return NextResponse.json(
+      { error: "Too many hot takes. Try again later." },
+      { status: 429, headers: { "Retry-After": String(limit.retryAfter) } }
+    );
+  }
+
   const cleaned = sanitizeHotTake(String(body.text));
   if (!cleaned || cleaned.length < 3) {
     return NextResponse.json({ error: "Hot take is too short." }, { status: 400 });
@@ -61,7 +72,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Hot take is too long (max 240)." }, { status: 400 });
   }
 
-  const userHash = getUserHash(String(body.anonId));
+  const userHash = getUserHash(anonId);
 
   const { data, error } = await supabaseServer
     .from("hot_takes")

@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseServer } from "@/lib/server/supabase";
+import { getSupabaseServer } from "@/lib/server/supabase";
 import { getUserHash, getWeekStartUtc } from "@/lib/server/hot-take";
 import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
+  const supabaseServer = getSupabaseServer();
   const body = await request.json().catch(() => null);
   if (!body?.hotTakeId || !body?.anonId) {
     return NextResponse.json({ error: "Missing hotTakeId or anonId." }, { status: 400 });

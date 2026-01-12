@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseServer } from "@/lib/server/supabase";
+import { getSupabaseServer } from "@/lib/server/supabase";
 import { getUserHash, getWeekStartUtc, sanitizeHotTake } from "@/lib/server/hot-take";
 import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
+  const supabaseServer = getSupabaseServer();
   const { searchParams } = new URL(request.url);
   const anonId = searchParams.get("anonId") || "";
   const userHash = anonId ? getUserHash(anonId) : null;
@@ -49,6 +50,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const supabaseServer = getSupabaseServer();
   const body = await request.json().catch(() => null);
   if (!body?.text || !body?.anonId) {
     return NextResponse.json({ error: "Missing text or anonId." }, { status: 400 });

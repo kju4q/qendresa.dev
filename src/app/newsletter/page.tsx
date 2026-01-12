@@ -9,32 +9,35 @@ export default function Newsletter() {
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setError(null);
 
     try {
-      // Using Mailchimp API
-      const formData = new FormData();
-      formData.append("EMAIL", email);
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json().catch(() => ({}));
 
-      const response = await fetch(
-        "https://dev.us2.list-manage.com/subscribe/post?u=31019c919d5a82ec4aec90b68&id=6b56961ad2&f_id=00b6c7e3f0",
-        {
-          method: "POST",
-          body: formData,
-          mode: "no-cors", // Required for Mailchimp
+      if (!response.ok) {
+        if (response.status === 409) {
+          setSuccessMessage("You're already subscribed.");
+          setIsSubmitted(true);
+          return;
         }
-      );
+        throw new Error(data?.error || "Failed to subscribe.");
+      }
 
-      // With no-cors mode, we can't check response status
-      // So we assume success if no error was thrown
+      setSuccessMessage(null);
       setIsSubmitted(true);
     } catch (error) {
-      console.error("Error submitting form:", error);
-      // Still show success for better UX, but log the error
-      setIsSubmitted(true);
+      setError(error instanceof Error ? error.message : "Failed to subscribe.");
     } finally {
       setIsLoading(false);
     }
@@ -100,12 +103,15 @@ export default function Newsletter() {
                       >
                         {isLoading ? "Subscribing..." : "Subscribe"}
                       </button>
+                      {error && (
+                        <p className="text-xs text-[#ff5555]">{error}</p>
+                      )}
                     </form>
                   ) : (
                     <div className="text-center space-y-4">
                       <div className="text-4xl">✨</div>
                       <h3 className="text-xl font-medium text-[#50fa7b]">
-                        You're in!
+                        {successMessage ?? "You're in!"}
                       </h3>
                       <p className="text-[#f8f8f2]">
                         Thanks for joining the vibe! I'll share my latest

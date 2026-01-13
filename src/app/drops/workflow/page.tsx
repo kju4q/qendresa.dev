@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Footer, TransitionLayout } from "@/components";
 import WorkflowDropGate from "./workflow-drop-gate";
-import "../home/home.css";
+import "../../home/home.css";
 
 export const dynamic = "force-dynamic";
 
@@ -14,19 +14,22 @@ export const metadata = {
 };
 
 type PageProps = {
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 };
 
-function getToken(searchParams?: Record<string, string | string[] | undefined>) {
-  const raw = searchParams?.token;
+async function getToken(
+  searchParams?: Promise<Record<string, string | string[] | undefined>>
+) {
+  const resolved = searchParams ? await searchParams : undefined;
+  const raw = resolved?.token;
   if (Array.isArray(raw)) {
     return raw[0] || "";
   }
   return raw || "";
 }
 
-export default function WorkflowDropPage({ searchParams }: PageProps) {
-  const token = getToken(searchParams);
+export default async function WorkflowDropPage({ searchParams }: PageProps) {
+  const token = await getToken(searchParams);
   if (!token) {
     notFound();
   }

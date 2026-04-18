@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type GateStatus =
   | "checking"
@@ -51,6 +51,27 @@ Verify + iterate
 - Tests / checks:
 - What to refine:`;
 
+const promptCards = [
+  {
+    id: "prompt-plan",
+    title: "Prompt 1 - clarify + plan",
+    body:
+      "Act as my senior engineer. Ask any missing questions about the outcome and constraints below. Then give me a short plan (3-7 steps) before any code.",
+  },
+  {
+    id: "prompt-build",
+    title: "Prompt 2 - build in chunks",
+    body:
+      "Implement step 1 only. Provide the smallest change set and ask me to confirm before continuing.",
+  },
+  {
+    id: "prompt-verify",
+    title: "Prompt 3 - verify",
+    body:
+      "Review this change for bugs, regressions, and missing tests. Be critical.",
+  },
+];
+
 export default function WorkflowDropGate({ token }: WorkflowDropGateProps) {
   const [status, setStatus] = useState<GateStatus>("checking");
   const [form, setForm] = useState<GateForm>({
@@ -59,6 +80,8 @@ export default function WorkflowDropGate({ token }: WorkflowDropGateProps) {
     email: "",
   });
   const [error, setError] = useState<string | null>(null);
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const autoRedeemRef = useRef(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -75,7 +98,14 @@ export default function WorkflowDropGate({ token }: WorkflowDropGateProps) {
         );
         if (!isMounted) return;
 
+        const data = await response.json().catch(() => ({}));
+
         if (response.ok) {
+          if (data?.autoUnlock && !autoRedeemRef.current) {
+            autoRedeemRef.current = true;
+            await redeemToken();
+            return;
+          }
           setStatus("ready");
           return;
         }
@@ -104,8 +134,7 @@ export default function WorkflowDropGate({ token }: WorkflowDropGateProps) {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const redeemToken = async (override?: Partial<GateForm>) => {
     setError(null);
     setStatus("submitting");
 
@@ -115,9 +144,9 @@ export default function WorkflowDropGate({ token }: WorkflowDropGateProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           token,
-          email: form.email,
-          firstName: form.firstName,
-          lastName: form.lastName,
+          email: override?.email ?? form.email,
+          firstName: override?.firstName ?? form.firstName,
+          lastName: override?.lastName ?? form.lastName,
         }),
       });
       const data = await response.json().catch(() => ({}));
@@ -132,7 +161,7 @@ export default function WorkflowDropGate({ token }: WorkflowDropGateProps) {
         return;
       }
 
-      if (response.status === 404 || response.status === 400) {
+      if (response.status === 404) {
         setStatus("invalid");
         setError(data?.error || "This link is not valid.");
         return;
@@ -146,21 +175,63 @@ export default function WorkflowDropGate({ token }: WorkflowDropGateProps) {
     }
   };
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await redeemToken();
+  };
+
   const showForm = status === "ready" || status === "submitting";
   const showContent = status === "unlocked";
 
+  const handleCopy = async (key: string, value: string) => {
+    try {
+      if (!navigator?.clipboard) {
+        setCopiedKey(null);
+        return;
+      }
+      await navigator.clipboard.writeText(value);
+      setCopiedKey(key);
+      setTimeout(() => {
+        setCopiedKey((current) => (current === key ? null : current));
+      }, 1800);
+    } catch {
+      setCopiedKey(null);
+    }
+  };
+
   return (
-    <section className="space-y-6">
-      <div className="space-y-2">
-        <p className="text-[#6272a4] text-xs uppercase tracking-[0.3em]">
-          Private Drop
-        </p>
-        <h1 className="text-2xl font-mono text-[#50fa7b]">Workflow That Ships</h1>
-        <p className="text-[#f8f8f2] text-sm leading-relaxed">
-          Most people ask AI for "the code" and then waste time fixing it. This
-          is the workflow I use to ship cleanly and fast, with a one-page
-          template and copy/paste prompts you can use today.
-        </p>
+    <section className="space-y-8">
+      <div className="relative overflow-hidden rounded-xl border border-[#44475a] bg-[#1f2130]/80 p-6">
+        <div className="pointer-events-none absolute -right-16 -top-12 h-40 w-40 rounded-full bg-[#50fa7b]/10 blur-2xl" />
+        <div className="pointer-events-none absolute -left-20 bottom-0 h-40 w-40 rounded-full bg-[#ff79c6]/10 blur-2xl" />
+        <div className="relative space-y-3">
+          <p className="text-[#6272a4] text-xs uppercase tracking-[0.3em]">
+            Private Drop
+          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <h1 className="text-2xl font-mono text-[#50fa7b]">
+              Workflow That Ships
+            </h1>
+            <span className="rounded-full border border-[#44475a] px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-[#6272a4]">
+              One-page kit
+            </span>
+          </div>
+          <p className="text-[#f8f8f2] text-sm leading-relaxed">
+            Most people ask AI for "the code" and then waste time fixing it. This
+            is the workflow I use to ship cleanly and fast, with a one-page
+            template and copy/paste prompts you can use today.
+          </p>
+          <div className="flex flex-wrap gap-2 text-[11px] text-[#6272a4]">
+            {["Template", "Prompt pack", "5-step flow"].map((item) => (
+              <span
+                key={item}
+                className="rounded-full border border-[#44475a] px-3 py-1"
+              >
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
 
       {status === "checking" && (
@@ -190,80 +261,123 @@ export default function WorkflowDropGate({ token }: WorkflowDropGateProps) {
       )}
 
       {showForm && (
-        <div className="border border-[#44475a] rounded-lg p-6 bg-[#282a36]/30">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid gap-3 md:grid-cols-2">
-              <input
-                type="text"
-                placeholder="First name"
-                value={form.firstName}
-                onChange={(event) => handleChange("firstName")(event.target.value)}
-                className="w-full px-4 py-2 bg-[#44475a] border border-[#6272a4] rounded text-[#f8f8f2] placeholder-[#6272a4] focus:outline-none focus:border-[#50fa7b] focus:ring-1 focus:ring-[#50fa7b]"
-                required
-                disabled={status === "submitting"}
-                autoComplete="given-name"
-              />
-              <input
-                type="text"
-                placeholder="Last name"
-                value={form.lastName}
-                onChange={(event) => handleChange("lastName")(event.target.value)}
-                className="w-full px-4 py-2 bg-[#44475a] border border-[#6272a4] rounded text-[#f8f8f2] placeholder-[#6272a4] focus:outline-none focus:border-[#50fa7b] focus:ring-1 focus:ring-[#50fa7b]"
-                required
-                disabled={status === "submitting"}
-                autoComplete="family-name"
-              />
+        <div className="relative overflow-hidden rounded-xl border border-[#44475a] bg-[#282a36]/40 p-6">
+          <div className="pointer-events-none absolute -left-24 top-10 h-40 w-40 rounded-full bg-[#8be9fd]/10 blur-2xl" />
+          <div className="relative space-y-4">
+            <div>
+              <h2 className="text-sm font-semibold text-[#f8f8f2]">
+                Unlock your copy
+              </h2>
+              <p className="mt-1 text-xs text-[#6272a4]">
+                Add your details to unlock the drop and get future templates.
+              </p>
             </div>
-            <input
-              type="email"
-              placeholder="you@email.com"
-              value={form.email}
-              onChange={(event) => handleChange("email")(event.target.value)}
-              className="w-full px-4 py-2 bg-[#44475a] border border-[#6272a4] rounded text-[#f8f8f2] placeholder-[#6272a4] focus:outline-none focus:border-[#50fa7b] focus:ring-1 focus:ring-[#50fa7b]"
-              required
-              disabled={status === "submitting"}
-              autoComplete="email"
-            />
-            <button
-              type="submit"
-              disabled={status === "submitting"}
-              className="w-full bg-[#44475a] border border-[#6272a4] text-[#f8f8f2] font-medium py-2 px-4 rounded hover:bg-[#6272a4] hover:border-[#50fa7b] hover:text-[#50fa7b] focus:outline-none focus:ring-2 focus:ring-[#50fa7b] focus:ring-offset-2 focus:ring-offset-[#282a36] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {status === "submitting" ? "Unlocking..." : "Unlock the drop"}
-            </button>
-            {error && <p className="text-xs text-[#ff5555]">{error}</p>}
-            <p className="text-xs text-[#6272a4]">
-              Your info is added to my newsletter list so I can send the next
-              drop. No spam.
-            </p>
-          </form>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid gap-3 md:grid-cols-2">
+                <input
+                  type="text"
+                  placeholder="First name"
+                  value={form.firstName}
+                  onChange={(event) => handleChange("firstName")(event.target.value)}
+                  className="w-full px-4 py-2 bg-[#44475a] border border-[#6272a4] rounded text-[#f8f8f2] placeholder-[#6272a4] focus:outline-none focus:border-[#50fa7b] focus:ring-1 focus:ring-[#50fa7b]"
+                  required
+                  disabled={status === "submitting"}
+                  autoComplete="given-name"
+                />
+                <input
+                  type="text"
+                  placeholder="Last name"
+                  value={form.lastName}
+                  onChange={(event) => handleChange("lastName")(event.target.value)}
+                  className="w-full px-4 py-2 bg-[#44475a] border border-[#6272a4] rounded text-[#f8f8f2] placeholder-[#6272a4] focus:outline-none focus:border-[#50fa7b] focus:ring-1 focus:ring-[#50fa7b]"
+                  required
+                  disabled={status === "submitting"}
+                  autoComplete="family-name"
+                />
+              </div>
+              <input
+                type="email"
+                placeholder="you@email.com"
+                value={form.email}
+                onChange={(event) => handleChange("email")(event.target.value)}
+                className="w-full px-4 py-2 bg-[#44475a] border border-[#6272a4] rounded text-[#f8f8f2] placeholder-[#6272a4] focus:outline-none focus:border-[#50fa7b] focus:ring-1 focus:ring-[#50fa7b]"
+                required
+                disabled={status === "submitting"}
+                autoComplete="email"
+              />
+              <button
+                type="submit"
+                disabled={status === "submitting"}
+                className="w-full bg-[#44475a] border border-[#6272a4] text-[#f8f8f2] font-medium py-2 px-4 rounded hover:bg-[#6272a4] hover:border-[#50fa7b] hover:text-[#50fa7b] focus:outline-none focus:ring-2 focus:ring-[#50fa7b] focus:ring-offset-2 focus:ring-offset-[#282a36] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {status === "submitting" ? "Unlocking..." : "Unlock the drop"}
+              </button>
+              {error && <p className="text-xs text-[#ff5555]">{error}</p>}
+              <p className="text-xs text-[#6272a4]">
+                Your info is added to my newsletter list so I can send the next
+                drop. No spam.
+              </p>
+            </form>
+          </div>
         </div>
       )}
 
       {showContent && (
         <>
-          <div className="border border-[#44475a] rounded-lg p-5 bg-[#282a36]/40">
-            <h2 className="text-sm font-semibold text-[#f8f8f2]">
-              The 5-Step Flow
-            </h2>
-            <ul className="mt-3 space-y-3 text-sm text-[#f8f8f2]">
-              {workflowSteps.map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <span
-                    className="mt-2 h-1.5 w-1.5 rounded-full bg-[#50fa7b]"
-                    aria-hidden="true"
-                  />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_260px]">
+            <div className="rounded-xl border border-[#44475a] bg-[#282a36]/40 p-5">
+              <div className="flex items-center justify-between">
+                <h2 className="text-sm font-semibold text-[#f8f8f2]">
+                  The 5-Step Flow
+                </h2>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-[#6272a4]">
+                  Sequence
+                </span>
+              </div>
+              <ol className="mt-4 space-y-4 text-sm text-[#f8f8f2]">
+                {workflowSteps.map((item, index) => (
+                  <li key={item} className="flex gap-3">
+                    <span className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full border border-[#44475a] text-xs font-semibold text-[#50fa7b]">
+                      {index + 1}
+                    </span>
+                    <span className="leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <aside className="rounded-xl border border-[#44475a] bg-[#1f2130] p-5 text-sm text-[#f8f8f2]">
+              <h3 className="text-xs uppercase tracking-[0.2em] text-[#6272a4]">
+                Quick use
+              </h3>
+              <ul className="mt-3 space-y-3 text-sm text-[#f8f8f2]">
+                {[
+                  "Paste the template into your doc before coding.",
+                  "Use Prompt 1 to force clarity before any output.",
+                  "Ship one chunk at a time and review the diff.",
+                ].map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[#50fa7b]" />
+                    <span className="text-[#f8f8f2] leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </aside>
           </div>
 
           <section className="space-y-3">
-            <h2 className="text-sm font-semibold text-[#f8f8f2]">
-              1-Page Template
-            </h2>
-            <div className="border border-[#44475a] rounded-lg bg-[#1f2130] p-4 text-sm text-[#f8f8f2]">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-sm font-semibold text-[#f8f8f2]">
+                1-Page Template
+              </h2>
+              <button
+                type="button"
+                onClick={() => handleCopy("template", workflowTemplate)}
+                className="rounded-full border border-[#44475a] px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-[#6272a4] hover:text-[#50fa7b]"
+              >
+                {copiedKey === "template" ? "Copied" : "Copy template"}
+              </button>
+            </div>
+            <div className="rounded-xl border border-[#44475a] bg-[#1f2130] p-4 text-sm text-[#f8f8f2]">
               <pre className="whitespace-pre-wrap font-mono text-[13px] leading-relaxed">
                 {workflowTemplate}
               </pre>
@@ -274,35 +388,27 @@ export default function WorkflowDropGate({ token }: WorkflowDropGateProps) {
             <h2 className="text-sm font-semibold text-[#f8f8f2]">
               Copy/Paste Prompts
             </h2>
-            <div className="space-y-3 text-sm text-[#f8f8f2]">
-              <div className="border border-[#44475a] rounded-lg bg-[#282a36]/50 p-4">
-                <p className="text-[#50fa7b] text-xs uppercase tracking-wide">
-                  Prompt 1 — clarify + plan
-                </p>
-                <p className="mt-2 leading-relaxed">
-                  Act as my senior engineer. Ask any missing questions about
-                  the outcome and constraints below. Then give me a short plan
-                  (3-7 steps) before any code.
-                </p>
-              </div>
-              <div className="border border-[#44475a] rounded-lg bg-[#282a36]/50 p-4">
-                <p className="text-[#50fa7b] text-xs uppercase tracking-wide">
-                  Prompt 2 — build in chunks
-                </p>
-                <p className="mt-2 leading-relaxed">
-                  Implement step 1 only. Provide the smallest change set and
-                  ask me to confirm before continuing.
-                </p>
-              </div>
-              <div className="border border-[#44475a] rounded-lg bg-[#282a36]/50 p-4">
-                <p className="text-[#50fa7b] text-xs uppercase tracking-wide">
-                  Prompt 3 — verify
-                </p>
-                <p className="mt-2 leading-relaxed">
-                  Review this change for bugs, regressions, and missing tests.
-                  Be critical.
-                </p>
-              </div>
+            <div className="grid gap-4">
+              {promptCards.map((prompt) => (
+                <div
+                  key={prompt.id}
+                  className="rounded-xl border border-[#44475a] bg-[#282a36]/50 p-4 text-sm text-[#f8f8f2]"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <p className="text-[#50fa7b] text-xs uppercase tracking-wide">
+                      {prompt.title}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(prompt.id, prompt.body)}
+                      className="rounded-full border border-[#44475a] px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-[#6272a4] hover:text-[#50fa7b]"
+                    >
+                      {copiedKey === prompt.id ? "Copied" : "Copy"}
+                    </button>
+                  </div>
+                  <p className="mt-2 leading-relaxed">{prompt.body}</p>
+                </div>
+              ))}
             </div>
           </section>
 

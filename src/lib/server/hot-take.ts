@@ -1,8 +1,51 @@
 import "server-only";
 
 import crypto from "crypto";
+import Anthropic from "@anthropic-ai/sdk";
 
 const DEFAULT_SALT = "qendresa-hot-take-salt";
+
+// Fast word-list check — words stored in env so they stay out of the public repo
+function containsBlockedWord(text: string): boolean {
+  const raw = process.env.HOT_TAKE_BLOCKED_WORDS ?? "";
+  if (!raw) return false;
+  const words = raw.split(",").map((w) => w.trim().toLowerCase()).filter(Boolean);
+  const lower = text.toLowerCase().replace(/[^a-z0-9\s]/g, "");
+  return words.some((word) => new RegExp(`\\b${word}\\b`).test(lower));
+}
+
+// Claude moderation — catches creative bypasses, hate speech, harassment
+async function checkWithClaude(text: string): Promise<boolean> {
+  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+  const message = await client.messages.create({
+    model: "claude-haiku-4-5-20251001",
+    max_tokens: 5,
+    messages: [
+      {
+        role: "user",
+        content: `Is the following text inappropriate (hate speech, slurs, harassment, explicit sexual content, threats)? Reply only "yes" or "no".\n\nText: "${text}"`,
+      },
+    ],
+  });
+  const reply = (message.content[0] as { type: string; text: string }).text
+    .trim()
+    .toLowerCase();
+  return reply.startsWith("yes");
+}
+
+// Returns a rejection reason or null if content is clean
+export async function moderateHotTake(text: string): Promise<string | null> {
+  if (containsBlockedWord(text)) {
+    return "Your hot take contains inappropriate content.";
+  }
+  try {
+    const flagged = await checkWithClaude(text);
+    if (flagged) return "Your hot take contains inappropriate content.";
+  } catch {
+    // If Claude is unavailable, don't block the submission — word list already ran
+  }
+  return null;
+}
 
 export function getUserHash(anonId: string): string {
   const salt = process.env.HOT_TAKE_SALT || DEFAULT_SALT;
@@ -10,7 +53,9 @@ export function getUserHash(anonId: string): string {
 }
 
 export function getWeekStartUtc(date: Date = new Date()): string {
-  const utc = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+  const utc = new Date(
+    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()),
+  );
   const day = utc.getUTCDay(); // 0 Sunday - 6 Saturday
   const diff = day === 0 ? -6 : 1 - day; // Monday start
   utc.setUTCDate(utc.getUTCDate() + diff);

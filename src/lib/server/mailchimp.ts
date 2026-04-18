@@ -17,12 +17,22 @@ type SubscribeInput = {
   lastName?: string;
 };
 
+function normalizeMergeTag(value: string): string {
+  return value
+    .replace(/\*\|/g, "")
+    .replace(/\|\*/g, "")
+    .trim()
+    .toUpperCase();
+}
+
 export async function subscribeToMailchimp(
   input: SubscribeInput
 ): Promise<MailchimpSubscribeResult> {
   const mailchimpApiKey = process.env.MAILCHIMP_API_KEY;
   const mailchimpAudienceId = process.env.MAILCHIMP_AUDIENCE_ID;
   const mailchimpServerPrefix = process.env.MAILCHIMP_SERVER_PREFIX;
+  const firstNameTag = normalizeMergeTag(process.env.MAILCHIMP_FIRST_NAME_TAG || "FNAME");
+  const lastNameTag = normalizeMergeTag(process.env.MAILCHIMP_LAST_NAME_TAG || "LNAME");
 
   if (!mailchimpApiKey || !mailchimpAudienceId || !mailchimpServerPrefix) {
     throw new Error("Missing Mailchimp environment variables.");
@@ -33,11 +43,11 @@ export async function subscribeToMailchimp(
   const url = `https://${mailchimpServerPrefix}.api.mailchimp.com/3.0/lists/${mailchimpAudienceId}/members/${subscriberHash}`;
 
   const mergeFields: Record<string, string> = {};
-  if (input.firstName) {
-    mergeFields.FNAME = input.firstName;
+  if (input.firstName && firstNameTag) {
+    mergeFields[firstNameTag] = input.firstName;
   }
-  if (input.lastName) {
-    mergeFields.LNAME = input.lastName;
+  if (input.lastName && lastNameTag) {
+    mergeFields[lastNameTag] = input.lastName;
   }
 
   const body = {

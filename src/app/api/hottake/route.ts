@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseServer } from "@/lib/server/supabase";
-import { getUserHash, getWeekStartUtc, sanitizeHotTake } from "@/lib/server/hot-take";
+import { getUserHash, getWeekStartUtc, sanitizeHotTake, moderateHotTake } from "@/lib/server/hot-take";
 import { getClientIp, rateLimit } from "@/lib/server/rate-limit";
 
 export const dynamic = "force-dynamic";
@@ -80,6 +80,11 @@ export async function POST(request: NextRequest) {
     }
     if (cleaned.length > 240) {
       return NextResponse.json({ error: "Hot take is too long (max 240)." }, { status: 400 });
+    }
+
+    const moderationError = await moderateHotTake(cleaned);
+    if (moderationError) {
+      return NextResponse.json({ error: moderationError }, { status: 400 });
     }
 
     const userHash = getUserHash(anonId);

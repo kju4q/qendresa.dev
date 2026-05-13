@@ -14,7 +14,7 @@ function containsBlockedWord(text: string): boolean {
   return words.some((word) => new RegExp(`\\b${word}\\b`).test(lower));
 }
 
-// Claude moderation — catches creative bypasses, hate speech, harassment
+// Claude moderation — catches hate speech, harassment, and non-genuine submissions
 async function checkWithClaude(text: string): Promise<boolean> {
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
   const message = await client.messages.create({
@@ -23,7 +23,7 @@ async function checkWithClaude(text: string): Promise<boolean> {
     messages: [
       {
         role: "user",
-        content: `Is the following text inappropriate (hate speech, slurs, harassment, explicit sexual content, threats)? Reply only "yes" or "no".\n\nText: "${text}"`,
+        content: `Should the following text be rejected from a public hot-takes board? Reject it if it is: hate speech, slurs, harassment, explicit sexual content, threats, a test/spam message, random/gibberish text, a single generic word (like "test", "hello", "hi", "ok"), or not a real opinion or statement. Reply only "yes" or "no".\n\nText: "${text}"`,
       },
     ],
   });

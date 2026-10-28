@@ -1,0 +1,93 @@
+/* Qendresa - generated from tokens.json */
+:root, [data-theme="light"] {
+  --ground: #f7f1ec;
+  --surface: #ffffff;
+  --ink: #2a2230;
+  --muted: #6d6270;
+  --line: #e8dfd9;
+  --cocoa: #5a4248;
+  --pink-soft: #fbe7ec;
+  --pink: #f4b8c6;
+  --rose: #b03f66;
+  --butter-soft: #fdf3d2;
+  --butter: #f5d67a;
+  --honey: #80620e;
+  --lilac-soft: #eee9fa;
+  --lilac: #c8b6f0;
+  --violet: #6c4fc4;
+  --mint-soft: #e9f6ee;
+  --mint: #bfe3cf;
+  --moss: #2b724f;
+  --peach-soft: #fdeee3;
+  --peach: #f8c8a8;
+  --clay: #a34a24;
+  --terminal: #1e1a24;
+  --terminal-bar: #2a2230;
+  --terminal-text: #f1e9ec;
+  --terminal-muted: #a79cae;
+  --on-butter: #2a2230;
+  --link: var(--rose);
+  --focus: var(--honey);
+}
+[data-theme="dark"] {
+  --ground: #241c1f;
+  --surface: #302529;
+  --ink: #f6ece9;
+  --muted: #b3a3a6;
+  --line: #433539;
+  --cocoa: #b3a3a6;
+  --pink-soft: #432f36;
+  --pink: #f7c5d1;
+  --rose: #f7c5d1;
+  --butter-soft: #423826;
+  --butter: #f5d67a;
+  --honey: #f5d67a;
+  --lilac-soft: #372f44;
+  --lilac: #c8b6f0;
+  --violet: #c8b6f0;
+  --mint-soft: #27382f;
+  --mint: #bfe3cf;
+  --moss: #bfe3cf;
+  --peach-soft: #46322a;
+  --peach: #f8c8a8;
+  --clay: #f8c8a8;
+  --terminal: #1a1416;
+  --terminal-bar: #302529;
+  --terminal-text: #f6ece9;
+  --terminal-muted: #b3a3a6;
+  --on-butter: #241c1f;
+  --link: var(--pink);
+  --focus: var(--butter);
+}
+:root {
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 48px;
+  --measure: 62ch;
+  --page: 1040px;
+  --radius-card: 22px;
+  --radius-terminal: 12px;
+  --radius-tag: 10px;
+  --radius-pill: 999px;
+  --fast: 160ms;
+  --base: 260ms;
+  --slow: 600ms;
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --blink: 1s steps(1);
+  --type: 1.4s steps(26);
+  --font-serif: "Young Serif", Georgia, serif;
+  --font-sans: "Figtree", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --font-sticker: "Fredoka", "Figtree", sans-serif;
+}
+.display{font-family:var(--font-serif);font-size:38px;line-height:42px;font-weight:400;}
+.title{font-family:var(--font-serif);font-size:24px;line-height:30px;font-weight:400;}
+.heading{font-family:var(--font-serif);font-size:19px;line-height:26px;font-weight:400;}
+.body{font-family:var(--font-sans);font-size:16px;line-height:26px;font-weight:400;}
+.body-strong{font-family:var(--font-sans);font-size:16px;line-height:26px;font-weight:600;}
+.small{font-family:var(--font-sans);font-size:13px;line-height:20px;font-weight:400;}
+.label{font-family:var(--font-mono);font-size:11px;line-height:16px;font-weight:500; letter-spacing:0.08em;}
+.terminal{font-family:var(--font-mono);font-size:14px;line-height:22px;font-weight:400;}
+.code{font-family:var(--font-mono);font-size:13px;line-height:21px;font-weight:400;}
+.sticker-word{font-family:var(--font-sticker);font-size:16px;line-height:20px;font-weight:500;}

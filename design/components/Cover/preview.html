@@ -1,0 +1,36 @@
+<!-- @dsCard height=288 -->
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400&display=swap">
+<style>
+html,body{margin:0;background:var(--ground);color:var(--ink)}
+.cover{position:relative;width:960px;height:288px;overflow:hidden}
+svg{position:absolute;inset:0;width:960px;height:288px}
+.term{fill:var(--terminal)}.butter{fill:var(--butter)}.pink{fill:var(--pink)}.lilac{fill:var(--lilac)}.mint{fill:var(--mint)}.peach{fill:var(--peach)}
+.rt{rx:var(--radius-terminal)}.rc{rx:var(--radius-card)}.rg{rx:var(--radius-tag)}
+.name{position:absolute;left:48px;bottom:56px;font-family:var(--font-serif);font-weight:400;font-size:96px;line-height:.92;max-width:440px;margin:0}
+.tag{position:absolute;left:50px;bottom:28px;font-family:var(--font-sans);font-size:14px;line-height:20px;color:var(--muted);max-width:440px;margin:0}
+</style></head><body>
+<div class="cover">
+<!--
+blocks: terminal 240x192 (space-4 x 5 by 4) rx radius-terminal; butter 184x240 rx radius-card; pink 180x72 rx radius-card; lilac 60x72 rx radius-tag; mint disc r 36 (space-3 x 1.5); peach 48x48 rx radius-tag
+arrangement: one dark slab top left of the zone with a tall butter slab bleeding off the right edge, a strip of pink, lilac and peach along the bottom, the mint disc floating over the seam
+pattern: the cursor block, the mark the site is known by: twelve pink cursors 13x24 on a 48px pitch (space-4) stepping down the terminal slab, chosen because the brand opens on a terminal and the pink cursor is the one shape on every page
+scales: pitch space-4 48, gaps space-2 16 and space-3 24, radii radius-terminal 12, radius-card 22, radius-tag 10
+-->
+<svg viewBox="0 0 960 288" aria-hidden="true">
+  <rect class="term rt" x="520" y="0" width="240" height="192"/>
+  <rect class="butter rc" x="776" y="48" width="184" height="264"/>
+  <rect class="pink rc" x="520" y="216" width="180" height="96"/>
+  <rect class="lilac rg" x="716" y="216" width="60" height="96"/>
+  <rect class="peach rg" x="776" y="0" width="48" height="32"/>
+  <circle class="mint" cx="760" cy="200" r="36"/>
+  <g class="pink">
+    <rect x="544" y="24" width="13" height="24"/><rect x="592" y="24" width="13" height="24"/><rect x="640" y="24" width="13" height="24"/><rect x="688" y="24" width="13" height="24"/>
+    <rect x="568" y="72" width="13" height="24"/><rect x="616" y="72" width="13" height="24"/><rect x="664" y="72" width="13" height="24"/><rect x="712" y="72" width="13" height="24"/>
+    <rect x="544" y="120" width="13" height="24"/><rect x="592" y="120" width="13" height="24"/><rect x="640" y="120" width="13" height="24"/><rect x="688" y="120" width="13" height="24"/>
+  </g>
+</svg>
+<h1 class="name">Qendresa</h1>
+<p class="tag">Milky or cocoa, three type jobs, stickers that mean something.</p>
+</div>
+</body></html>

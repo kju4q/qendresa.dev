@@ -1,0 +1,14 @@
+<!-- @dsCard group="Actions" height=120 subtitle="Pill, butter primary, quiet secondary" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Fredoka:wght@500&display=swap"><style>
+html,body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:26px}
+body{padding:16px}
+.serif{font-family:var(--font-serif);font-weight:400}
+.mono{font-family:var(--font-mono)}
+.lab{font-family:var(--font-mono);font-size:11px;line-height:16px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;box-shadow:0 0 0 6px var(--butter-soft)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:0s!important}}
+</style><style>.r{display:flex;gap:var(--space-2);flex-wrap:wrap;align-items:center}
+.b{font:600 16px/26px var(--font-sans);padding:10px 18px;border-radius:var(--radius-pill);border:1px solid transparent;cursor:pointer;transition:transform 160ms cubic-bezier(.2,.7,.2,1)}
+.b:active{transform:scale(.97)}.b:disabled{opacity:.45;cursor:default}
+.p{background:var(--butter);color:var(--on-butter)}.s{background:var(--surface);border-color:var(--line);color:var(--ink)}.s:hover{border-color:var(--muted)}
+.t{background:var(--terminal);color:var(--terminal-text);font-family:var(--font-mono);font-weight:500;font-size:14px}.t b{color:var(--butter);font-weight:500}</style></head><body><div class="r"><button class="b p">Join the waitlist</button><button class="b s">Copy the prompt</button><button class="b t"><b>❯</b> run it</button><button class="b p" disabled>Join the waitlist</button></div></body></html>

@@ -1,0 +1,21 @@
+<!-- @dsCard group="Library" height=300 subtitle="Equal height, three zones, a moment dot" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Figtree:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Fredoka:wght@500&display=swap"><style>
+html,body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--font-sans);font-size:16px;line-height:26px}
+body{padding:16px}
+.serif{font-family:var(--font-serif);font-weight:400}
+.mono{font-family:var(--font-mono)}
+.lab{font-family:var(--font-mono);font-size:11px;line-height:16px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px;box-shadow:0 0 0 6px var(--butter-soft)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation-duration:0s!important}}
+</style><style>.row{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);align-items:stretch;max-width:760px}
+.card{position:relative;display:grid;grid-template-rows:auto 1fr auto auto;gap:var(--space-1);background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-card);padding:var(--space-3);text-decoration:none;color:var(--ink);min-height:200px;transition:transform 160ms cubic-bezier(.2,.7,.2,1),border-color 160ms}
+.card:hover{transform:translateY(-2px);border-color:var(--muted)}.card:active{transform:scale(.97)}
+.card.sel{background:var(--mint-soft)}
+.dot{position:absolute;top:12px;right:12px;width:10px;height:10px;border-radius:50%}
+.bar{position:absolute;top:0;left:16px;right:16px;height:3px;border-radius:0 0 3px 3px}
+.pic{display:flex;align-items:flex-end;min-height:40px}
+.t{font-size:19px;line-height:26px}.d{font-size:13px;line-height:20px;color:var(--muted)}</style></head><body><div class="row">
+<a class="card" href="#"><span class="dot" style="background:var(--pink)"></span><span class="lab" style="color:var(--rose)">know yourself</span><span class="pic"><img src="/_blob/263f180d382f1d37e0592fbffe87c949" alt="" style="width:56px;transform:rotate(11deg)"></span><span class="t serif">The me file</span><span class="d">One file that tells every agent who you are before it writes a line.</span></a>
+<a class="card" href="#"><span class="dot" style="background:var(--lilac)"></span><span class="lab" style="color:var(--violet)">think</span><span class="pic"><img src="/_blob/c30d024a5f4511d6b49c80279a602dec" alt="" style="width:88px;transform:rotate(-6deg)"></span><span class="t serif">The harness tax</span><span class="d">Same model, two harnesses, one bill five times bigger.</span></a>
+<a class="card sel" href="#"><span class="bar" style="background:var(--mint)"></span><span class="lab" style="color:var(--moss)">check</span><span class="pic"></span><span class="t serif">The audit package skill</span><span class="d">Five checks before an agent installs anything.</span></a>
+</div></body></html>

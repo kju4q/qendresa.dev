@@ -1,8 +1,18 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Figtree, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
+const figtree = Figtree({
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  variable: "--font-figtree",
+});
+const plexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
+});
 
 export const metadata: Metadata = {
   title: "Qendresa Hoti",
@@ -18,7 +28,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
+    <html
+      lang="en"
+      className={`${figtree.variable} ${plexMono.variable} h-full`}
+    >
       <body
         className={`${inter.className} h-full`}
         // Explicitly allow Grammarly attributes to prevent React hydration warnings

@@ -9,7 +9,7 @@ export const terminalConfig = {
   cursorBlink: true,
 
   // Commands
-  welcomeMessage: "q//os ready — pick a mode:",
+  welcomeMessage: "q//os ready, pick a mode:",
 
   // Command history limit
   maxHistorySize: 50,

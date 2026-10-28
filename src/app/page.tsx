@@ -7,23 +7,23 @@ import "./labs/terminal/terminal-styles.css";
 export default function Home() {
   return (
     <div
-      className="terminal-page flex flex-col min-h-screen justify-center"
+      className="terminal-page qos-landing flex flex-col min-h-screen justify-center"
       style={{ backgroundColor: "transparent" }}
     >
       <div
-        className="terminal-window rounded-t-lg overflow-hidden shadow-xl transform rotate-0.5 mx-auto max-w-4xl"
+        className="terminal-window rounded-[12px] overflow-hidden mx-auto max-w-4xl"
         style={{ border: "2px solid var(--q-accent)" }}
       >
         <header
           className="terminal-titlebar p-2 flex items-center justify-between"
           style={{
-            backgroundColor: "rgba(0,0,0,0.2)",
-            borderBottom: "1px solid var(--q-accent)",
+            backgroundColor: "var(--terminal-bar)",
+            borderBottom: "1px solid var(--terminal-bar)",
           }}
         >
           <div className="flex items-center gap-2 ml-1">
             <span className="terminal-icon text-[var(--q-accent)]">❯</span>
-            <span className="text-sm font-mono font-semibold">q//os</span>
+            <span className="text-sm font-semibold">q//os</span>
           </div>
           <div className="text-sm font-medium text-center flex items-center gap-1">
             <span className="text-[var(--q-accent)]">terminal@</span>
@@ -35,20 +35,20 @@ export default function Home() {
         </header>
         <main
           className="terminal-body"
-          style={{ backgroundColor: "rgb(40 42 54)" }}
+          style={{ backgroundColor: "var(--terminal)" }}
         >
           <div className="h-[450px]">
             <TerminalClientWrapper />
           </div>
         </main>
       </div>
-      <footer className="mt-6 text-sm text-[var(--q-muted)] text-center mx-auto">
+      <footer className="mt-6 text-sm text-[var(--muted)] text-center mx-auto">
         <p className="flex items-center justify-center gap-2">
-          <span className="text-[var(--q-accent)]">❯</span>
+          <span className="text-[var(--butter)]">❯</span>
           <span>© {new Date().getFullYear()} Qendresa Hoti</span>
           <PageTransition
             href="/home"
-            className="ml-1 text-[var(--q-accent)] hover:underline flex items-center"
+            className="ml-1 text-[var(--link)] hover:underline flex items-center"
           >
             <span className="mr-1">cd /home</span>
             <span className="text-xs">↩</span>

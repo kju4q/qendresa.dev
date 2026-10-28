@@ -113,8 +113,8 @@ export default function SimpleTerminal() {
       },
       {
         content: `<div class="mt-2">
-          <span class="interactive-option" data-option="g">[ g ] guess my city</span>    
-          <span class="interactive-option" data-option="hot">[ hot ] hot board</span>
+          <span class="interactive-option" data-option="g"><span class="qos-kw">[ g ]</span> guess my city</span>    
+          <span class="interactive-option" data-option="hot"><span class="qos-kw">[ hot ]</span> hot board</span>
         </div>`,
         type: "system",
       },
@@ -641,7 +641,7 @@ export default function SimpleTerminal() {
         } else if (line.type === "input") {
           // Input commands
           return (
-            <div key={index} className="whitespace-pre-wrap mb-1 font-bold">
+            <div key={index} className="whitespace-pre-wrap mb-1 font-medium">
               {line.content}
             </div>
           );
@@ -698,7 +698,7 @@ export default function SimpleTerminal() {
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
         className="flex-1 bg-transparent border-none outline-none px-1"
-        style={{ caretColor: "var(--q-accent)" }}
+        style={{ caretColor: "var(--pink)" }}
         autoFocus
         aria-label="Terminal input"
         spellCheck="false"
@@ -721,18 +721,18 @@ export default function SimpleTerminal() {
       className="qos-terminal w-full h-full overflow-hidden font-mono text-sm"
       style={{
         color: "var(--q-text)",
-        backgroundColor: "rgb(40 42 54)",
+        backgroundColor: "var(--terminal)",
         borderColor: "var(--q-accent)",
       }}
       onClick={focusInput}
       ref={terminalRef}
     >
       <div
-        className="h-full overflow-y-auto p-4"
+        className="h-full overflow-y-auto p-6"
         style={{
           scrollbarWidth: "thin",
           scrollbarColor: `var(--q-accent) var(--q-card-bg)`,
-          backgroundColor: "rgb(40 42 54)",
+          backgroundColor: "var(--terminal)",
         }}
       >
         {mode === "hotboard" ? (

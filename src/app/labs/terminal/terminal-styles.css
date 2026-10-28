@@ -457,3 +457,112 @@
 .terminal-window {
   animation: fadeIn 700ms ease-out;
 }
+
+/* Landing page (q//os) in the design system palette, see design/README.md */
+.qos-landing {
+  /* globals.css redefines --terminal-text and --terminal-muted on :root after
+     the tokens import, so the token values are restated here */
+  --terminal-text: #f1e9ec;
+  --terminal-muted: #a79cae;
+  --font-sans: var(--font-figtree), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, Menlo, monospace;
+
+  --q-accent: var(--butter);
+  --q-muted: var(--terminal-muted);
+  --q-text: var(--terminal-text);
+  --q-card-bg: var(--terminal);
+}
+
+:root body:has(.qos-landing) {
+  background: var(--ground) !important;
+}
+
+/* 7% paper grain on the ground, behind the terminal */
+body:has(.qos-landing)::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.terminal-page.qos-landing {
+  background-color: transparent !important;
+}
+
+.qos-landing .font-mono {
+  font-family: var(--font-mono);
+}
+
+.qos-landing .terminal-window,
+.qos-landing .terminal-window:hover {
+  border: 0 !important;
+  border-radius: var(--radius-terminal);
+  box-shadow: 0 0 0 2px var(--butter);
+  transform: none;
+  transition: none;
+  animation: none;
+}
+
+.qos-landing .terminal-titlebar {
+  height: auto;
+  padding: 12px 16px;
+  border-bottom-color: var(--terminal-bar) !important;
+  font-family: var(--font-sans);
+  color: var(--terminal-text);
+}
+
+.qos-landing .terminal-body {
+  border-radius: 0;
+}
+
+.qos-landing .terminal-body::before,
+.qos-landing .qos-terminal::after {
+  display: none;
+}
+
+.qos-landing .qos-terminal,
+.qos-landing .qos-terminal > div {
+  background-color: var(--terminal) !important;
+}
+
+.qos-landing .qos-terminal,
+.qos-landing .qos-terminal:focus-within {
+  font-weight: 400;
+  line-height: 22px;
+  box-shadow: none;
+  transition: none;
+  animation: none;
+}
+
+.qos-landing .qos-terminal input {
+  font-weight: 400;
+  color: var(--terminal-text);
+  caret-shape: block;
+}
+
+.qos-landing .interactive-option {
+  color: var(--terminal-text);
+  transition: none;
+}
+
+.qos-landing .interactive-option:hover,
+.qos-landing .interactive-option:active {
+  background: none;
+  transform: none;
+}
+
+.qos-landing .qos-kw {
+  color: var(--pink);
+}
+
+.qos-landing footer {
+  font-family: var(--font-sans);
+  font-weight: 500;
+}
+
+.qos-landing footer a {
+  font-weight: 600;
+}

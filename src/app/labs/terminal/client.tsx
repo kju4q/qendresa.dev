@@ -10,7 +10,7 @@ const SimpleTerminalUI = dynamic(() => import("@/components/SimpleTerminal"), {
   loading: () => (
     <div
       className="animate-pulse flex items-center justify-center w-full h-full rounded-xl border border-[var(--q-border)] p-4"
-      style={{ backgroundColor: "rgb(40 42 54)" }}
+      style={{ backgroundColor: "var(--terminal)" }}
     >
       <div className="flex flex-col items-center gap-2">
         <div className="h-2.5 w-2.5 rounded-full bg-[var(--q-accent)] animate-ping"></div>

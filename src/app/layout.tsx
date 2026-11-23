@@ -19,6 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
+      <head>
+        <link rel="alternate" type="text/plain" href="/llms.txt" />
+      </head>
       <body
         className={`${inter.className} h-full`}
         // Explicitly allow Grammarly attributes to prevent React hydration warnings

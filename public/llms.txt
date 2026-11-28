@@ -1,0 +1,33 @@
+# Qendresa Hoti
+
+## Who I am
+I'm Qendresa Hoti, a software engineer, founder, and creator with nine years of experience building products and communities. I believe everyone should get to be a builder. I build with Claude Code and Codex every day and post what runs, what goes sideways, and what would make your work easier. That connects the tools I ship, the hackathons I run, and the prompts and skills I give away here.
+
+## What this site is for
+qendresa.dev helps you start building, technical or not. It holds my writing, projects, talks, and newsletter.
+
+## What I make
+- The harness tax: https://github.com/kju4q/q-agent-harness/blob/main/docs/harness-tax.md
+  Same model, five times the bill.
+- Where your data goes (video): https://www.instagram.com/qendresahhoti
+  An agent reads Notion and Temu before sign up.
+- More than the model: https://www.linkedin.com/in/qendresahoti/
+  What the HuggingFace harness study changed.
+
+## How to reach me
+- Email: hello@qendresa.dev
+- GitHub: https://github.com/kju4q
+- LinkedIn: https://www.linkedin.com/in/qendresahoti/
+- Instagram: https://www.instagram.com/qendresahhoti
+- Newsletter: sign up at https://qendresa.dev/newsletter. Updates on my experimental projects, breakdowns of tools I'm exploring, and honest takes on development life.
+
+## Main pages
+- https://qendresa.dev/ : The q//os terminal. You can type commands into it.
+- https://qendresa.dev/home : My most recent writing.
+- https://qendresa.dev/about : About me.
+- https://qendresa.dev/blog : All my articles.
+- https://qendresa.dev/projects : Projects I've built.
+- https://qendresa.dev/vibe : Experimental projects from my 7 days of vibe coding sprints.
+- https://qendresa.dev/talks : My talks.
+- https://qendresa.dev/podcast : Podcast episodes.
+- https://qendresa.dev/newsletter : Sign up for the newsletter.
